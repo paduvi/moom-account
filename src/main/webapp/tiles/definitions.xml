@@ -14,5 +14,4 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/jsp/web.page.footer.jsp" />
 	</definition>
-	
 </tiles-definitions>
