@@ -25,7 +25,7 @@
 	</context-param>
 	
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>com.chotoxautinh.web.config.CustomContextLoaderListener</listener-class>
 	</listener>
 
 	<filter>

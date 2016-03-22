@@ -18,4 +18,12 @@ public class Counter {
 		this.seq = seq;
 	}
 
+	public Counter() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Counter(String id){
+		this.id = id;
+		this.seq = 0;
+	}
 }
