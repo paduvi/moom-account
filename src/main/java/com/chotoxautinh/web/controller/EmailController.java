@@ -16,7 +16,7 @@ import com.chotoxautinh.model.Email;
 @RequestMapping("/email")
 public class EmailController {
 
-	private static final int PAGE_SIZE = 15;
+	private static final int PAGE_SIZE = 10;
 
 	@Autowired
 	private EmailDao emailDao;

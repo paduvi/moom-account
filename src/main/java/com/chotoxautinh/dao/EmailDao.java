@@ -1,5 +1,7 @@
 package com.chotoxautinh.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,7 +22,7 @@ public interface EmailDao {
 
 	Email findEmail(Predicate predicate);
 
-	Iterable<Email> findAllEmails();
+	List<Email> findAllEmails();
 	
 	Iterable<Email> findAllEmails(Predicate predicate);
 	

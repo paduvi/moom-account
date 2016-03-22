@@ -1,5 +1,7 @@
 package com.chotoxautinh.dao.implement;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,15 +62,12 @@ public class EmailDaoImpl implements EmailDao {
 	}
 
 	@Override
-	public Iterable<Email> findAllEmails() {
-		return (Iterable<Email>) repository.findAll();
+	public List<Email> findAllEmails() {
+		return repository.findAll();
 	}
 
 	@Override
 	public Iterable<Email> findAllEmails(Predicate predicate) {
-		if (predicate == null) {
-			return findAllEmails();
-		}
 		return repository.findAll(predicate);
 	}
 

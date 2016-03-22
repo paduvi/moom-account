@@ -17,6 +17,7 @@
 	<mvc:annotation-driven />
 
 	<context:component-scan base-package="com.chotoxautinh.web.controller" />
+	<context:component-scan base-package="com.chotoxautinh.web.config" />
 	<context:component-scan base-package="com.chotoxautinh.dao.implement" />
 
 	<bean
@@ -92,8 +93,5 @@
 	</bean>
 
 	<mongo:repositories base-package="com.chotoxautinh.repository" />
-
-	<bean id="customApplicationLoaderListener"
-		class="com.chotoxautinh.web.config.CustomApplicationLoaderListener" />
 
 </beans>

@@ -18,7 +18,7 @@ import com.chotoxautinh.model.FaceAccount;
 
 @Controller
 @RequestMapping("/")
-public class HomeController {
+public class TestController {
 
 	@Autowired
 	private EmailDao emailDao;

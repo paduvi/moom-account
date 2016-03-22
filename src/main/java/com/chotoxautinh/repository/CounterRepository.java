@@ -8,4 +8,5 @@ import com.chotoxautinh.service.Counter;
 public interface CounterRepository extends MongoRepository<Counter, String>, QueryDslPredicateExecutor<Counter> {
 
 	Counter findById(String id);
+	
 }

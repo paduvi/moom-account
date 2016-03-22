@@ -60,7 +60,7 @@ public class CounterDaoImpl implements CounterDao {
 	}
 
 	@Override
-	public void createNewDoc(String id) {
+	public void initNewDoc(String id) {
 		repository.save(new Counter(id));
 	}
 

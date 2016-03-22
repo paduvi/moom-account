@@ -1,15 +1,27 @@
 package com.chotoxautinh.web.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.dao.CounterDao;
 
+@Component
 public class CustomApplicationLoaderListener implements ApplicationListener<ContextRefreshedEvent> {
+
+	static Logger log = LoggerFactory.getLogger(CustomApplicationLoaderListener.class);
 
 	@Autowired
 	private CounterDao counterDao;
+
+	@Override
+	public void onApplicationEvent(ContextRefreshedEvent event) {
+		log.info("\n\n\tSpring MVC Application Inited\n");
+		initCounterCollections();
+	}
 
 	private void initCounterCollections() {
 		insertCounterDocIfNotExist("emails");
@@ -18,13 +30,8 @@ public class CustomApplicationLoaderListener implements ApplicationListener<Cont
 	private void insertCounterDocIfNotExist(String key) {
 		if (counterDao.isKeyExist(key))
 			return;
-		counterDao.createNewDoc(key);
-		System.out.println("Created new counter document with _id: " + key + " \n");
+		counterDao.initNewDoc(key);
+		log.info("Created new counter document with _id: " + key + " \n");
 	}
 
-	@Override
-	public void onApplicationEvent(ContextRefreshedEvent event) {
-		System.out.println("\n Spring MVC Application Inited\n");
-		initCounterCollections();
-	}
 }
