@@ -6,11 +6,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.dao.CounterDao;
 import com.chotoxautinh.service.Counter;
 import com.chotoxautinh.service.CounterException;
 
+@Component
 public class CounterDaoImpl implements CounterDao{
 	@Autowired
 	private MongoTemplate mongoTemplate;

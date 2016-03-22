@@ -3,6 +3,7 @@ package com.chotoxautinh.dao.implement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.dao.CounterDao;
 import com.chotoxautinh.dao.EmailDao;
@@ -12,6 +13,7 @@ import com.chotoxautinh.service.CounterException;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
+@Component
 public class EmailDaoImpl implements EmailDao {
 
 	public static final String collectionName = "emails";
@@ -64,12 +66,12 @@ public class EmailDaoImpl implements EmailDao {
 
 	@Override
 	public Iterable<Email> findAllEmails(Predicate predicate) {
-		if(predicate == null){
+		if (predicate == null) {
 			return findAllEmails();
 		}
 		return repository.findAll(predicate);
 	}
-	
+
 	@Override
 	public Iterable<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders) {
 		return repository.findAll(predicate, orders);

@@ -3,6 +3,7 @@ package com.chotoxautinh.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,11 +21,6 @@ public class EmailController {
 
 	@Autowired
 	private EmailDao emailDao;
-
-	@RequestMapping(value = "hello", method = RequestMethod.GET)
-	public String hello() {
-		return "index";
-	}
 
 	@RequestMapping(value = "list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Iterable<Email> listEmails(

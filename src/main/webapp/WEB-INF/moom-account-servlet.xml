@@ -17,6 +17,7 @@
 	<mvc:annotation-driven />
 
 	<context:component-scan base-package="com.chotoxautinh.web.controller" />
+	<context:component-scan base-package="com.chotoxautinh.dao.implement" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -92,7 +93,4 @@
 	
 	<mongo:repositories base-package="com.chotoxautinh.repository" />
 	
-	<bean id="counterDao" class="com.chotoxautinh.dao.implement.CounterDaoImpl" />
-	<bean id="emailDao" class="com.chotoxautinh.dao.implement.EmailDaoImpl" />
-
 </beans>
