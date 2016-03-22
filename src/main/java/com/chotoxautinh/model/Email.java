@@ -51,6 +51,11 @@ public class Email {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Email(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+
 	public String getId() {
 		return id;
 	}
