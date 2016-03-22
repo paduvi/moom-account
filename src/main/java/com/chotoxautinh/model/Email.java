@@ -3,6 +3,13 @@ package com.chotoxautinh.model;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.mysema.query.annotations.QueryEntity;
+
+@QueryEntity
+@Document(collection = "emails")
 public class Email {
 	class SecurityQuestion {
 		private String question;
@@ -30,7 +37,9 @@ public class Email {
 		}
 	}
 
-	private int id;
+	@Id
+	private String id;
+
 	private String username;
 	private String password;
 	private String phone;
@@ -42,11 +51,11 @@ public class Email {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Group {
-	private int id;
+	private String id;
 	private String groupName;
 	private List<FaceAccount> faceAccounts;
 	private Date lastExecution;
@@ -13,11 +13,11 @@ public class Group {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
