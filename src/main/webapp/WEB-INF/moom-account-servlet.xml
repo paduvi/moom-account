@@ -91,5 +91,7 @@
 	</bean>
 	
 	<mongo:repositories base-package="com.chotoxautinh.repository" />
+	
+	<bean id="emailDao" class="com.chotoxautinh.dao.implement.EmailDaoImpl"/>
 
 </beans>
