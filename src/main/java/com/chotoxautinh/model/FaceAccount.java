@@ -1,7 +1,7 @@
 package com.chotoxautinh.model;
 
 public class FaceAccount {
-	private int id;
+	private String id;
 	private String email;
 	private String phone;
 	private String password;
@@ -10,11 +10,11 @@ public class FaceAccount {
 	public FaceAccount() {
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -59,11 +59,11 @@ public class FaceAccount {
 			return false;
 		}
 		final FaceAccount other = (FaceAccount) obj;
-		return this.id == other.id;
+		return this.id.equals(other.id);
 	}
 
 	@Override
 	public int hashCode() {
-		return id;
+		return id.hashCode();
 	}
 }

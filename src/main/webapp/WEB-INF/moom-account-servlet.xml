@@ -1,11 +1,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:cache="http://www.springframework.org/schema/cache"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/mvc
-		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd    
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd  
+		http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd  
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-3.2.xsd
 		http://www.springframework.org/schema/context
@@ -79,12 +82,14 @@
 	<bean id="webSecurityExpressionHandler"
 		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
-		<property name="url" value="jdbc:derby:db/accountdb;create=true" />
-		<property name="username" value="" />
-		<property name="password" value="" />
+	<!-- mongo:mongo host="127.0.0.1" port="27017" / -->
+	<mongo:mongo id="mongo" replica-set="host1:27017,host2:27017,host3:27017"/>
+	<mongo:db-factory dbname="moomdb" mongo-ref="mongo" />
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>
+	
+	<mongo:repositories base-package="com.chotoxautinh.repository" />
 
 </beans>
