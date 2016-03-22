@@ -83,7 +83,7 @@
 		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
 
 	<!-- mongo:mongo host="127.0.0.1" port="27017" / -->
-	<mongo:mongo id="mongo" replica-set="host1:27017,host2:27017,host3:27017"/>
+	<mongo:mongo id="mongo" replica-set="localhost:27017"/>
 	<mongo:db-factory dbname="moomdb" mongo-ref="mongo" />
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
@@ -92,6 +92,7 @@
 	
 	<mongo:repositories base-package="com.chotoxautinh.repository" />
 	
-	<bean id="emailDao" class="com.chotoxautinh.dao.implement.EmailDaoImpl"/>
+	<bean id="counterDao" class="com.chotoxautinh.dao.implement.CounterDaoImpl" />
+	<bean id="emailDao" class="com.chotoxautinh.dao.implement.EmailDaoImpl" />
 
 </beans>

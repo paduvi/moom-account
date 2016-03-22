@@ -59,8 +59,7 @@ public class EmailDaoImpl implements EmailDao {
 
 	@Override
 	public Iterable<Email> findAllEmails() {
-		// TODO Auto-generated method stub
-		return null;
+		return (Iterable<Email>) repository.findAll();
 	}
 
 	@Override
@@ -73,9 +72,6 @@ public class EmailDaoImpl implements EmailDao {
 	
 	@Override
 	public Iterable<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders) {
-		if(predicate == null){
-			return repository.findAll(orders);
-		}
 		return repository.findAll(predicate, orders);
 	}
 
