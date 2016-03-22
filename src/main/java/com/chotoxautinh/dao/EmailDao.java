@@ -9,6 +9,12 @@ import com.chotoxautinh.model.Email;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
 public interface EmailDao {
 	Email addEmail(Email email);
 

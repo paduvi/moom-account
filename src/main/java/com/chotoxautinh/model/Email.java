@@ -8,6 +8,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.mysema.query.annotations.QueryEntity;
 
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
 @QueryEntity
 @Document(collection = "emails")
 public class Email {

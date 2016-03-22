@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.dao.CounterDao;
 
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
 @Component
 public class CustomApplicationLoaderListener implements ApplicationListener<ContextRefreshedEvent> {
 

@@ -15,6 +15,12 @@ import com.chotoxautinh.service.CounterException;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
 @Component
 public class EmailDaoImpl implements EmailDao {
 

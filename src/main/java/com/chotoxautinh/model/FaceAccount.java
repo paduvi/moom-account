@@ -1,5 +1,11 @@
 package com.chotoxautinh.model;
 
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
 public class FaceAccount {
 	private String id;
 	private String email;

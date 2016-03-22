@@ -3,6 +3,12 @@ package com.chotoxautinh.service;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
 @Document(collection = "counters")
 public class Counter {
 	@Id

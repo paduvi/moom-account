@@ -13,6 +13,12 @@ import com.chotoxautinh.repository.CounterRepository;
 import com.chotoxautinh.service.Counter;
 import com.chotoxautinh.service.CounterException;
 
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
 @Component
 public class CounterDaoImpl implements CounterDao {
 	@Autowired

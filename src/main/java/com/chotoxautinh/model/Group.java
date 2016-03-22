@@ -3,6 +3,12 @@ package com.chotoxautinh.model;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
 public class Group {
 	private String id;
 	private String groupName;

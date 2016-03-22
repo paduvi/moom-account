@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.chotoxautinh.dao.EmailDao;
 import com.chotoxautinh.model.Email;
 
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
 @Controller
 @RequestMapping("/email")
 public class EmailController {

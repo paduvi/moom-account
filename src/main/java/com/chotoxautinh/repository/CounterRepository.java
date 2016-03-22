@@ -1,11 +1,16 @@
 package com.chotoxautinh.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import com.chotoxautinh.service.Counter;
 
-public interface CounterRepository extends MongoRepository<Counter, String>, QueryDslPredicateExecutor<Counter> {
+/**
+ * @author chotoxautinh
+ *
+ * http://chotoxautinh.com/
+ * Mar 23, 2016
+ */
+public interface CounterRepository extends MongoRepository<Counter, String> {
 
 	Counter findById(String id);
 	
