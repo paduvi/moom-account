@@ -14,6 +14,9 @@
 <link
 	href="https://getbootstrap.com/examples/sticky-footer/sticky-footer.css"
 	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
@@ -24,8 +27,14 @@
 <script
 	src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
 <style>
-.column {
-	border: 1px solid black;
+.cell {
+	border: 1px solid #ddd;
+	padding: 8px;
+	height: 48px;
+}
+
+.header {
+	font-weight: bold;
 }
 </style>
 </head>

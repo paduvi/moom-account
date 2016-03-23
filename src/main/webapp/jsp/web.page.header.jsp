@@ -15,7 +15,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="active"><a href="#" style="color:#FFFFFF">Tài khoản Facebook <span class="sr-only">(current)</span></a></li>
               <li><a href="#" style="color:#FFFFFF">Thông tin của tôi</a></li>
-              <li><a href="#" style="color:#FFFFFF">Đăng xuất</a></li>
+              <li><a href="j_spring_security_logout" style="color:#FFFFFF">Đăng xuất</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
