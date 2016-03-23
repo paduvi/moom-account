@@ -1,4 +1,9 @@
-package com.chotoxautinh.dao.implement;
+/**
+ * @author chotoxautinh
+ *
+ * Mar 23, 2016 - http://chotoxautinh.com/
+ */
+package com.chotoxautinh.server.dao.impl;
 
 import java.util.List;
 
@@ -7,20 +12,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import com.chotoxautinh.dao.CounterDao;
-import com.chotoxautinh.dao.EmailDao;
-import com.chotoxautinh.model.Email;
-import com.chotoxautinh.repository.EmailRepository;
-import com.chotoxautinh.service.CounterException;
+import com.chotoxautinh.server.dao.CounterDao;
+import com.chotoxautinh.server.dao.EmailDao;
+import com.chotoxautinh.server.model.Email;
+import com.chotoxautinh.server.repository.EmailRepository;
+import com.chotoxautinh.server.service.CounterException;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
-/**
- * @author chotoxautinh
- *
- * http://chotoxautinh.com/
- * Mar 23, 2016
- */
 @Component
 public class EmailDaoImpl implements EmailDao {
 

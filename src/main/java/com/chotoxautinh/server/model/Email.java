@@ -1,4 +1,9 @@
-package com.chotoxautinh.model;
+/**
+ * @author chotoxautinh
+ *
+ * Mar 23, 2016 - http://chotoxautinh.com/
+ */
+package com.chotoxautinh.server.model;
 
 import java.util.Date;
 import java.util.List;
@@ -8,12 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.mysema.query.annotations.QueryEntity;
 
-/**
- * @author chotoxautinh
- *
- * http://chotoxautinh.com/
- * Mar 23, 2016
- */
 @QueryEntity
 @Document(collection = "emails")
 public class Email {

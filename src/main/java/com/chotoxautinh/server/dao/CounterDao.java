@@ -1,11 +1,10 @@
-package com.chotoxautinh.dao;
-
 /**
  * @author chotoxautinh
  *
- * http://chotoxautinh.com/
- * Mar 23, 2016
+ * Mar 23, 2016 - http://chotoxautinh.com/
  */
+package com.chotoxautinh.server.dao;
+
 public interface CounterDao {
 	/**
 	 * Generate auto-increment index for a specific collection

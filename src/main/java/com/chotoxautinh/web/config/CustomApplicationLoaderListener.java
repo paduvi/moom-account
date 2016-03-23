@@ -1,3 +1,8 @@
+/**
+ * @author chotoxautinh
+ *
+ * Mar 23, 2016 - http://chotoxautinh.com/
+ */
 package com.chotoxautinh.web.config;
 
 import org.slf4j.Logger;
@@ -7,14 +12,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import com.chotoxautinh.dao.CounterDao;
+import com.chotoxautinh.server.dao.CounterDao;
 
-/**
- * @author chotoxautinh
- *
- * http://chotoxautinh.com/
- * Mar 23, 2016
- */
 @Component
 public class CustomApplicationLoaderListener implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -31,6 +30,8 @@ public class CustomApplicationLoaderListener implements ApplicationListener<Cont
 
 	private void initCounterCollections() {
 		insertCounterDocIfNotExist("emails");
+		insertCounterDocIfNotExist("faccounts");
+		insertCounterDocIfNotExist("groups");
 	}
 
 	private void insertCounterDocIfNotExist(String key) {

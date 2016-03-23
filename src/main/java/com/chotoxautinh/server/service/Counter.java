@@ -1,4 +1,4 @@
-package com.chotoxautinh.service;
+package com.chotoxautinh.server.service;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

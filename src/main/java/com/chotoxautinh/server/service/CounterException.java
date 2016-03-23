@@ -1,4 +1,4 @@
-package com.chotoxautinh.service;
+package com.chotoxautinh.server.service;
 
 /**
  * @author chotoxautinh

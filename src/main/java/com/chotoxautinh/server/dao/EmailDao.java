@@ -1,20 +1,19 @@
-package com.chotoxautinh.dao;
+/**
+ * @author chotoxautinh
+ *
+ * Mar 23, 2016 - http://chotoxautinh.com/
+ */
+package com.chotoxautinh.server.dao;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.chotoxautinh.model.Email;
+import com.chotoxautinh.server.model.Email;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
-/**
- * @author chotoxautinh
- *
- * http://chotoxautinh.com/
- * Mar 23, 2016
- */
 public interface EmailDao {
 	Email addEmail(Email email);
 

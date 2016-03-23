@@ -1,17 +1,25 @@
-package com.chotoxautinh.model;
-
 /**
  * @author chotoxautinh
  *
- * http://chotoxautinh.com/
- * Mar 23, 2016
+ * Mar 23, 2016 - http://chotoxautinh.com/
  */
+package com.chotoxautinh.server.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.mysema.query.annotations.QueryEntity;
+
+@QueryEntity
+@Document(collection = "faccounts")
 public class FaceAccount {
+	@Id
 	private String id;
+
 	private String email;
 	private String phone;
 	private String password;
-	private Group group;
+	private String group;
 
 	public FaceAccount() {
 	}
@@ -48,11 +56,11 @@ public class FaceAccount {
 		this.password = password;
 	}
 
-	public Group getGroup() {
+	public String getGroup() {
 		return group;
 	}
 
-	public void setGroup(Group group) {
+	public void setGroup(String group) {
 		this.group = group;
 	}
 

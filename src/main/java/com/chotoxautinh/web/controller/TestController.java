@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chotoxautinh.dao.EmailDao;
-import com.chotoxautinh.model.Email;
-import com.chotoxautinh.model.FaceAccount;
+import com.chotoxautinh.server.dao.EmailDao;
+import com.chotoxautinh.server.model.Email;
+import com.chotoxautinh.server.model.FaceAccount;
 
 @Controller
 @RequestMapping("/")

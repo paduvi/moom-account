@@ -1,3 +1,8 @@
+/**
+ * @author chotoxautinh
+ *
+ * Mar 23, 2016 - http://chotoxautinh.com/
+ */
 package com.chotoxautinh.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.chotoxautinh.dao.EmailDao;
-import com.chotoxautinh.model.Email;
+import com.chotoxautinh.server.dao.EmailDao;
+import com.chotoxautinh.server.model.Email;
 
-/**
- * @author chotoxautinh
- *
- * http://chotoxautinh.com/
- * Mar 23, 2016
- */
 @Controller
 @RequestMapping("/email")
 public class EmailController {
