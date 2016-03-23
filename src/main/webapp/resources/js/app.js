@@ -1,4 +1,4 @@
-var app = angular.module("myaccount", []);
+var app = angular.module("myApp", ["xeditable"]);
 
 app.filter('accountFilter',function() {
 	return function(input, selectedFilter) {
@@ -50,12 +50,23 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 	
 	loadData();
 	
-	$scope.newUser = {};
+	/*$scope.newUser = {};*/
 	
-	$http.post("create-account", newUser, config).success(
+	/*$http.post("create-account", newUser, config).success(
 			function(data, status, headers, config) {
 				alert(data);
 	}).error(function(data, status, headers, config) {
-	})
+	})*/
 });
 
+app.run(function(editableOptions) {
+	  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
+
+app.controller('editable', function($scope) {
+	  $scope.user = {};  
+	  
+	  $scope.updateUser = function() {
+		    return $http.post('/updateUser', $scope.user);
+		  };
+});

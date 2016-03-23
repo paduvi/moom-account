@@ -16,9 +16,10 @@
 				<div class="panel-body" style="padding: 0 15px;">
 					<div class="row">
 						<div class="col-xs-1 col-md-1 col-sm-1 cell header">#</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 cell header">Tên</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 cell header">Mật khẩu</div>
 						<div class="col-xs-3 col-md-3 col-sm-3 cell header">Email</div>
-						<div class="col-xs-3 col-md-3 col-sm-3 cell header">Mật khẩu</div>
-						<div class="col-xs-3 col-md-3 col-sm-3 cell header">Số điện
+						<div class="col-xs-2 col-md-2 col-sm-2 cell header">Số điện
 							thoại</div>
 						<div class="col-xs-1 col-md-1 col-sm-1 cell header">Nhóm
 							nick</div>
@@ -29,13 +30,16 @@
 					</div>
 					<div class="row" style="clear: both">
 						<div class="col-xs-1 col-md-1 col-sm-1 cell"></div>
-						<div class="col-xs-3 col-md-3 col-sm-3 cell">
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
+							<input class="form-control input-sm" type="text">
+						</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
 							<input class="form-control input-sm" type="text">
 						</div>
 						<div class="col-xs-3 col-md-3 col-sm-3 cell">
 							<input class="form-control input-sm" type="text">
 						</div>
-						<div class="col-xs-3 col-md-3 col-sm-3 cell">
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
 							<input class="form-control input-sm" type="text">
 						</div>
 						<div class="col-xs-1 col-md-1 col-sm-1 cell">
@@ -46,7 +50,7 @@
 								class="glyphicon glyphicon-search" ng-click="submitFilter()"></span></a>
 						</div>
 					</div>
-					<form ng-submit="submitUser(newUser)">
+					<!-- <form ng-submit="submitUser(newUser)">
 						<div class="row" style="clear: both">
 							<div class="col-xs-1 col-md-1 col-sm-1 cell"></div>
 							<div class="col-xs-3 col-md-3 col-sm-3 cell">
@@ -70,16 +74,17 @@
 									style="margin: auto">Thêm mới</button>
 							</div>
 						</div>
-					</form>
-					<div ng-repeat="account in accounts">
+					</form> -->
+					<div ng-repeat="account in accounts" ng-controller="editable">
 						<div class="row" ng-repeat="(key, val) in account">
 							<div class="col-xs-1 col-md-1 col-sm-1 cell">{{val.id}}</div>
-							<div class="col-xs-3 col-md-3 col-sm-3 cell">{{val.username}}</div>
-							<div class="col-xs-3 col-md-3 col-sm-3 cell">{{val.password}}</div>
-							<div class="col-xs-3 col-md-3 col-sm-3 cell">{{val.phone}}</div>
+							<div class="col-xs-2 col-md-2 col-sm-2 cell"><a href="#" editable-text="user.name">{{val.username}}</a></div>
+							<div class="col-xs-2 col-md-2 col-sm-2 cell"><a href="#" editable-text="user.pass">{{val.password}}</a></div>
+							<div class="col-xs-3 col-md-3 col-sm-3 cell"><a href="#" editable-email="user.email">{{val.email}}</a></div>
+							<div class="col-xs-2 col-md-2 col-sm-2 cell">{{val.phone}}</div>
 							<div class="col-xs-1 col-md-1 col-sm-1 cell">{{val.group}}</div>
 							<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
-								<a class="btn btn-default" style="margin-right: 10px;"><i
+								<a class="btn btn-default" style="margin-right: 5px;"><i
 									class="fa fa-2 fa-pencil"></i></a><a class="btn btn-danger"><i
 									class="fa fa-2 fa-trash"></i></a>
 							</div>
