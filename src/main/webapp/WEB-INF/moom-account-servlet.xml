@@ -69,17 +69,21 @@
 	</bean>
 
 	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/test-auth"
+			access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**" access="permitAll" />
+		<security:form-login login-page="/user/login"
+			default-target-url="/user/view" authentication-failure-url="/user/login?error"
+			username-parameter="username" password-parameter="password" />
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="cooc" password="678ijn"
-					authorities="ROLE_ADMIN, ROLE_USER" />
-			</security:user-service>
-		</security:authentication-provider>
+		<security:authentication-provider
+			ref="customAuthenticationProvider" />
 	</security:authentication-manager>
+
+	<bean id="customAuthenticationProvider"
+		class="com.chotoxautinh.web.config.CustomAuthenticationProvider" />
 
 	<bean id="webSecurityExpressionHandler"
 		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />

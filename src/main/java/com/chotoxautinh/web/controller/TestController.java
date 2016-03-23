@@ -54,4 +54,9 @@ public class TestController {
 		}
 		return list;
 	}
+
+	@RequestMapping(value = "/test-auth", method = RequestMethod.GET)
+	public String testAuth() {
+		return "index";
+	}
 }

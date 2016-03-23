@@ -1,11 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" pageEncoding="UTF-8"%><%@ page
-	contentType="text/html;charset=UTF-8"%><%@ taglib
-	uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%><!DOCTYPE html>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Quản lý tài khoản</title>
+<title>${title}</title>
+<link rel="shortcut icon"
+	href="<c:url value='/resources/images/favicon.ico'/>"
+	type="image/x-icon">
+<link rel="icon" href="<c:url value='/resources/images/favicon.ico'/>"
+	type="image/x-icon">
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">

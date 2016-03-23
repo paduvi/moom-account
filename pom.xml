@@ -234,6 +234,7 @@
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>*</include>
+					<include>moom/*</include>
 				</includes>
 			</resource>
 		</resources>
