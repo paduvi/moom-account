@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Quản lý tài khoản</title>
+<title></title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -28,15 +28,8 @@
 <script src="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/js/xeditable.js"></script>
 <script
 	src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
-<style>
-.cell {
-	border: 1px solid #ddd;
-	padding: 8px;
-	height: 48px;
-}
-</style>
 </head>
-<body ng-app="myApp">
+<body>
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="body" />
 	<tiles:insertAttribute name="footer" />
