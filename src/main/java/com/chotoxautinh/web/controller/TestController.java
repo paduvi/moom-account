@@ -49,7 +49,7 @@ public class TestController {
 		return true;
 	}
 	
-	@RequestMapping(value = "/update-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/update-account", method = RequestMethod.POST)
 	public @ResponseBody Boolean updateUser(@RequestBody Email email) {
 		logger.info(email.getUsername());
 		emailDao.updateEmail(email);

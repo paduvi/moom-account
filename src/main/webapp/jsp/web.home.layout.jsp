@@ -52,17 +52,18 @@
 }
 
 .select-box {
-    height: 30px;
-    width: 100%;
-    padding-left: 12%;
-    border-radius: 3px;
+	height: 30px;
+	width: 100%;
+	padding-left: 12%;
+	border-radius: 3px;
 }
 
-.alert-wrapper{
-	width: 100%;
+.alert-wrapper {
 	position: fixed;
 	bottom: 0;
-	text-align: center;
+	left: 50%;
+	z-index: 9999;
+	transform: translateX(-50%);
 }
 
 .alert-box {

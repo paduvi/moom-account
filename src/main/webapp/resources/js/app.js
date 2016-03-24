@@ -94,6 +94,14 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 			$scope.formError = 'Không cập nhật được tài khoản!';
 		});
 	};
+	
+	$scope.addQuestion = function(val) {
+		if(angular.isUndefined(val.questions) || val.questions === null) val.questions = [];
+		var question = {};
+		val.questions.push(question);
+		alert(val.questions);
+	}
+	
 });
 
 app.run(function(editableOptions, editableThemes) {

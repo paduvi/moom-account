@@ -6,7 +6,6 @@
 package com.chotoxautinh.server.model;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,31 +15,6 @@ import com.mysema.query.annotations.QueryEntity;
 @QueryEntity
 @Document(collection = "emails")
 public class Email {
-	class SecurityQuestion {
-		private String question;
-		private String answer;
-
-		public SecurityQuestion(String question, String answer) {
-			this.question = question;
-			this.answer = answer;
-		}
-
-		public String getQuestion() {
-			return question;
-		}
-
-		public void setQuestion(String question) {
-			this.question = question;
-		}
-
-		public String getAnswer() {
-			return answer;
-		}
-
-		public void setAnswer(String answer) {
-			this.answer = answer;
-		}
-	}
 
 	@Id
 	private String id;
@@ -50,7 +24,7 @@ public class Email {
 	private String phone;
 	private String retrieveEmail;
 	private Date birthday;
-	private List<SecurityQuestion> questions;
+	private QuestionList questions;
 
 	public Email() {
 		// TODO Auto-generated constructor stub
@@ -107,16 +81,12 @@ public class Email {
 		this.retrieveEmail = retrieveEmail;
 	}
 
-	public List<SecurityQuestion> getQuestions() {
+	public QuestionList getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<SecurityQuestion> questions) {
+	public void setQuestions(QuestionList questions) {
 		this.questions = questions;
-	}
-
-	public void addQuestion(SecurityQuestion question) {
-		questions.add(question);
 	}
 
 	public Date getBirthday() {
