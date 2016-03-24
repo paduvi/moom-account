@@ -12,7 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.web.model.User;
-import com.chotoxautinh.web.util.UserUtil;
+import com.chotoxautinh.web.util.UserUtils;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -22,7 +22,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		String name = authentication.getName();
 //		System.out.println("-------------------------->  "+ name);
 		String password = authentication.getCredentials().toString();
-		User user = UserUtil.load(name);
+		User user = UserUtils.load(name);
 		
 //		System.out.println(" found "+ user);
 		if(user == null || !password.equals(user.getPassword())) return null;

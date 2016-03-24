@@ -82,13 +82,13 @@
 }
 
 .message {
-	background: #51B1A3 url('../images/error.png') no-repeat 10px 50%;
-	border: 1px solid #f5aca6;
+	background: #90DED7 url('/resources/images/success.png') no-repeat 10px 50%;
+	border: 1px solid #53DED8;
 	border-bottom: none;
 }
 
 .error {
-	background: #ffecec url('../images/error.png') no-repeat 10px 50%;
+	background: #ffecec url('/resources/images/error.png') no-repeat 10px 50%;
 	border: 1px solid #f5aca6;
 	border-bottom: none;
 }

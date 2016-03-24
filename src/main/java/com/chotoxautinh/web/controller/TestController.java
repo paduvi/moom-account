@@ -37,14 +37,13 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/list-test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Iterable<Email> listEmail(
+	public @ResponseBody List<Email> listEmail(
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		return emailDao.findEmailsByPage(new PageRequest(pageNumber - 1, PAGE_SIZE));
+		return emailDao.findEmailsByPage(new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean addUser(@RequestBody Email email) {
-		logger.info(email.getUsername());
 		emailDao.addEmail(email);
 		return true;
 	}
@@ -64,7 +63,7 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Iterable<Email> listEmails(
+	public @ResponseBody List<Email> listEmails(
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
 		List<Email> list = new LinkedList<>();
 		for (int i = 0; i < 13; i++) {
