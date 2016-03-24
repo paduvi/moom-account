@@ -3,10 +3,13 @@ package com.chotoxautinh.web.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +23,8 @@ import com.chotoxautinh.server.model.Email;
 @RequestMapping("/")
 public class TestController {
 
+	Logger logger = LoggerFactory.getLogger(TestController.class);
+	
 	private int PAGE_SIZE = 10;
 
 	@Autowired
@@ -38,12 +43,24 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String createAccount(@RequestParam(value = "username", required = true) String username,
-			@RequestParam(value = "password", required = true) String password,
-			@RequestParam(value = "email", required = true) String email) {
-		System.out.println("user: " + username + " password: " + password + " email: " + email);
-		//emailDao.updateEmail(new Email(username, password, email));
-		return "ok";
+	public @ResponseBody Boolean addUser(@RequestBody Email email) {
+		logger.info(email.getUsername());
+		emailDao.addEmail(email);
+		return true;
+	}
+	
+	@RequestMapping(value = "/update-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Boolean updateUser(@RequestBody Email email) {
+		logger.info(email.getUsername());
+		emailDao.updateEmail(email);
+		return true;
+	}
+	
+	@RequestMapping(value = "/del-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Boolean delUser(@RequestBody Email email) {
+		logger.info(email.getUsername());
+		emailDao.removeEmail(email);
+		return true;
 	}
 
 	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

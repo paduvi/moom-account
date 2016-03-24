@@ -52,15 +52,47 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 	
 	$scope.newUser = {};
 	
-	$scope.createUser = function() {
-		$http.post("create-account", $scope.newUser, config).success(
-				function(data, status, headers, config) {
-					
-				}).error(function(data, status, headers, config) {
-					$scope.errorName = data.errors.name;
-					$scope.errorPass = data.errors.username;
-					$scope.errorEmail = data.errors.email;
-				});
+	$scope.createUser = function(newUser) {
+		$scope.formError = null;
+		$scope.formMessage = "Đợi nhé...";
+		
+		$http.post("/create-account", newUser, config)
+		.success(function(data, status, headers, config) {
+			$scope.formMessage = data ? 'Tạo tài khoản thành công!'
+					: null;
+			$scope.formError = data ? null
+					: 'Đã tồn tại tài khoản!';
+		}).error(function(data, status, headers, config) {
+			$scope.formError = 'Có lỗi xảy ra!';
+		});
+	};
+	
+	$scope.delUser = function(user, index) {
+		var r = confirm("Bạn có chắc muốn xoá tài khoản này?");
+		if (r == false)
+			return;
+
+		$scope.error = null;
+		$scope.message = "Đợi nhé...";
+		
+		$http.post("/del-account", user, config)
+		.success(function(data, status, headers, config) {
+			$scope.accounts.splice(index, 1);
+			$scope.message = 'Xóa tài khoản thành công!';
+		}).error(function(data, status, headers, config) {
+			$scope.error = "Có lỗi xảy ra!";
+		});
+	};
+	
+	$scope.updateUser = function(val) {
+		$scope.error = null;
+		$scope.message = "Đợi nhé...";
+		
+		return $http.post('/update-account', val, config).success(function(data, status, headers, config) {
+			$scope.formMessage = 'Cập nhật tài khoản thành công!';
+		}).error(function(data, status, headers, config) {
+			$scope.formError = 'Không cập nhật được tài khoản!';
+		});
 	};
 });
 
@@ -68,12 +100,4 @@ app.run(function(editableOptions, editableThemes) {
 	  editableThemes.bs3.inputClass = 'input-sm';
 	  editableThemes.bs3.buttonsClass = 'btn-sm';
 	  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
-});
-
-app.controller('editable', function($scope) {
-	  $scope.user = {};  
-	  
-	  $scope.updateUser = function() {
-		    return $http.post('/updateUser', $scope.user);
-		  };
 });

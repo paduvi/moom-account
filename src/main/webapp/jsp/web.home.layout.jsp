@@ -12,16 +12,8 @@
 	type="image/x-icon">
 <link rel="icon" href="<c:url value='/resources/images/favicon.ico'/>"
 	type="image/x-icon">
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="https://getbootstrap.com/dist/css/bootstrap.min.css"
-	rel="stylesheet">
 <!-- <link
-	href="https://getbootstrap.com/examples/sticky-footer/sticky-footer.css"
-	rel="stylesheet"> -->
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
 <link
 	href="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/css/xeditable.css"
@@ -32,11 +24,20 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-<script type="text/javascript" src="resources/js/app.js"></script>
-<!-- <script
-	src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script> -->
+
 <script
 	src="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/js/xeditable.js"></script>
+ -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/xeditable.css" rel="stylesheet">
+<script src="resources/js/jquery.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/angular.min.js"></script>
+<script	src="resources/js/xeditable.js"></script>
+<script type="text/javascript" src="resources/js/app.js"></script>
 <style>
 .cell {
 	border: 1px solid #ddd;
@@ -46,6 +47,49 @@
 
 .header {
 	font-weight: bold;
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+.select-box {
+    height: 30px;
+    width: 100%;
+    padding-left: 12%;
+    border-radius: 3px;
+}
+
+.alert-wrapper{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+}
+
+.alert-box {
+	color: #555;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-family: Tahoma, Geneva, Arial, sans-serif;
+	font-size: 11px;
+	padding: 10px 36px;
+	display: inline-block;
+}
+
+.alert-box span {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.message {
+	background: #51B1A3 url('../images/error.png') no-repeat 10px 50%;
+	border: 1px solid #f5aca6;
+	border-bottom: none;
+}
+
+.error {
+	background: #ffecec url('../images/error.png') no-repeat 10px 50%;
+	border: 1px solid #f5aca6;
+	border-bottom: none;
 }
 </style>
 </head>

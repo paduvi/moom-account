@@ -7,6 +7,14 @@
 
 <tiles:insertDefinition name="homeTemplate">
 	<tiles:putAttribute name="body">
+		<div class="alert-wrapper">
+			<div class="alert-box message" ng-show="formMessage">
+				<small>{{formMessage}}</small>
+			</div>
+			<div class="alert-box error" ng-show="formError">
+				<small>{{formError}}</small>
+			</div>
+		</div>
 		<div class="container-fluid" style="width: 90%; margin: auto"
 			ng-controller="loadData">
 			<div class="panel panel-default panel-table">
@@ -15,15 +23,13 @@
 				</div>
 				<div class="panel-body" style="padding: 0 15px;">
 					<div class="row">
-						<div class="col-xs-1 col-md-1 col-sm-1 cell header">#</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell header">Tên</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell header">Mật khẩu</div>
-						<div class="col-xs-3 col-md-3 col-sm-3 cell header">Email</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell header">Số điện
-							thoại</div>
-						<div class="col-xs-1 col-md-1 col-sm-1 cell header">Nhóm
-							nick</div>
-						<div class="col-xs-1 col-md-1 col-sm-1 cell header">
+						<div class="col-xs-1 col-md-1 col-sm-1 header">#</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 header">Tên</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 header">Mật khẩu</div>
+						<div class="col-xs-3 col-md-3 col-sm-3 header">Email</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 header">Số điện thoại</div>
+						<div class="col-xs-1 col-md-1 col-sm-1 header">Nhóm nick</div>
+						<div class="col-xs-1 col-md-1 col-sm-1 header">
 							<span class="glyphicon glyphicon-option-horizontal"
 								aria-hidden="true"></span>
 						</div>
@@ -43,58 +49,72 @@
 							<input class="form-control input-sm" type="text">
 						</div>
 						<div class="col-xs-1 col-md-1 col-sm-1 cell">
-							<input class="form-control input-sm" type="text">
+							<select class="select-box">
+								<option value="-1">Tất cả</option>
+								<option value="1">1</option>
+							</select>
 						</div>
 						<div class="col-xs-1 col-md-1 col-sm-1 cell header" align="center">
 							<a class="search" href="#"><span
 								class="glyphicon glyphicon-search" ng-click="submitFilter()"></span></a>
 						</div>
 					</div>
-					<form ng-submit="createUser()">
+					<form ng-submit="createUser(newUser)">
 						<div class="row" style="clear: both">
 							<div class="col-xs-1 col-md-1 col-sm-1 cell"></div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" name="username" type="text"
+								<input class="form-control input-sm" type="text"
 									ng-model="newUser.username"> <span ng-show="errorName">{{errorName}}</span>
 							</div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" name="password" type="text"
+								<input class="form-control input-sm" type="text"
 									ng-model="newUser.password"> <span ng-show="errorPass">{{errorUserName}}</span>
 							</div>
 							<div class="col-xs-3 col-md-3 col-sm-3 cell">
-								<input class="form-control input-sm" name="email" type="text"
-									ng-model="newUser.email"> <span ng-show="errorEmail">{{errorUserName}}</span>
+								<input class="form-control input-sm" type="text"
+									ng-model="newUser.retrieveEmail"> <span
+									ng-show="errorEmail">{{errorUserName}}</span>
 							</div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">
 								<input class="form-control input-sm" type="text">
 							</div>
 							<div class="col-xs-1 col-md-1 col-sm-1 cell">
-								<input class="form-control input-sm" type="text">
+								<select class="select-box">
+									<option value="-1">Tất cả</option>
+									<option value="1">1</option>
+								</select>
 							</div>
 							<div class="col-xs-1 col-md-1 col-sm-1 cell header"
 								align="center">
-								<button type="button" class="btn btn-sm btn-success"
+								<button type="submit" class="btn btn-sm btn-success"
 									style="margin: auto">Thêm mới</button>
 							</div>
 						</div>
 					</form>
-					<div ng-repeat="account in accounts" ng-controller="editable">
+					<div ng-repeat="account in accounts">
 						<div class="row" ng-repeat="(key, val) in account">
 							<div class="col-xs-1 col-md-1 col-sm-1 cell">{{val.id}}</div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<a href="#" editable-text="user.name">{{val.username}}</a>
+								<a href="#" editable-text="val.username"
+									onaftersave="updateUser(val)">{{val.username}}</a>
 							</div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<a href="#" editable-text="user.pass">{{val.password}}</a>
+								<a href="#" editable-text="val.password" onaftersave="updateUser(val)">{{val.password}}</a>
 							</div>
 							<div class="col-xs-3 col-md-3 col-sm-3 cell">
-								<a href="#" editable-email="user.email">{{val.email}}</a>
+								<a href="#" editable-email="val.retrieveEmail" onaftersave="updateUser(val)">{{val.retrieveEmail}}</a>
 							</div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">{{val.phone}}</div>
-							<div class="col-xs-1 col-md-1 col-sm-1 cell">{{val.group}}</div>
+							<div class="col-xs-1 col-md-1 col-sm-1 cell">
+								<select class="select-box">
+									<option value="1">1</option>
+									<option value="{{val.group}}">{{val.group}}</option>
+								</select>
+							</div>
 							<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
-								<a class="btn btn-default" style="margin-right: 5px;"><i
-									class="fa fa-2 fa-pencil"></i></a><a class="btn btn-danger"><i
+								<a ng-click="updateUser(val)" class="btn btn-default"
+									style="margin-right: 5px;"><i class="fa fa-2 fa-pencil"></i></a><a
+									ng-click="delUser(val)" class="btn btn-danger"><i
 									class="fa fa-2 fa-trash"></i></a>
 							</div>
 						</div>
