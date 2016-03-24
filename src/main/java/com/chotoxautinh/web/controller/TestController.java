@@ -38,10 +38,11 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String createAccount(@RequestParam(value = "user", required = true) String username,
-			@RequestParam(value = "pass", required = true) String password,
+	public @ResponseBody String createAccount(@RequestParam(value = "username", required = true) String username,
+			@RequestParam(value = "password", required = true) String password,
 			@RequestParam(value = "email", required = true) String email) {
-		emailDao.updateEmail(new Email(username, password, email));
+		System.out.println("user: " + username + " password: " + password + " email: " + email);
+		//emailDao.updateEmail(new Email(username, password, email));
 		return "ok";
 	}
 

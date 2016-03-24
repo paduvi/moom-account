@@ -50,23 +50,16 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 	
 	loadData();
 	
-	$scope.newUser = {};
+	/*$scope.newUser = {};*/
 	
-	$scope.createUser = function() {
-		$http.post("create-account", $scope.newUser, config).success(
-				function(data, status, headers, config) {
-					
-				}).error(function(data, status, headers, config) {
-					$scope.errorName = data.errors.name;
-					$scope.errorPass = data.errors.username;
-					$scope.errorEmail = data.errors.email;
-				});
-	};
+	/*$http.post("create-account", newUser, config).success(
+			function(data, status, headers, config) {
+				alert(data);
+	}).error(function(data, status, headers, config) {
+	})*/
 });
 
-app.run(function(editableOptions, editableThemes) {
-	  editableThemes.bs3.inputClass = 'input-sm';
-	  editableThemes.bs3.buttonsClass = 'btn-sm';
+app.run(function(editableOptions) {
 	  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 

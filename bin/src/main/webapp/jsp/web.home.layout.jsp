@@ -17,14 +17,13 @@
 	rel="stylesheet">
 <link href="https://getbootstrap.com/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<!-- <link
+<link
 	href="https://getbootstrap.com/examples/sticky-footer/sticky-footer.css"
-	rel="stylesheet"> -->
+	rel="stylesheet">
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
 	rel="stylesheet">
-<link
-	href="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/css/xeditable.css"
+<link href="bower_components/angular-xeditable/dist/css/xeditable.css"
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -35,8 +34,14 @@
 <script type="text/javascript" src="resources/js/app.js"></script>
 <!-- <script
 	src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script> -->
+<script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+<link
+	href="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/css/xeditable.css"
+	rel="stylesheet">
 <script
 	src="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/js/xeditable.js"></script>
+<script
+	src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
 <style>
 .cell {
 	border: 1px solid #ddd;

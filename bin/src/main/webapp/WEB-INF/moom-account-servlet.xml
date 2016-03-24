@@ -1,0 +1,101 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd  
+		http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd  
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/context
+  		http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<mvc:annotation-driven />
+
+	<context:component-scan base-package="com.chotoxautinh.web.controller" />
+	<context:component-scan base-package="com.chotoxautinh.web.config" />
+	<context:component-scan base-package="com.chotoxautinh.server.dao.impl" />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2" />
+		<property name="prefix" value="/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="order" value="1" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/tiles/definitions.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<!-- cache-period="432000" -->
+
+	<bean scope="singleton" id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+	<bean id="jsonView"
+		class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+		<property name="contentType" value="text/plain" />
+	</bean>
+
+	<bean id="jacksonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jacksonMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/test-auth"
+			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**" access="permitAll" />
+		<security:form-login login-page="/user/login"
+			default-target-url="/user/view" authentication-failure-url="/user/login?error"
+			username-parameter="username" password-parameter="password" />
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider
+			ref="customAuthenticationProvider" />
+	</security:authentication-manager>
+
+	<bean id="customAuthenticationProvider"
+		class="com.chotoxautinh.web.config.CustomAuthenticationProvider" />
+
+	<bean id="webSecurityExpressionHandler"
+		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+	<!-- mongo:mongo host="127.0.0.1" port="27017" / -->
+	<mongo:mongo id="mongo" replica-set="localhost:27017" />
+	<mongo:db-factory dbname="moomdb" mongo-ref="mongo" />
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+	</bean>
+
+	<mongo:repositories base-package="com.chotoxautinh.server.repository" />
+
+</beans>

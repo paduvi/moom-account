@@ -50,23 +50,20 @@
 								class="glyphicon glyphicon-search" ng-click="submitFilter()"></span></a>
 						</div>
 					</div>
-					<form ng-submit="createUser()">
+					<!-- <form ng-submit="submitUser(newUser)">
 						<div class="row" style="clear: both">
 							<div class="col-xs-1 col-md-1 col-sm-1 cell"></div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" name="username" type="text"
-									ng-model="newUser.username"> <span ng-show="errorName">{{errorName}}</span>
-							</div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" name="password" type="text"
-									ng-model="newUser.password"> <span ng-show="errorPass">{{errorUserName}}</span>
+							<div class="col-xs-3 col-md-3 col-sm-3 cell">
+								<input class="form-control input-sm" type="text"
+									ng-model="newUser.username">
 							</div>
 							<div class="col-xs-3 col-md-3 col-sm-3 cell">
-								<input class="form-control input-sm" name="email" type="text"
-									ng-model="newUser.email"> <span ng-show="errorEmail">{{errorUserName}}</span>
+								<input class="form-control input-sm" type="text"
+									ng-model="newUser.password">
 							</div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" type="text">
+							<div class="col-xs-3 col-md-3 col-sm-3 cell">
+								<input class="form-control input-sm" type="text"
+									ng-model="newUser.email">
 							</div>
 							<div class="col-xs-1 col-md-1 col-sm-1 cell">
 								<input class="form-control input-sm" type="text">
@@ -77,19 +74,13 @@
 									style="margin: auto">Thêm mới</button>
 							</div>
 						</div>
-					</form>
+					</form> -->
 					<div ng-repeat="account in accounts" ng-controller="editable">
 						<div class="row" ng-repeat="(key, val) in account">
 							<div class="col-xs-1 col-md-1 col-sm-1 cell">{{val.id}}</div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<a href="#" editable-text="user.name">{{val.username}}</a>
-							</div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<a href="#" editable-text="user.pass">{{val.password}}</a>
-							</div>
-							<div class="col-xs-3 col-md-3 col-sm-3 cell">
-								<a href="#" editable-email="user.email">{{val.email}}</a>
-							</div>
+							<div class="col-xs-2 col-md-2 col-sm-2 cell"><a href="#" editable-text="user.name">{{val.username}}</a></div>
+							<div class="col-xs-2 col-md-2 col-sm-2 cell"><a href="#" editable-text="user.pass">{{val.password}}</a></div>
+							<div class="col-xs-3 col-md-3 col-sm-3 cell"><a href="#" editable-email="user.email">{{val.email}}</a></div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">{{val.phone}}</div>
 							<div class="col-xs-1 col-md-1 col-sm-1 cell">{{val.group}}</div>
 							<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
