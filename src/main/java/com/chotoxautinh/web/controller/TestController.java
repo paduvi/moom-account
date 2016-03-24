@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chotoxautinh.dao.EmailDao;
-import com.chotoxautinh.model.Email;
+import com.chotoxautinh.server.dao.EmailDao;
+import com.chotoxautinh.server.model.Email;
 
 @Controller
 @RequestMapping("/")
@@ -38,10 +38,11 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String createAccount(@RequestParam(value = "user", required = true) String username,
-			@RequestParam(value = "pass", required = true) String password,
+	public @ResponseBody String createAccount(@RequestParam(value = "username", required = true) String username,
+			@RequestParam(value = "password", required = true) String password,
 			@RequestParam(value = "email", required = true) String email) {
-		emailDao.updateEmail(new Email(username, password, email));
+		System.out.println("user: " + username + " password: " + password + " email: " + email);
+		//emailDao.updateEmail(new Email(username, password, email));
 		return "ok";
 	}
 
@@ -53,5 +54,10 @@ public class TestController {
 			list.add(emailDao.addEmail(new Email("abc" + i, "123" + i, "abc" + i + "@gmail.com")));
 		}
 		return list;
+	}
+
+	@RequestMapping(value = "/test-auth", method = RequestMethod.GET)
+	public String testAuth() {
+		return "index";
 	}
 }
