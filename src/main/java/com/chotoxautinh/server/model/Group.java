@@ -5,8 +5,6 @@
  */
 package com.chotoxautinh.server.model;
 
-import java.util.Date;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,7 +18,7 @@ public class Group {
 	
 	private String name;
 	private int nAccounts;
-	private Date lastExecution;
+	private long lastExecution;
 
 	public Group() {
 		// TODO Auto-generated constructor stub
@@ -42,11 +40,11 @@ public class Group {
 		this.name = name;
 	}
 
-	public Date getLastExecution() {
+	public long getLastExecution() {
 		return lastExecution;
 	}
 
-	public void setLastExecution(Date lastExecution) {
+	public void setLastExecution(long lastExecution) {
 		this.lastExecution = lastExecution;
 	}
 

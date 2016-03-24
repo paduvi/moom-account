@@ -49,6 +49,7 @@ public class GroupDaoImpl implements GroupDao {
 	@Override
 	public Group addGroup(Group group) {
 		group.setId(String.valueOf(counterDao.getNextSequence(collectionName)));
+		group.setLastExecution(System.currentTimeMillis());
 		return repository.save(group);
 	}
 
@@ -60,6 +61,7 @@ public class GroupDaoImpl implements GroupDao {
 	 */
 	@Override
 	public Group updateGroup(Group group) {
+		group.setLastExecution(System.currentTimeMillis());
 		return repository.save(group);
 	}
 
@@ -90,6 +92,7 @@ public class GroupDaoImpl implements GroupDao {
 		// increase sequence id by 1
 		Update update = new Update();
 		update.inc("nAccounts", number);
+		update.set("lastExecution", System.currentTimeMillis());
 
 		// return new increased id
 		FindAndModifyOptions options = new FindAndModifyOptions();
@@ -140,7 +143,8 @@ public class GroupDaoImpl implements GroupDao {
 	 */
 	@Override
 	public Group findGroupById(String id) {
-		return repository.findById(id);
+		Group group = repository.findById(id);
+		return updateGroup(group);
 	}
 
 	/*
@@ -150,7 +154,8 @@ public class GroupDaoImpl implements GroupDao {
 	 */
 	@Override
 	public Group findGroupByName(String name) {
-		return repository.findByName(name);
+		Group group = repository.findByName(name);
+		return updateGroup(group);
 	}
 
 	/*
@@ -161,7 +166,8 @@ public class GroupDaoImpl implements GroupDao {
 	 */
 	@Override
 	public Group findGroup(Predicate predicate) {
-		return repository.findOne(predicate);
+		Group group = repository.findOne(predicate);
+		return updateGroup(group);
 	}
 
 	/*
