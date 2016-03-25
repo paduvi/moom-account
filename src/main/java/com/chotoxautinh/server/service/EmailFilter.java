@@ -14,20 +14,24 @@ public class EmailFilter {
 
 	public EmailFilter(String id, String username, String password, String retrieveEmail, String phone, Long birthday) {
 		if (id != null)
-			builder.and(QEmail.email.id.like(id));
+			builder.and(QEmail.email.id.like(toAlias(id)));
 		if (username != null)
-			builder.and(QEmail.email.username.like(username));
+			builder.and(QEmail.email.username.like(toAlias(username)));
 		if (password != null)
-			builder.and(QEmail.email.password.like(password));
+			builder.and(QEmail.email.password.like(toAlias(password)));
 		if (retrieveEmail != null)
-			builder.and(QEmail.email.retrieveEmail.like(retrieveEmail));
+			builder.and(QEmail.email.retrieveEmail.like(toAlias(retrieveEmail)));
 		if (phone != null)
-			builder.and(QEmail.email.phone.like(phone));
+			builder.and(QEmail.email.phone.like(toAlias(phone)));
 		if (birthday != null)
 			builder.and(QEmail.email.birthday.eq(birthday));
 	}
 
 	public Predicate getPredicate() {
 		return builder.getValue();
+	}
+
+	private String toAlias(String input) {
+		return "%" + input + "%";
 	}
 }

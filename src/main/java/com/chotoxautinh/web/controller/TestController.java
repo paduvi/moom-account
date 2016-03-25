@@ -26,7 +26,7 @@ import com.mysema.query.types.Predicate;
 public class TestController {
 
 	Logger logger = LoggerFactory.getLogger(TestController.class);
-	
+
 	private int PAGE_SIZE = 10;
 
 	@Autowired
@@ -40,8 +40,10 @@ public class TestController {
 
 	@RequestMapping(value = "/list-test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Email> listEmail(
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		Predicate predicate = new EmailFilter(null, "abc", "123", null, null, null).getPredicate();
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
+			@RequestParam(value = "username", required = false) String username,
+			@RequestParam(value = "password", required = false) String password) {
+		Predicate predicate = new EmailFilter(null, username, password, null, null, null).getPredicate();
 		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
 	}
 
@@ -50,14 +52,14 @@ public class TestController {
 		emailDao.addEmail(email);
 		return true;
 	}
-	
+
 	@RequestMapping(value = "/update-account", method = RequestMethod.POST)
 	public @ResponseBody Boolean updateUser(@RequestBody Email email) {
 		logger.info(email.getUsername());
 		emailDao.updateEmail(email);
 		return true;
 	}
-	
+
 	@RequestMapping(value = "/del-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean delUser(@RequestBody Email email) {
 		logger.info(email.getUsername());
