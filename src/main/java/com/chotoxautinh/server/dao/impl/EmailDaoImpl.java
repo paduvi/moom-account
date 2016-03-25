@@ -91,4 +91,15 @@ public class EmailDaoImpl implements EmailDao {
 		return repository.findAll(predicate, page);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.chotoxautinh.server.dao.EmailDao#count(com.mysema.query.types.
+	 * Predicate)
+	 */
+	@Override
+	public Long count(Predicate predicate) {
+		return repository.count(predicate);
+	}
+
 }

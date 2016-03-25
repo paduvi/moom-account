@@ -41,4 +41,6 @@ public interface FaceAccountDao {
 	Page<FaceAccount> findFaceAccountsByPage(Pageable page);
 
 	Page<FaceAccount> findFaceAccountsByPage(Predicate predicate, Pageable page);
+	
+	Long count(Predicate predicate);
 }

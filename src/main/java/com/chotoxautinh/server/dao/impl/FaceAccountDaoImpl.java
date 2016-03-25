@@ -193,4 +193,16 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 		groupDao.incnAccounts(groupId);
 		return updateFaceAccount(faccount);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.chotoxautinh.server.dao.FaceAccountDao#count(com.mysema.query.types.
+	 * Predicate)
+	 */
+	@Override
+	public Long count(Predicate predicate) {
+		return repository.count(predicate);
+	}
 }
