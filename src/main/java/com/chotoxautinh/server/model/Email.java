@@ -5,7 +5,6 @@
  */
 package com.chotoxautinh.server.model;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -26,7 +25,7 @@ public class Email {
 	private String password;
 	private String phone;
 	private String retrieveEmail;
-	private Date birthday;
+	private Long birthday;
 	private List<SecurityQuestion> questions;
 
 	public Email() {
@@ -92,11 +91,11 @@ public class Email {
 		this.questions = questions;
 	}
 
-	public Date getBirthday() {
+	public Long getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(Long birthday) {
 		this.birthday = birthday;
 	}
 

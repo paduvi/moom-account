@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,15 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chotoxautinh.server.dao.EmailDao;
 import com.chotoxautinh.server.model.Email;
-import com.chotoxautinh.server.model.QEmail;
-import com.google.common.base.Predicate;
+import com.chotoxautinh.server.service.EmailFilter;
+import com.mysema.query.types.Predicate;
 
 @Controller
 @RequestMapping("/")
 public class TestController {
 
 	Logger logger = LoggerFactory.getLogger(TestController.class);
-	
+
 	private int PAGE_SIZE = 10;
 
 	@Autowired
@@ -38,13 +39,16 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/list-test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Email> listEmail(
+	public @ResponseBody List<Email> listEmail(@RequestParam(value = "id", required = false) String id, 
+			@RequestParam(value = "username", required = false) String username,
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "phone", required = false) String phone,
+			@RequestParam(value = "birthday", required = false) Long birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		logger.info("page: " + pageNumber);
-		QEmail qEmail = new QEmail("emails");
-		Predicate<> predicate = ;
-		//return emailDao.findEmailsByPage(new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
-		return emailDao.findAllEmails();
+		logger.info("page: " + username);
+		Predicate predicate = new EmailFilter(null, "abc", "123", null, null, null).getPredicate();
+		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -52,14 +56,14 @@ public class TestController {
 		emailDao.addEmail(email);
 		return true;
 	}
-	
+
 	@RequestMapping(value = "/update-account", method = RequestMethod.POST)
 	public @ResponseBody Boolean updateUser(@RequestBody Email email) {
 		logger.info(email.getUsername());
 		emailDao.updateEmail(email);
 		return true;
 	}
-	
+
 	@RequestMapping(value = "/del-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean delUser(@RequestBody Email email) {
 		logger.info(email.getUsername());
