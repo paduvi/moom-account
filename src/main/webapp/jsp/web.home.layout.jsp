@@ -64,6 +64,18 @@
 	left: 50%;
 	z-index: 9999;
 	transform: translateX(-50%);
+	 -webkit-animation: mymove 5s; 
+    animation: mymove 5s;
+}
+
+@-webkit-keyframes mymove {
+    from {bottom: 0px;}
+    to {bottom: 80px;}
+}
+
+@keyframes mymove {
+    from {bottom: 0px;}
+    to {bottom: 80px;}
 }
 
 .alert-box {
