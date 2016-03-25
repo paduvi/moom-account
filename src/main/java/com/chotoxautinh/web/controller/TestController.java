@@ -6,7 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chotoxautinh.server.dao.EmailDao;
 import com.chotoxautinh.server.model.Email;
+import com.chotoxautinh.server.model.QEmail;
+import com.google.common.base.Predicate;
 
 @Controller
 @RequestMapping("/")
@@ -39,7 +40,11 @@ public class TestController {
 	@RequestMapping(value = "/list-test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Email> listEmail(
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		return emailDao.findEmailsByPage(new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
+		logger.info("page: " + pageNumber);
+		QEmail qEmail = new QEmail("emails");
+		Predicate<> predicate = ;
+		//return emailDao.findEmailsByPage(new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
+		return emailDao.findAllEmails();
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

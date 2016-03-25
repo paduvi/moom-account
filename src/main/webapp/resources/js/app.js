@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ["xeditable"]);
+var app = angular.module("myApp", ["xeditable", "ui.bootstrap"]);
 
 app.filter('accountFilter',function() {
 	return function(input, selectedFilter) {
@@ -6,31 +6,29 @@ app.filter('accountFilter',function() {
 				&& !angular.isUndefined(selectedFilter)) {
 			var tempOutput = [];
 			for (i = 0; i < input.length; i++) {
-				user = input[i];
-				if (!account.username
-						.match(selectedFilter.username))
-					continue;
-				if (!account.password
-						.match(selectedFilter.password))
-					continue;
-
-				tempOutput.push(user);
+				tempOutput.push(account);
 			}
 			return tempOutput;
 		} else {
 			return input;
 		}
-		alert(input + "//" + selectedFilter);
 	};
 });
 
-app.controller("loadData", function($scope, $filter, $http, $timeout) {
-	var config = {
-			headers: {'accept' : 'application/json' }
+app.filter('pagination', function() {
+	return function(input, start) {
+		if (!angular.isUndefined(input)) {
+			return input.slice(start);
+		} else {
+			return input;
+		}
 	};
-	
+});
+
+
+app.controller("loadData", function($scope, $filter, $http, $timeout) {
 	$scope.curPage = 1;
-	$scope.pageSize = 15;
+	$scope.pageSize = 10;
 	$scope.numPages = 15;
 	$scope.filter = [];
 	$scope.filter.username = '';
@@ -38,14 +36,33 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 
 	$scope.loading = true;
 	
-	var loadData = function() {
-		$http.get('list-test', config).success(function(data) {
-			$scope.accounts = data;
+	var data = {
+		page:$scope.pageSize	
+	};
+	
+	var config = {
+		params: data,
+		headers: {'Accept' : 'application/json' }
+	};
+	
+	$scope.accountList = [];
+	$http.get('list-test', data,config).success(function(data) {
+		angular.forEach(data, function(obj) {
+			$scope.accountList.push(obj.username);
 		});
-		
+	});
+	
+	var loadData = function() {
+		$http.get('list-test', data,config).success(function(data) {
+			$scope.accounts = data;
+			angular.forEach(data, function(obj) {
+				$scope.accountList.push(obj.username);
+			});
+		});
+
 		$scope.numberOfPages = function() {
-			return Math.ceil($filter('accountFilter')($scope.accounts, $scope.filter).length / $scope.pageSize);
-		};
+			return Math.ceil($scope.accounts.length / $scope.pageSize);
+		}; 
 	}
 	
 	loadData();
