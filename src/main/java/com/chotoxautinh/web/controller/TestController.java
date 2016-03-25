@@ -47,7 +47,7 @@ public class TestController {
 			@RequestParam(value = "birthday", required = false) Long birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
 		logger.info("page: " + username);
-		Predicate predicate = new EmailFilter(null, "abc", "123", null, null, null).getPredicate();
+		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
 		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
 	}
 

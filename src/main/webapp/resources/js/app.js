@@ -1,18 +1,23 @@
 var app = angular.module("myApp", ["xeditable", "ui.bootstrap"]);
 
 app.filter('accountFilter',function() {
-	return function(input, selectedFilter) {
-		if (!angular.isUndefined(input)
-				&& !angular.isUndefined(selectedFilter)) {
-			var tempOutput = [];
-			for (i = 0; i < input.length; i++) {
-				tempOutput.push(account);
+		return function(input, selectedFilter) {
+			if (!angular.isUndefined(input)
+					&& !angular.isUndefined(selectedFilter)) {
+				var tempOutput = [];
+				for (i = 0; i < input.length; i++) {
+					account = input[i];
+					if (!account.username.match(selectedFilter.username))
+						continue;
+					if (!account.password.match(selectedFilter.password))
+						continue;
+					tempOutput.push(account);
+				}
+				return tempOutput;
+			} else {
+				return input;
 			}
-			return tempOutput;
-		} else {
-			return input;
-		}
-	};
+		};
 });
 
 app.filter('pagination', function() {
@@ -37,6 +42,7 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 	$scope.loading = true;
 	
 	var data = {
+		
 		page:$scope.pageSize	
 	};
 	
@@ -61,7 +67,9 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 		});
 
 		$scope.numberOfPages = function() {
-			return Math.ceil($scope.accounts.length / $scope.pageSize);
+			return Math.ceil($filter('accountFilter')(
+					$scope.accounts, $scope.filter).length
+					/ $scope.pageSize);
 		}; 
 	}
 	
