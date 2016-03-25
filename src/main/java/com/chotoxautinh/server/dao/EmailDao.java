@@ -36,4 +36,5 @@ public interface EmailDao {
 	Page<Email> findEmailsByPage(Pageable page);
 
 	Page<Email> findEmailsByPage(Predicate predicate, Pageable page);
+	
 }

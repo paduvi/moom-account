@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chotoxautinh.server.dao.EmailDao;
 import com.chotoxautinh.server.model.Email;
+import com.chotoxautinh.server.service.EmailFilter;
+import com.mysema.query.types.Predicate;
 
 @Controller
 @RequestMapping("/")
@@ -39,7 +41,8 @@ public class TestController {
 	@RequestMapping(value = "/list-test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Email> listEmail(
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		return emailDao.findEmailsByPage(new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
+		Predicate predicate = new EmailFilter(null, "abc", "123", null, null, null).getPredicate();
+		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
