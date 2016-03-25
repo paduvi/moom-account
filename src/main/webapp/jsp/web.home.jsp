@@ -9,7 +9,7 @@
 	<tiles:putAttribute name="body">
 		<div class="container-fluid" style="width: 90%; margin: auto"
 			ng-controller="loadData">
-			<div class="alert-wrapper">
+			<div class="alert-wrapper fade in">
 				<div class="alert-box message" ng-show="formMessage">
 					{{formMessage}}</div>
 				<div class="alert-box error" ng-show="formError">
@@ -21,7 +21,7 @@
 				</div>
 				<div class="panel-body" style="padding: 0 15px;">
 					<div class="row">
-						<div class="col-xs-1 col-md-1 col-sm-1 header">#</div>
+						<div class="col-xs-1 col-md-1 col-sm-1 header">Id</div>
 						<div class="col-xs-3 col-md-3 col-sm-3 header">Tên</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 header">Mật khẩu</div>
 						<div class="col-xs-3 col-md-3 col-sm-3 header">Email</div>
@@ -75,7 +75,7 @@
 							</div>
 						</div>
 					</form>
-					<div class="row" ng-repeat="(key, val) in accounts">
+					<div class="row" ng-repeat="val in accounts | pagination: (curPage-1) * pageSize | limitTo: pageSize">
 						<div class="col-xs-1 col-md-1 col-sm-1 cell">{{val.id}}</div>
 						<div class="col-xs-3 col-md-3 col-sm-3 cell">
 							<a href="#" editable-text="val.username"
@@ -131,9 +131,16 @@
 					</div>
 				</div>
 				<div class="panel-footer">
-					<ul class="pagination" style="margin: 0px">
-						<li><a href="#">1</a></li>
+					<ul class="pagination" style="margin: 0px"
+						ng-show="accounts.length">
+						<li><a href="#" ng-model="curPage">{{page}}</a></li>
 					</ul>
+					<div class="row" ng-show="accounts.length">
+						<uib-pagination class="pull-right" total-items="totalItem"
+							ng-model="curPage" max-size="numPages" class="pagination-md"
+							items-per-page="pageSize" boundary-links="true"
+							ng-change="pageChanged()"></uib-pagination>
+					</div>
 				</div>
 			</div>
 		</div>

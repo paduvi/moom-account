@@ -37,6 +37,8 @@
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/angular.min.js"></script>
 <script	src="resources/js/xeditable.js"></script>
+<script type="text/javascript"
+ src="resources/js/ui-bootstrap-tpls-0.14.2.min.js"></script>
 <script type="text/javascript" src="resources/js/app.js"></script>
 <style>
 .cell {
@@ -82,13 +84,15 @@
 }
 
 .message {
-	background: #90DED7 url('/resources/images/success.png') no-repeat 10px 50%;
+	background: #90DED7 url('/resources/images/success.png') no-repeat 10px
+		50%;
 	border: 1px solid #53DED8;
 	border-bottom: none;
 }
 
 .error {
-	background: #ffecec url('/resources/images/error.png') no-repeat 10px 50%;
+	background: #ffecec url('/resources/images/error.png') no-repeat 10px
+		50%;
 	border: 1px solid #f5aca6;
 	border-bottom: none;
 }

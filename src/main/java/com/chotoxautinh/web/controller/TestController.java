@@ -39,11 +39,15 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/list-test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Email> listEmail(
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
+	public @ResponseBody List<Email> listEmail(@RequestParam(value = "id", required = false) String id, 
 			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password) {
-		Predicate predicate = new EmailFilter(null, username, password, null, null, null).getPredicate();
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "phone", required = false) String phone,
+			@RequestParam(value = "birthday", required = false) Long birthday,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
+		logger.info("page: " + username);
+		Predicate predicate = new EmailFilter(null, "abc", "123", null, null, null).getPredicate();
 		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
 	}
 
