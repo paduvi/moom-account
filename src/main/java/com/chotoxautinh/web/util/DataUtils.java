@@ -17,16 +17,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
-public class DataUtil {
-	private final static ObjectMapper MAPPER = new ObjectMapper();
+public class DataUtils {
+	private final static Gson MAPPER = new Gson();
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(DataUtil.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(DataUtils.class);
 
 	public static File getFolder(String name) {
-		URL url = DataUtil.class.getResource("/");
+		URL url = DataUtils.class.getResource("/");
 		if (url == null)
 			return null;
 		try {
@@ -66,7 +65,7 @@ public class DataUtil {
 	}
 
 	public static <T> List<T> list(String folder, String ext, Class<T> clazz) {
-		File[] files = DataUtil.load(folder, ext);
+		File[] files = DataUtils.load(folder, ext);
 		if (files == null || files.length < 1)
 			return new ArrayList<T>(0);
 		List<T> values = new LinkedList<>();
@@ -81,8 +80,8 @@ public class DataUtil {
 		if (!file.exists() || file.length() < 1)
 			return null;
 		try {
-			String json = new String(FileUtil.load(file));
-			T bean = MAPPER.readValue(json, clazz);
+			String json = new String(FileUtils.load(file));
+			T bean = MAPPER.fromJson(json, clazz);
 
 			MethodHandles.Lookup lookup = MethodHandles.lookup();
 			try {
@@ -109,7 +108,7 @@ public class DataUtil {
 	}
 
 	public static boolean save(String folder, Object bean, String name, String ext, boolean create) {
-		return save(DataUtil.getFolder(folder), bean, name, ext, create);
+		return save(DataUtils.getFolder(folder), bean, name, ext, create);
 	}
 
 	public static boolean save(File folder, Object bean, String name, String ext, boolean create) {
@@ -122,8 +121,8 @@ public class DataUtil {
 				if (!file.exists())
 					return false;
 			}
-			String json = MAPPER.writeValueAsString(bean);
-			FileUtil.save(file, json);
+			String json = MAPPER.toJson(bean);
+			FileUtils.save(file, json);
 			return true;
 		} catch (Exception exp) {
 			LOGGER.error(exp.getMessage());
@@ -139,11 +138,4 @@ public class DataUtil {
 		return true;
 	}
 
-	public static <T> T jsonToCollections(final TypeReference<T> type, final String jsonPacket) {
-		try {
-			return new ObjectMapper().readValue(jsonPacket, type);
-		} catch (Exception e) {
-			return null;
-		}
-	}
 }

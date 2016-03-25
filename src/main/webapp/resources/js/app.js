@@ -99,7 +99,16 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 		if(angular.isUndefined(val.questions) || val.questions === null) val.questions = [];
 		var question = {};
 		val.questions.push(question);
-		alert(val.questions);
+		$scope.updateUser(val);
+	}
+	
+	$scope.removeQuestion = function(val, index){
+		var r = confirm("Bạn có chắc muốn xoá câu hỏi này?");
+		if (r == false)
+			return;
+		
+		val.questions.splice(index,1);
+		$scope.updateUser(val);
 	}
 	
 });

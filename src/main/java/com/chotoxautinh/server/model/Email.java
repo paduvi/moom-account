@@ -6,10 +6,12 @@
 package com.chotoxautinh.server.model;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.google.gson.annotations.Expose;
 import com.mysema.query.annotations.QueryEntity;
 
 @QueryEntity
@@ -19,18 +21,19 @@ public class Email {
 	@Id
 	private String id;
 
+	@Expose
 	private String username;
 	private String password;
 	private String phone;
 	private String retrieveEmail;
 	private Date birthday;
-	private QuestionList questions;
+	private List<SecurityQuestion> questions;
 
 	public Email() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Email(String username, String password){
+
+	public Email(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
@@ -81,11 +84,11 @@ public class Email {
 		this.retrieveEmail = retrieveEmail;
 	}
 
-	public QuestionList getQuestions() {
+	public List<SecurityQuestion> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(QuestionList questions) {
+	public void setQuestions(List<SecurityQuestion> questions) {
 		this.questions = questions;
 	}
 

@@ -14,9 +14,9 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FileUtil {
+public class FileUtils {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
 
 	public static String load(File file) {
 		FileReader reader = null;
