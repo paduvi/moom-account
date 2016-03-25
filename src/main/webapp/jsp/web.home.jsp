@@ -21,39 +21,46 @@
 				</div>
 				<div class="panel-body" style="padding: 0 15px;">
 					<div class="row">
-						<div class="col-xs-1 col-md-1 col-sm-1 header">Id</div>
-						<div class="col-xs-3 col-md-3 col-sm-3 header">Tên</div>
+						<div class="col-xs-1 col-md-1 col-sm-1 header">#</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 header">Tên đăng nhập</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 header">Mật khẩu</div>
-						<div class="col-xs-3 col-md-3 col-sm-3 header">Email</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 header">Email xác
+							minh</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 header">Số điện thoại</div>
-						<div class="col-xs-1 col-md-1 col-sm-1 header">
-							<span class="glyphicon glyphicon-option-horizontal"
-								aria-hidden="true"></span>
+						<div class="col-xs-2 col-md-2 col-sm-2 header">Ngày sinh</div>
+						<div class="col-xs-1 col-md-1 col-sm-1 header" style="text-align:center">
+							<span class="fa fa-align-justify"></span>
 						</div>
 					</div>
 					<div class="row" style="clear: both">
 						<div class="col-xs-1 col-md-1 col-sm-1 cell"></div>
-						<div class="col-xs-3 col-md-3 col-sm-3 cell">
-							<input class="form-control input-sm" type="text">
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
+							<input class="form-control input-sm" type="text"
+								ng-model="filter.username">
 						</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<input class="form-control input-sm" type="text">
-						</div>
-						<div class="col-xs-3 col-md-3 col-sm-3 cell">
-							<input class="form-control input-sm" type="text">
+							<input class="form-control input-sm" type="text"
+								ng-model="filter.password">
 						</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<input class="form-control input-sm" type="text">
+							<input class="form-control input-sm" type="text"
+								ng-model="filter.email">
 						</div>
-						<div class="col-xs-1 col-md-1 col-sm-1 cell header" align="center">
-							<a class="search" href="#"><span
-								class="glyphicon glyphicon-search" ng-click="submitFilter()"></span></a>
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
+							<input class="form-control input-sm" type="text"
+								ng-model="filter.phone">
+						</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
+							<input class="form-control input-sm createDay" type="text" ng-model="filter.birthday" my-search>
+						</div>
+						<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
+							<a class="search" href="#" ng-click="submitFilter()"><span class="fa fa-search"></span></a>
 						</div>
 					</div>
 					<form ng-submit="createUser(newUser)">
 						<div class="row" style="clear: both">
 							<div class="col-xs-1 col-md-1 col-sm-1 cell"></div>
-							<div class="col-xs-3 col-md-3 col-sm-3 cell">
+							<div class="col-xs-2 col-md-2 col-sm-2 cell">
 								<input class="form-control input-sm" type="text"
 									ng-model="newUser.username">
 							</div>
@@ -61,39 +68,51 @@
 								<input class="form-control input-sm" type="text"
 									ng-model="newUser.password">
 							</div>
-							<div class="col-xs-3 col-md-3 col-sm-3 cell">
+							<div class="col-xs-2 col-md-2 col-sm-2 cell">
 								<input class="form-control input-sm" type="text"
 									ng-model="newUser.retrieveEmail">
 							</div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" type="text">
+								<input class="form-control input-sm" type="text" ng-model="newUser.phone">
 							</div>
-							<div class="col-xs-1 col-md-1 col-sm-1 cell header"
+							<div class="col-xs-2 col-md-2 col-sm-2 cell">
+								<input class="form-control input-sm createDay" type="text" ng-model="newUser.birthday" my-search>
+							</div>
+							<div class="col-xs-1 col-md-1 col-sm-1 cell"
 								align="center">
 								<button type="submit" class="btn btn-sm btn-success"
 									style="margin: auto">Thêm mới</button>
 							</div>
 						</div>
 					</form>
-					<div class="row" ng-repeat="val in accounts | pagination: (curPage-1) * pageSize | limitTo: pageSize">
-						<div class="col-xs-1 col-md-1 col-sm-1 cell">{{val.id}}</div>
-						<div class="col-xs-3 col-md-3 col-sm-3 cell">
-							<a href="#" editable-text="val.username"
-								onaftersave="updateUser(val)">{{val.username}}</a>
+					<div class="row"
+						ng-repeat="(key, account) in accounts">
+						<div class="col-xs-1 col-md-1 col-sm-1 cell">{{$index+(curPage-1)
+							* pageSize+1}}</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
+							<a class="edit" href="#" editable-text="account.username"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.username}}</a>
 						</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<a href="#" editable-text="val.password"
-								onaftersave="updateUser(val)">{{val.password}}</a>
+							<a class="edit" href="#" editable-text="account.password"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.password}}</a>
 						</div>
-						<div class="col-xs-3 col-md-3 col-sm-3 cell">
-							<a href="#" editable-email="val.retrieveEmail"
-								onaftersave="updateUser(val)">{{val.retrieveEmail}}</a>
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
+							<a class="edit" href="#" editable-email="account.retrieveEmail"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.retrieveEmail}}</a>
 						</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">{{val.phone}}</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
+							<a class="edit" href="#" editable-tel="account.phone"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.phone}}</a>
+						</div>
+						<div class="col-xs-2 col-md-2 col-sm-2 cell">
+							<a class="edit" href="#" editable-date="account.birthday"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.birthday}}</a>
+						</div>
 						<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
 							<a data-toggle="modal" data-target="#userInfo-{{key}}"
 								class="btn btn-default" style="margin-right: 5px;"><i
-								class="fa fa-2 fa-ellipsis-h"></i></a><a ng-click="delUser(val)"
+								class="fa fa-2 fa-ellipsis-h"></i></a><a ng-click="delUser(account)"
 								class="btn btn-danger"><i class="fa fa-2 fa-trash"></i></a>
 						</div>
 						<div class="modal fade" id="userInfo-{{key}}" role="dialog">
@@ -104,20 +123,26 @@
 										<h4 class="modal-title">Câu hỏi bảo mật</h4>
 									</div>
 									<div class="modal-body">
-										<button class="btn btn-default" ng-click="addQuestion(val)">
+										<button class="btn btn-default"
+											ng-click="addQuestion(account)">
 											<i class="fa fa-2 fa-plus"></i>
 										</button>
-										<div ng-repeat="(index, q) in val.questions">
-											<button class="btn btn-default" ng-click="removeQuestion(val, index)">
+										<div ng-repeat="(index, q) in account.questions">
+											<button class="btn btn-default"
+												ng-click="removeQuestion(account, index)">
 												<i class="fa fa-2 fa-minus"></i>
 											</button>
-											<span>Câu hỏi:</span> <input class="form-control input-sm"
-												type="text" ng-model="q.question" style="">
-											<button class="btn btn-success" ng-click="updateUser(val)">Save</button>
-											<span>Câu trả lời:</span> <input
-												class="form-control input-sm" type="text"
-												ng-model="q.answer">
-											<button class="btn btn-success" ng-click="updateUser(val)">Save</button>
+											
+											<span>Câu hỏi:</span>
+											<div style="width:100%; height: 34px">
+												<a class="edit" href="#" editable-text="q.question"
+													onaftersave="updateUser(account)" e-style="width: 100%">{{q.question}}</a>
+											</div>
+											<span>Câu trả lời:</span>
+											<div style="width:100%; height: 34px">
+												<a class="edit" href="#" editable-text="q.answer"
+													onaftersave="updateUser(account)" e-style="width: 100%">{{q.answer}}</a>
+											</div>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -131,16 +156,17 @@
 					</div>
 				</div>
 				<div class="panel-footer">
-					<ul class="pagination" style="margin: 0px"
-						ng-show="accounts.length">
-						<li><a href="#" ng-model="curPage">{{page}}</a></li>
-					</ul>
 					<div class="row" ng-show="accounts.length">
 						<uib-pagination class="pull-right" total-items="totalItem"
 							ng-model="curPage" max-size="numPages" class="pagination-md"
 							items-per-page="pageSize" boundary-links="true"
-							ng-change="pageChanged()"></uib-pagination>
+							style="margin-right: 20px;" ng-change="pageChanged()"></uib-pagination>
 					</div>
+				</div>
+			</div>
+			<div id="loading" ng-if="loading == true">
+				<div class="loading-box">
+					<i class="fa fa-spinner fa-spin"></i>
 				</div>
 			</div>
 		</div>

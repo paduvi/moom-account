@@ -12,11 +12,15 @@
 	type="image/x-icon">
 <link rel="icon" href="<c:url value='/resources/images/favicon.ico'/>"
 	type="image/x-icon">
-<!-- <link
+	<link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
+<!-- 
 <link
 	href="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/css/xeditable.css"
+	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -28,18 +32,20 @@
 <script
 	src="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/js/xeditable.js"></script>
  -->
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link href="resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="resources/css/xeditable.css" rel="stylesheet">
-<script src="resources/js/jquery.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/angular.min.js"></script>
-<script	src="resources/js/xeditable.js"></script>
+<link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet">
+<!-- <link href="resources/css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="<c:url value='/resources/css/xeditable.css'/>" rel="stylesheet">
+<link rel="stylesheet"
+ href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="<c:url value='/resources/js/jquery.min.js'/>"></script>
+<script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
+<script src="<c:url value='/resources/js/angular.min.js'/>"></script>
+<script	src="<c:url value='/resources/js/xeditable.js'/>"></script>
 <script type="text/javascript"
  src="resources/js/ui-bootstrap-tpls-0.14.2.min.js"></script>
-<script type="text/javascript" src="resources/js/app.js"></script>
+<script
+ src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/app.js'/>"></script>
 <style>
 .cell {
 	border: 1px solid #ddd;
@@ -95,6 +101,23 @@
 		50%;
 	border: 1px solid #f5aca6;
 	border-bottom: none;
+}
+
+.edit {
+	width: 100%;
+	height: 100%;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.editable-controls {
+	display: flex !important; 
+}
+
+.editable-wrap {
+	width: 100%;
 }
 </style>
 </head>

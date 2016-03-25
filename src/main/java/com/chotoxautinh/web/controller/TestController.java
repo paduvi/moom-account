@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,7 @@ public class TestController {
 
 	Logger logger = LoggerFactory.getLogger(TestController.class);
 
-	private int PAGE_SIZE = 10;
+	private int PAGE_SIZE = 15;
 
 	@Autowired
 	private EmailDao emailDao;
@@ -43,12 +44,13 @@ public class TestController {
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "phone", required = false) String phone,
+			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "birthday", required = false) Long birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		logger.info("page: " + username);
+		logger.info("user: " + username);
+		logger.info("page: " + pageNumber);
 		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
-		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE)).getContent();
+		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
 
 	@RequestMapping(value = "/count-test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
