@@ -98,5 +98,5 @@ public class Email {
 	public void setBirthday(Long birthday) {
 		this.birthday = birthday;
 	}
-
+	
 }

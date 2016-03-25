@@ -1,64 +1,72 @@
 var app = angular.module("myApp", [ "xeditable", "ui.bootstrap" ]);
 
-app.filter('pagination', function() {
-	return function(input, start) {
-		if (!angular.isUndefined(input)) {
-			return input.slice(start);
-		} else {
-			return input;
-		}
-	};
-});
-
-app.controller("loadData", function($scope, $filter, $http, $timeout) {
+app.controller("loadData", function($scope, $http, $timeout) {
 	var config = {
 		headers : {
 			'Accept' : 'application/json'
 		}
 	};
 
+	$scope.loading = false;
 	$scope.curPage = 1;
 	$scope.pageSize = 15;
 	$scope.numPages = 10;
-	$scope.filter = [];
-	$scope.filter.username = '';
-	$scope.filter.password = '';
-	$scope.filter.email = '';
-	$scope.filter.phone = '';
-	$scope.filter.birthday = '';
 
 	var loadData = function() {
-		var datas = {
-			username:$scope.filter.username,
-			password:$scope.filter.password,
-			email:$scope.filter.email,
-			/*number:$scope.filter.phone,*/
-			birthday:$scope.filter.birthday,
-			page:$scope.curPage
-		};
-		
-		var config2 = {
-				params:datas,
-				headers : {
-					'Accept' : 'application/json'
-				}
-			};
-		
 		$scope.loading = true;
-		$http.get('list-test', config2).success(function(data) {
-			$scope.accounts = data;
-		});
+		var datas = {
+			username : $scope.filter.username,
+			password : $scope.filter.password,
+			email : $scope.filter.email,
+			phone : $scope.filter.phone
+		// birthday:$scope.filter.birthday
+		};
 
-		$http.get('count-test', config).success(function(data) {
-			$scope.totalItem = data;
-		});
+		var config2 = {
+			params : datas,
+			headers : {
+				'Accept' : 'application/json'
+			}
+		};
+
+		$scope.loading = true;
+		$http.get('list-test?page=' + $scope.curPage, config2).success(
+				function(data) {
+					$scope.accounts = data;
+					$http.get('count-test', config2).success(function(data2) {
+						$scope.totalItem = data2;
+					}).finally(function(){
+						$scope.loading = false;
+					});
+				}).error(function(){
+					$scope.loading = false;
+				});
+
 	}
-	
+
+	$scope.filter = {
+			'username' : '',
+			'password' : '',
+			'email' : '',
+			'phone' : '',
+			'birthday' : ''
+		};
+	// Instantiate these variables outside the watch
+	var tempFilter = {}, filterTextTimeout;
+	$scope.$watch('filter', function(val) {
+		if (filterTextTimeout)
+			$timeout.cancel(filterTextTimeout);
+
+		tempFilter = val;
+		filterTextTimeout = $timeout(function() {
+			$scope.filter = tempFilter;
+			loadData();
+		}, 2000); // delay 2000 ms
+	}, true);
+
 	$scope.pageChanged = function() {
 		loadData();
 	};
-	
-	loadData();
 
 	$scope.newUser = {};
 
@@ -71,7 +79,8 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 					$scope.formMessage = data ? 'Tạo tài khoản thành công!'
 							: null;
 					$scope.formError = data ? null : 'Đã tồn tại tài khoản!';
-					if(data){
+					if (data) {
+						$scope.newUser = {};
 						loadData();
 					}
 				}).error(function(data, status, headers, config) {
@@ -125,32 +134,21 @@ app.controller("loadData", function($scope, $filter, $http, $timeout) {
 		$scope.updateUser(val);
 	}
 
-	$scope.submitFilter = function(){
-		var timeoutPromise;
-		var delayInMs = 2000;
-		$scope.$watch("filters", function(query) {
-			$timeout.cancel(timeoutPromise);  //does nothing, if timeout alrdy done
-			timeoutPromise = $timeout(function(){   //Set timeout
-				$scope.loading = true;
-			},delayInMs);
-		});
-	}
-	
 });
 
 app.run(function(editableOptions, editableThemes) {
 	editableThemes.bs3.inputClass = 'input-sm';
 	editableThemes.bs3.buttonsClass = 'btn-sm';
 	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2',
-									// 'default'
+	// 'default'
 });
 
 app.directive('mySearch', function() {
 	function link(scope, element, attrs) {
 		jQuery(function() {
-			jQuery(".tags").autocomplete({
-				source : scope.userList
-			});
+			// jQuery(".tags").autocomplete({
+			// source : scope.userList
+			// });
 			jQuery('.createDay').datepicker({
 				dateFormat : "dd/mm/yy",
 				changeMonth : true,

@@ -17,7 +17,7 @@
 			</div>
 			<div class="panel panel-default panel-table">
 				<div class="panel-heading">
-					<h3 class="panel-title">Tài khoản Facebook</h3>
+					<h3 class="panel-title">Tài khoản Facebook <i ng-if="loading == true" class="fa fa-spinner fa-spin"></i></h3>
 				</div>
 				<div class="panel-body" style="padding: 0 15px;">
 					<div class="row">
@@ -54,7 +54,6 @@
 							<input class="form-control input-sm createDay" type="text" ng-model="filter.birthday" my-search>
 						</div>
 						<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
-							<a class="search" href="#" ng-click="submitFilter()"><span class="fa fa-search"></span></a>
 						</div>
 					</div>
 					<form ng-submit="createUser(newUser)">
@@ -162,11 +161,6 @@
 							items-per-page="pageSize" boundary-links="true"
 							style="margin-right: 20px;" ng-change="pageChanged()"></uib-pagination>
 					</div>
-				</div>
-			</div>
-			<div id="loading" ng-if="loading == true">
-				<div class="loading-box">
-					<i class="fa fa-spinner fa-spin"></i>
 				</div>
 			</div>
 		</div>

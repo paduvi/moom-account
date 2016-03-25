@@ -13,15 +13,15 @@ public class EmailFilter {
 	private BooleanBuilder builder = new BooleanBuilder();
 
 	public EmailFilter(String id, String username, String password, String retrieveEmail, String phone, Long birthday) {
-		if (id != null)
+		if (id != null && !id.isEmpty())
 			builder.and(QEmail.email.id.like(toAlias(id)));
-		if (username != null)
+		if (username != null && !username.isEmpty())
 			builder.and(QEmail.email.username.like(toAlias(username)));
-		if (password != null)
+		if (password != null && !password.isEmpty())
 			builder.and(QEmail.email.password.like(toAlias(password)));
-		if (retrieveEmail != null)
+		if (retrieveEmail != null && !retrieveEmail.isEmpty())
 			builder.and(QEmail.email.retrieveEmail.like(toAlias(retrieveEmail)));
-		if (phone != null)
+		if (phone != null && !phone.isEmpty())
 			builder.and(QEmail.email.phone.like(toAlias(phone)));
 		if (birthday != null)
 			builder.and(QEmail.email.birthday.eq(birthday));
