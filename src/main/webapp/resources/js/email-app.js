@@ -14,14 +14,15 @@ app.controller("loadData", function($scope, $http, $timeout) {
 
 	var loadData = function() {
 		$scope.loading = true;
-		var birthday = Date.parse($scope.filter.birthday);
-		if(isNaN(birthday)) birthday = $scope.filter.birthday;
+//		var birthday = Date.parse($scope.filter.birthday);
+//		birthday = new Date($scope.filter.birthday).getTime();
+//		if(birthday == NaN && !angular.isNumber(birthday)) birthday = $scope.filter.birthday;
 		var datas = {
 			username : $scope.filter.username,
 			password : $scope.filter.password,
 			email : $scope.filter.email,
 			phone : $scope.filter.phone,
-			birthday: birthday
+			birthday: $scope.filter.birthday
 		};
 		
 		var config2 = {
@@ -32,10 +33,10 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		};
 
 		$scope.loading = true;
-		$http.get('list-test?page=' + $scope.curPage, config2).success(
+		$http.get('/email/list-email?page=' + $scope.curPage, config2).success(
 				function(data) {
 					$scope.accounts = data;
-					$http.get('count-test', config2).success(function(data2) {
+					$http.get('/email/email-count', config2).success(function(data2) {
 						$scope.totalItem = data2;
 					}).finally(function(){
 						$scope.loading = false;
@@ -76,7 +77,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		$scope.formError = null;
 		$scope.formMessage = "Đợi nhé...";
 
-		$http.post("/create-account", newUser, config).success(
+		$http.post("/email/create-account", newUser, config).success(
 				function(data, status, headers, config) {
 					$scope.formMessage = data ? 'Tạo tài khoản thành công!'
 							: null;
@@ -98,7 +99,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		$scope.error = null;
 		$scope.message = "Đợi nhé...";
 
-		$http.post("/del-account", user, config).success(
+		$http.post("/email/del-account", user, config).success(
 				function(data, status, headers, config) {
 					loadData();
 					$scope.message = 'Xóa tài khoản thành công!';
@@ -111,7 +112,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		$scope.error = null;
 		$scope.message = "Đợi nhé...";
 
-		return $http.post('/update-account', val, config).success(
+		return $http.post('/email/update-account', val, config).success(
 				function(data, status, headers, config) {
 					$scope.formMessage = 'Cập nhật tài khoản thành công!';
 				}).error(function(data, status, headers, config) {

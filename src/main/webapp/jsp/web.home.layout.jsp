@@ -42,10 +42,10 @@
 <script src="<c:url value='/resources/js/angular.min.js'/>"></script>
 <script	src="<c:url value='/resources/js/xeditable.js'/>"></script>
 <script type="text/javascript"
- src="resources/js/ui-bootstrap-tpls-0.14.2.min.js"></script>
+ src="<c:url value='/resources/js/ui-bootstrap-tpls-0.14.2.min.js'/>"></script>
 <script
  src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/app.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/email-app.js'/>"></script>
 <style>
 .cell {
 	border: 1px solid #ddd;

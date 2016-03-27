@@ -39,67 +39,8 @@ public class TestController {
 
 	@RequestMapping("/home")
 	public ModelAndView home() {
-		ModelAndView mv = new ModelAndView("web.home");
+		ModelAndView mv = new ModelAndView("web.page");
 		return mv;
 	}
 
-	@RequestMapping(value = "/list-test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Email> listEmail(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "number", required = false) String phone,
-			@RequestParam(value = "birthday", required = false) Long birthday,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
-		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
-	}
-
-	@RequestMapping(value = "/count-test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long countEmail(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "phone", required = false) String phone,
-			@RequestParam(value = "birthday", required = false) Long birthday,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		
-		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
-		return emailDao.count(predicate);
-	}
-
-	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Boolean addUser(@RequestBody Email email) {
-		emailDao.addEmail(email);
-		return true;
-	}
-
-	@RequestMapping(value = "/update-account", method = RequestMethod.POST)
-	public @ResponseBody Boolean updateUser(@RequestBody Email email) {
-		logger.info(email.getUsername());
-		emailDao.updateEmail(email);
-		return true;
-	}
-
-	@RequestMapping(value = "/del-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Boolean delUser(@RequestBody Email email) {
-		logger.info(email.getUsername());
-		emailDao.removeEmail(email);
-		return true;
-	}
-
-	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Email> listEmails(
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		List<Email> list = new LinkedList<>();
-		for (int i = 0; i < 13; i++) {
-			list.add(emailDao.addEmail(new Email("abc" + i, "123" + i, "abc" + i + "@gmail.com")));
-		}
-		return list;
-	}
-
-	@RequestMapping(value = "/test-auth", method = RequestMethod.GET)
-	public String testAuth() {
-		return "index";
-	}
 }
