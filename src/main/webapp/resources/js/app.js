@@ -14,14 +14,16 @@ app.controller("loadData", function($scope, $http, $timeout) {
 
 	var loadData = function() {
 		$scope.loading = true;
+		var birthday = Date.parse($scope.filter.birthday);
+		if(isNaN(birthday)) birthday = $scope.filter.birthday;
 		var datas = {
 			username : $scope.filter.username,
 			password : $scope.filter.password,
 			email : $scope.filter.email,
-			phone : $scope.filter.phone
-		// birthday:$scope.filter.birthday
+			phone : $scope.filter.phone,
+			birthday: birthday
 		};
-
+		
 		var config2 = {
 			params : datas,
 			headers : {
@@ -50,7 +52,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			'email' : '',
 			'phone' : '',
 			'birthday' : ''
-		};
+	};
 	// Instantiate these variables outside the watch
 	var tempFilter = {}, filterTextTimeout;
 	$scope.$watch('filter', function(val) {

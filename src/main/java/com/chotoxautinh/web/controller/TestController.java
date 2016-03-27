@@ -1,5 +1,9 @@
 package com.chotoxautinh.web.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,9 +50,7 @@ public class TestController {
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "birthday", required = false) Long birthday,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		logger.info("user: " + username);
-		logger.info("page: " + pageNumber);
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
 		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
 		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
@@ -60,8 +62,8 @@ public class TestController {
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "birthday", required = false) Long birthday,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		logger.info("page: " + username);
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+		
 		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
 		return emailDao.count(predicate);
 	}
