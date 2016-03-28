@@ -71,6 +71,11 @@ public class EmailController {
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean addUser(@RequestBody Email email) {
+		logger.info("username: " + email.getUsername());
+		logger.info("password: " + email.getPassword());
+		logger.info("email: " + email.getRetrieveEmail());
+		logger.info("phone: " + email.getPhone());
+		logger.info("birthday: " + email.getBirthday());
 		emailDao.addEmail(email);
 		return true;
 	}

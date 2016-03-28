@@ -12,9 +12,6 @@
 <link href="https://getbootstrap.com/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <link
-	href="https://getbootstrap.com/examples/sticky-footer/sticky-footer.css"
-	rel="stylesheet">
-<link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
 	rel="stylesheet">
 <script
@@ -26,8 +23,7 @@
 <script type="text/javascript" src="resources/js/app.js"></script>
 <link href="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/css/xeditable.css" rel="stylesheet">
 <script src="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/js/xeditable.js"></script>
-<script
-	src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://npmcdn.com/draggabilly@2.1/dist/draggabilly.pkgd.min.js"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />

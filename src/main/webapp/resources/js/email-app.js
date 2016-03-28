@@ -14,15 +14,20 @@ app.controller("loadData", function($scope, $http, $timeout) {
 
 	var loadData = function() {
 		$scope.loading = true;
-//		var birthday = Date.parse($scope.filter.birthday);
-//		birthday = new Date($scope.filter.birthday).getTime();
-//		if(birthday == NaN && !angular.isNumber(birthday)) birthday = $scope.filter.birthday;
+
+		var birthday;
+		if(angular.isUndefined($scope.filter.birthday) || $scope.filter.birthday === null || $scope.filter.birthday == "") {
+			birthday = $scope.filter.birthday;
+		} else {
+			birthday = new Date($scope.filter.birthday).getTime();
+		}
+		
 		var datas = {
 			username : $scope.filter.username,
 			password : $scope.filter.password,
 			email : $scope.filter.email,
 			phone : $scope.filter.phone,
-			birthday: $scope.filter.birthday
+			birthday: birthday
 		};
 		
 		var config2 = {
@@ -70,13 +75,19 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	$scope.pageChanged = function() {
 		loadData();
 	};
-
-	$scope.newUser = {};
-
+	
 	$scope.createUser = function(newUser) {
 		$scope.formError = null;
 		$scope.formMessage = "Đợi nhé...";
 
+		newUser = {
+				'username' : $scope.newUser.username,
+				'password' : $scope.newUser.password,
+				'email' : $scope.newUser.email,
+				'phone' : $scope.newUser.phone,
+				'birthday' : new Date($scope.newUser.birthday).getTime()
+		};
+		
 		$http.post("/email/create-account", newUser, config).success(
 				function(data, status, headers, config) {
 					$scope.formMessage = data ? 'Tạo tài khoản thành công!'
@@ -149,9 +160,6 @@ app.run(function(editableOptions, editableThemes) {
 app.directive('mySearch', function() {
 	function link(scope, element, attrs) {
 		jQuery(function() {
-			// jQuery(".tags").autocomplete({
-			// source : scope.userList
-			// });
 			jQuery('.createDay').datepicker({
 				dateFormat : "dd/mm/yy",
 				changeMonth : true,
