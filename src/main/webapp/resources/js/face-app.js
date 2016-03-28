@@ -19,11 +19,11 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		$http.get('/face/list-face?page=' + $scope.curPage, config).success(
 				function(data) {
 					$scope.accounts = data;
-					/*$http.get('/email/email-count', config2).success(function(data2) {
+					$http.get('/face/face-count', config2).success(function(data2) {
 						$scope.totalItem = data2;
 					}).finally(function(){
 						$scope.loading = false;
-					});*/
+					});
 				}).error(function(){
 					$scope.loading = false;
 				});
@@ -31,11 +31,10 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	}
 
 	$scope.filter = {
-			'username' : '',
-			'password' : '',
 			'email' : '',
+			'password' : '',
 			'phone' : '',
-			'birthday' : ''
+			'group' : ''
 	};
 	// Instantiate these variables outside the watch
 	var tempFilter = {}, filterTextTimeout;

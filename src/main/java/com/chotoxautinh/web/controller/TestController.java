@@ -21,6 +21,7 @@ import com.chotoxautinh.server.dao.FaceAccountDao;
 import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.service.EmailFilter;
+import com.chotoxautinh.server.service.FaceAccountFilter;
 import com.mysema.query.types.Predicate;
 
 @Controller
@@ -40,6 +41,28 @@ public class TestController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/list-face", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<FaceAccount> listAccount(@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "number", required = false) String phone,
+			@RequestParam(value = "group", required = false) String group,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+		Predicate predicate = new FaceAccountFilter(id, password, email, phone, group).getPredicate();
+		return faceAccountDao.findFaceAccountsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
+	}
+
+	@RequestMapping(value = "/face-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Long countAccount(@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "number", required = false) String phone,
+			@RequestParam(value = "group", required = false) String group,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+		Predicate predicate = new FaceAccountFilter(id, password, email, phone, group).getPredicate();
+		return faceAccountDao.count(predicate);
+	}
+
 	@RequestMapping(value = "/list-face", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<FaceAccount> listEmail(@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
 		return faceAccountDao.findAllFaceAccounts();
