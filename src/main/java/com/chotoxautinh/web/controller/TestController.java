@@ -1,18 +1,27 @@
 package com.chotoxautinh.web.controller;
 
+import java.text.ParseException;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chotoxautinh.server.dao.FaceAccountDao;
+import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.model.FaceAccount;
+import com.chotoxautinh.server.service.EmailFilter;
+import com.mysema.query.types.Predicate;
 
 @Controller
 @RequestMapping("/face")
@@ -29,6 +38,11 @@ public class TestController {
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.page");
 		return mv;
+	}
+	
+	@RequestMapping(value = "/list-face", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<FaceAccount> listEmail(@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+		return faceAccountDao.findAllFaceAccounts();
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
