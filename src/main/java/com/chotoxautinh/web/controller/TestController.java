@@ -1,6 +1,7 @@
 package com.chotoxautinh.web.controller;
 
 import java.text.ParseException;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.chotoxautinh.server.dao.FaceAccountDao;
 import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.model.FaceAccount;
-import com.chotoxautinh.server.service.EmailFilter;
 import com.chotoxautinh.server.service.FaceAccountFilter;
 import com.mysema.query.types.Predicate;
 
@@ -37,7 +37,7 @@ public class TestController {
 
 	@RequestMapping("/home")
 	public ModelAndView home() {
-		ModelAndView mv = new ModelAndView("web.page");
+		ModelAndView mv = new ModelAndView("web.face");
 		return mv;
 	}
 	
@@ -63,27 +63,32 @@ public class TestController {
 		return faceAccountDao.count(predicate);
 	}
 
-	@RequestMapping(value = "/list-face", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<FaceAccount> listEmail(@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return faceAccountDao.findAllFaceAccounts();
-	}
-
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Boolean addUser(@RequestBody FaceAccount account) {
+	public @ResponseBody Boolean addAccount(@RequestBody FaceAccount account) {
 		faceAccountDao.addFaceAccount(account);
 		return true;
 	}
 
 	@RequestMapping(value = "/update-account", method = RequestMethod.POST)
-	public @ResponseBody Boolean updateUser(@RequestBody FaceAccount account) {
+	public @ResponseBody Boolean updateAccount(@RequestBody FaceAccount account) {
 		faceAccountDao.updateFaceAccount(account);
 		return true;
 	}
 
 	@RequestMapping(value = "/del-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Boolean delUser(@RequestBody FaceAccount account) {
+	public @ResponseBody Boolean delAccount(@RequestBody FaceAccount account) {
 		faceAccountDao.removeFaceAccount(account);;
 		return true;
 	}
 
+	@RequestMapping(value = "/add-new", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<FaceAccount> listEmails(
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
+		List<FaceAccount> list = new LinkedList<>();
+		for (int i = 0; i < 13; i++) {
+			list.add(faceAccountDao.addFaceAccount(new FaceAccount("abc" + i + "@gmail.com", "123ac" + i, "098881232" + i)));
+		}
+		return list;
+	}
+	
 }

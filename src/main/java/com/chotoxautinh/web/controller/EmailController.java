@@ -40,7 +40,7 @@ public class EmailController {
 
 	@RequestMapping("/home")
 	public ModelAndView home() {
-		ModelAndView mv = new ModelAndView("web.home");
+		ModelAndView mv = new ModelAndView("web.email");
 		return mv;
 	}
 
@@ -69,19 +69,19 @@ public class EmailController {
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Boolean addUser(@RequestBody Email email) {
+	public @ResponseBody Boolean addEmail(@RequestBody Email email) {
 		emailDao.addEmail(email);
 		return true;
 	}
 
 	@RequestMapping(value = "/update-account", method = RequestMethod.POST)
-	public @ResponseBody Boolean updateUser(@RequestBody Email email) {
+	public @ResponseBody Boolean updateEmail(@RequestBody Email email) {
 		emailDao.updateEmail(email);
 		return true;
 	}
 
 	@RequestMapping(value = "/del-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Boolean delUser(@RequestBody Email email) {
+	public @ResponseBody Boolean delEmail(@RequestBody Email email) {
 		emailDao.removeEmail(email);
 		return true;
 	}

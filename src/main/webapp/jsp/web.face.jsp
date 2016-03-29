@@ -30,11 +30,11 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr id="snaptarget" class="ui-widget-header">
-												<td align="center"></td>
-												<td class="hidden-xs">1</td>
-												<td>John Doe</td>
-												<td>johndoe@example.com</td>
+											<tr id="snaptarget" class="ui-widget-header" ng-repeat="(key, account) in accounts">
+												<td align="center">{{$index+(curPage-1) * pageSize+1}}</td>
+												<td class="hidden-xs">{{account.email}}</td>
+												<td>{{account.password}}</td>
+												<td>{{account.phone}}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -60,10 +60,10 @@
 								</thead>
 								<tbody>
 									<tr id="draggable">
-										<td align="center"></td>
-										<td class="hidden-xs">1</td>
-										<td>John Doe</td>
-										<td>johndoe@example.com</td>
+										<td align="center">{{$index+(curPage-1) * pageSize+1}}</td>
+										<td class="hidden-xs">{{account.email}}</td>
+										<td>{{account.password}}</td>
+										<td>{{account.phone}}</td>
 									</tr>
 								</tbody>
 							</table>

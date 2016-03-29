@@ -24,6 +24,12 @@ public class FaceAccount {
 	public FaceAccount() {
 	}
 
+	public FaceAccount(String email, String password, String phone) {
+		this.email = email;
+		this.password = password;
+		this.phone = phone;
+	}
+	
 	public String getId() {
 		return id;
 	}
