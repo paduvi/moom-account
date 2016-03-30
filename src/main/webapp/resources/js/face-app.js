@@ -1,4 +1,4 @@
-var app = angular.module("myApp", [ "xeditable", "ui.bootstrap" ]);
+var app = angular.module("faceApp", [ "xeditable", "ui.bootstrap", "ngDraggable" ]);
 
 app.controller("loadData", function($scope, $http, $timeout) {
 	var config = {
@@ -15,26 +15,36 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	var loadData = function() {
 		$scope.loading = true;
 
-		$scope.loading = true;
-		$http.get('/face/list-face?page=' + $scope.curPage, config).success(
-				function(data) {
-					$scope.accounts = data;
-					$http.get('/face/face-count', config2).success(function(data2) {
-						$scope.totalItem = data2;
-					}).finally(function(){
-						$scope.loading = false;
-					});
-				}).error(function(){
+		var datas = {
+			email : $scope.filter.email,
+			password : $scope.filter.password,
+			phone : $scope.filter.phone,
+		};
+			
+		var config2 = {
+			params : datas,
+			headers : {
+				'Accept' : 'application/json'
+			}
+		};
+		
+		$http.get('/face/list-face?page=' + $scope.curPage, config2).success(
+			function(data) {
+				$scope.accounts = data;
+				$http.get('/face/face-count', config2).success(function(data2) {
+					$scope.totalItem = data2;
+				}).finally(function(){
 					$scope.loading = false;
 				});
-
+			}).error(function(){
+				$scope.loading = false;
+		});
 	}
 
 	$scope.filter = {
 			'email' : '',
 			'password' : '',
 			'phone' : '',
-			'group' : ''
 	};
 	// Instantiate these variables outside the watch
 	var tempFilter = {}, filterTextTimeout;
@@ -58,11 +68,9 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		$scope.formMessage = "Đợi nhé...";
 
 		newUser = {
-				'username' : $scope.newUser.username,
-				'password' : $scope.newUser.password,
-				'email' : $scope.newUser.email,
-				'phone' : $scope.newUser.phone,
-				'birthday' : new Date($scope.newUser.birthday).getTime()
+			'email' : $scope.newUser.email,
+			'password' : $scope.newUser.password,
+			'phone' : $scope.newUser.phone,
 		};
 		
 		$http.post("/face/create-account", newUser, config).success(
@@ -107,24 +115,34 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			$scope.formError = 'Không cập nhật được tài khoản!';
 		});
 	};
-
-	$scope.addQuestion = function(val) {
-		if (angular.isUndefined(val.questions) || val.questions === null)
-			val.questions = [];
-		var question = {};
-		val.questions.push(question);
-		$scope.updateUser(val);
-	}
-
-	$scope.removeQuestion = function(val, index) {
-		var r = confirm("Bạn có chắc muốn xoá câu hỏi này?");
-		if (r == false)
-			return;
-
-		val.questions.splice(index, 1);
-		$scope.updateUser(val);
-	}
-
+	
+	$scope.droppedObjects = [];
+	
+	$http.get('/group/list-group', config).success(
+		function(data) {
+			$scope.nAccounts = data;
+		}).error(function(){
+			$scope.loading = false;
+	});
+	
+	$scope.droppedObjects = angular.fromJson($scope.nAccounts);
+	
+	$scope.onDropComplete = function(data, evt){
+        var index = $scope.droppedObjects.indexOf(data);
+        if (index == -1)
+        $scope.droppedObjects.push(data);
+    }
+	
+    $scope.onDragSuccess = function(data, evt){
+        var index = $scope.droppedObjects.indexOf(data);
+        if (index > -1) {
+            $scope.droppedObjects.splice(index, 1);
+        }
+    }
+    
+    var inArray = function(array, obj) {
+        var index = array.indexOf(obj);
+    }
 });
 
 app.run(function(editableOptions, editableThemes) {
@@ -132,22 +150,4 @@ app.run(function(editableOptions, editableThemes) {
 	editableThemes.bs3.buttonsClass = 'btn-sm';
 	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2',
 	// 'default'
-});
-
-app.directive('mySearch', function() {
-	function link(scope, element, attrs) {
-		jQuery(function() {
-			jQuery('.createDay').datepicker({
-				dateFormat : "dd/mm/yy",
-				changeMonth : true,
-				changeYear : true,
-				yearRange : "-100:+0",
-				maxDate : 0
-			});
-		});
-	}
-
-	return {
-		link : link
-	};
 });

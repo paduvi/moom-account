@@ -37,6 +37,7 @@
 <link href="<c:url value='/resources/css/xeditable.css'/>" rel="stylesheet">
 <link rel="stylesheet"
  href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link href="<c:url value='/resources/css/style.css'/>" rel="stylesheet">
 <script src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 <script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
 <script src="<c:url value='/resources/js/angular.min.js'/>"></script>
@@ -46,80 +47,6 @@
 <script
  src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<c:url value='/resources/js/email-app.js'/>"></script>
-<style>
-.cell {
-	border: 1px solid #ddd;
-	padding: 8px;
-	height: 48px;
-}
-
-.header {
-	font-weight: bold;
-	border: 1px solid #ddd;
-	padding: 8px;
-}
-
-.select-box {
-	height: 30px;
-	width: 100%;
-	padding-left: 12%;
-	border-radius: 3px;
-}
-
-.alert-wrapper {
-	position: fixed;
-	bottom: 0;
-	left: 50%;
-	z-index: 9999;
-	transform: translateX(-50%);
-}
-
-.alert-box {
-	color: #555;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	font-family: Tahoma, Geneva, Arial, sans-serif;
-	font-size: 11px;
-	padding: 10px 36px;
-	display: inline-block;
-}
-
-.alert-box span {
-	font-weight: bold;
-	text-transform: uppercase;
-}
-
-.message {
-	background: #90DED7 url('/resources/images/success.png') no-repeat 10px
-		50%;
-	border: 1px solid #53DED8;
-	border-bottom: none;
-}
-
-.error {
-	background: #ffecec url('/resources/images/error.png') no-repeat 10px
-		50%;
-	border: 1px solid #f5aca6;
-	border-bottom: none;
-}
-
-.edit {
-	width: 100%;
-	height: 100%;
-	display: block;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.editable-controls {
-	display: flex !important; 
-}
-
-.editable-wrap {
-	width: 100%;
-}
-</style>
 </head>
 <body ng-app="myApp">
 	<tiles:insertAttribute name="header" />
