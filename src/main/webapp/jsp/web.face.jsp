@@ -16,26 +16,28 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-4 col-sm-4 col-md-4">
-					<div class="panel-group" id="accordion">
+					<div class="panel-group" id="accordion" ng-repeat="(id, group) in groups">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion"
-										href="#collapse1">Nhóm</a>
+										href="#collapse-{{id}}">Nhóm {{group.name}}<span class="badge">{{group.nAccounts}}</span></a>
+										<span class="pull-right">Lần chạy cuối: {{group.lastExecution | date:"dd/MM/yyyy 'lúc' h:mma"}}</span>
 								</h4>
 							</div>
-							<div id="collapse1" class="panel-collapse collapse in" ng-drop="true" ng-drop-success="onDropComplete($data,$event)">
+							<div id="collapse-{{id}}" class="panel-collapse collapse in" ng-drop="true" ng-drop-success="onDropComplete($data, group.id,$event)">
 								<div class="panel-body">
 									<table class="table table-striped table-bordered table-list">
 										<thead>
 											<tr>
-												<th>Email</th>
-												<th>Số điện thoại</th>
+												<th>ID</th>
+												<th>Tên</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr ng-repeat="obj in droppedObjects" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess($data,$event)">
-												<td>{{obj}}</td>
+												<td>{{obj.email}}</td>
+												<td>{{obj.password}}</td>
 											</tr>
 										</tbody>
 									</table>
