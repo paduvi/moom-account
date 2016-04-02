@@ -35,9 +35,9 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="obj in droppedObjects" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess($data,$event)">
-												<td>{{obj.email}}</td>
-												<td>{{obj.password}}</td>
+											<tr ng-repeat="(key, account) in accounts | filter: " ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess($data, $event)">
+												<td>{{account.email}}</td>
+												<td>{{account.password}}</td>
 											</tr>
 										</tbody>
 									</table>
