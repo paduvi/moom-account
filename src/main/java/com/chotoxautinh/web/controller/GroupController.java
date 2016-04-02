@@ -6,7 +6,6 @@
 package com.chotoxautinh.web.controller;
 
 import java.text.ParseException;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chotoxautinh.server.dao.GroupDao;
-import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
 
 @Controller

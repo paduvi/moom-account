@@ -60,16 +60,18 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			'birthday' : ''
 	};
 	// Instantiate these variables outside the watch
-	var tempFilter = {}, filterTextTimeout;
+	var tempFilter = {}, filterTextTimeout, delayTime = 0;
 	$scope.$watch('filter', function(val) {
-		if (filterTextTimeout)
+		if (filterTextTimeout){
 			$timeout.cancel(filterTextTimeout);
+			delayTime = 2000;
+		}
 
 		tempFilter = val;
 		filterTextTimeout = $timeout(function() {
 			$scope.filter = tempFilter;
 			loadData();
-		}, 2000); // delay 2000 ms
+		}, delayTime); // delay 2000 ms
 	}, true);
 
 	$scope.pageChanged = function() {

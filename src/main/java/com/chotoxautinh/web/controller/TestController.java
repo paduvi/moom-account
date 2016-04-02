@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chotoxautinh.server.dao.FaceAccountDao;
-import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.service.FaceAccountFilter;
 import com.mysema.query.types.Predicate;
