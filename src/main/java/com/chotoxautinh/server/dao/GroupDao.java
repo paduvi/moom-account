@@ -15,9 +15,9 @@ import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
 public interface GroupDao {
-	Group addGroup(Group group);
+	boolean addGroup(Group group);
 
-	Group updateGroup(Group group);
+	boolean updateGroup(Group group);
 
 	/**
 	 * Increase number of account in group by 1
@@ -26,7 +26,7 @@ public interface GroupDao {
 	 *            - group index
 	 * @return
 	 */
-	Group incnAccounts(String id);
+	boolean incnAccounts(String id);
 
 	/**
 	 * Decrease number of account in group by 1
@@ -35,11 +35,11 @@ public interface GroupDao {
 	 *            - group index
 	 * @return
 	 */
-	Group decnAccounts(String id);
+	boolean decnAccounts(String id);
 
-	void removeGroup(String id);
+	boolean removeGroup(String id);
 
-	void removeGroup(Group group);
+	boolean removeGroup(Group group);
 
 	Group findGroupById(String id);
 

@@ -3,16 +3,22 @@
  *
  * Mar 23, 2016 - http://chotoxautinh.com/
  */
-package com.chotoxautinh.web.model;
+package com.chotoxautinh.server.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@XmlRootElement
+import com.mysema.query.annotations.QueryEntity;
+
+@QueryEntity
+@Document(collection = "users")
 public class User {
-  
+
 	public final static int STAFF = 0;
 	public final static int ADMIN = 1;
+
+	@Id
+	private String id;
 
 	private String username;
 	private String fullname;
@@ -28,7 +34,14 @@ public class User {
 		this.password = pass;
 	}
 
-	@XmlElement
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -37,7 +50,6 @@ public class User {
 		this.username = username;
 	}
 
-	@XmlElement
 	public String getFullname() {
 		return fullname;
 	}
@@ -46,7 +58,6 @@ public class User {
 		this.fullname = fullname;
 	}
 
-	@XmlElement
 	public String getPassword() {
 		return password;
 	}
@@ -55,7 +66,6 @@ public class User {
 		this.password = password;
 	}
 
-	@XmlElement
 	public int getRole() {
 		return role;
 	}
@@ -65,4 +75,3 @@ public class User {
 	}
 
 }
-

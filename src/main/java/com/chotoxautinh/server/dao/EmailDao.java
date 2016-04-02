@@ -15,13 +15,13 @@ import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
 public interface EmailDao {
-	Email addEmail(Email email);
+	boolean addEmail(Email email);
 
-	Email updateEmail(Email email);
+	boolean updateEmail(Email email);
 	
-	void removeEmail(String id);
+	boolean removeEmail(String id);
 	
-	void removeEmail(Email email);
+	boolean removeEmail(Email email);
 
 	Email findEmailById(String id);
 

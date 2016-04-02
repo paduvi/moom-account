@@ -18,7 +18,6 @@ import com.chotoxautinh.server.dao.GroupDao;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
 import com.chotoxautinh.server.repository.FaceAccountRepository;
-import com.chotoxautinh.server.service.CounterException;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
@@ -43,9 +42,16 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 * .FaceAccount)
 	 */
 	@Override
-	public FaceAccount addFaceAccount(FaceAccount faccount) {
-		faccount.setId(String.valueOf(counterDao.getNextSequence(collectionName)));
-		return repository.save(faccount);
+	public boolean addFaceAccount(FaceAccount faccount) {
+		if (repository.findByEmail(faccount.getEmail()) != null)
+			return false;
+		try {
+			faccount.setId(String.valueOf(counterDao.getNextSequence(collectionName)));
+			repository.save(faccount);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/*
@@ -56,8 +62,13 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 * model.FaceAccount)
 	 */
 	@Override
-	public FaceAccount updateFaceAccount(FaceAccount faccount) {
-		return repository.save(faccount);
+	public boolean updateFaceAccount(FaceAccount faccount) {
+		try {
+			repository.save(faccount);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/*
@@ -67,14 +78,19 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 * com.chotoxautinh.dao.FaceAccountDao#removeFaceAccount(java.lang.String)
 	 */
 	@Override
-	public void removeFaceAccount(String id) {
-		FaceAccount existingFaceAccount = repository.findById(id);
+	public boolean removeFaceAccount(String id) {
+		try {
+			FaceAccount existingFaceAccount = findFaceAccountById(id);
 
-		if (existingFaceAccount == null) {
-			throw new CounterException("Unable to get email for id : " + id);
+			if (existingFaceAccount == null) {
+				return false;
+			}
+			groupDao.decnAccounts(existingFaceAccount.getGroup());
+			repository.delete(existingFaceAccount);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
-		groupDao.decnAccounts(existingFaceAccount.getGroup());
-		repository.delete(existingFaceAccount);
 	}
 
 	/*
@@ -85,9 +101,8 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 * model.FaceAccount)
 	 */
 	@Override
-	public void removeFaceAccount(FaceAccount faccount) {
-		groupDao.decnAccounts(faccount.getGroup());
-		repository.delete(faccount);
+	public boolean removeFaceAccount(FaceAccount faccount) {
+		return removeFaceAccount(faccount.getId());
 	}
 
 	/*
@@ -189,14 +204,11 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 */
 	@Override
 	public boolean addFaceAccountToGroup(FaceAccount faccount, String groupId) {
-		if(faccount.getGroup() != groupId) {
-			faccount.setGroup(groupId);
-			groupDao.incnAccounts(groupId);
-		} else {
-			return false; 
-		}
-		updateFaceAccount(faccount);
-		return true;
+		if (faccount.getGroup().equals(groupId))
+			return false;
+		faccount.setGroup(groupId);
+		groupDao.incnAccounts(groupId);
+		return updateFaceAccount(faccount);
 	}
 
 	/*

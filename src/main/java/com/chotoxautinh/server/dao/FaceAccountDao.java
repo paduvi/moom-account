@@ -16,17 +16,17 @@ import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
 public interface FaceAccountDao {
-	FaceAccount addFaceAccount(FaceAccount faccount);
+	boolean addFaceAccount(FaceAccount faccount);
 
-	FaceAccount updateFaceAccount(FaceAccount faccount);
+	boolean updateFaceAccount(FaceAccount faccount);
 	
 	boolean addFaceAccountToGroup(FaceAccount faccount, String groupId);
 	
 	boolean addFaceAccountToGroup(FaceAccount faccount, Group group);
 	
-	void removeFaceAccount(String id);
+	boolean removeFaceAccount(String id);
 	
-	void removeFaceAccount(FaceAccount faccount);
+	boolean removeFaceAccount(FaceAccount faccount);
 
 	FaceAccount findFaceAccountById(String id);
 
