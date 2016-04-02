@@ -20,9 +20,9 @@ public interface FaceAccountDao {
 
 	FaceAccount updateFaceAccount(FaceAccount faccount);
 	
-	FaceAccount addFaceAccountToGroup(FaceAccount faccount, String groupId);
+	boolean addFaceAccountToGroup(FaceAccount faccount, String groupId);
 	
-	FaceAccount addFaceAccountToGroup(FaceAccount faccount, Group group);
+	boolean addFaceAccountToGroup(FaceAccount faccount, Group group);
 	
 	void removeFaceAccount(String id);
 	

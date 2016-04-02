@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,11 +23,15 @@ import com.chotoxautinh.server.dao.FaceAccountDao;
 import com.chotoxautinh.server.dao.GroupDao;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
+import com.chotoxautinh.server.service.FaceAccountFilter;
+import com.mysema.query.types.Predicate;
 
 @Controller
 @RequestMapping("/group")
 public class GroupController {
 
+	private int PAGE_SIZE = 15;
+	
 	@Autowired
 	private GroupDao groupDao;
 
@@ -42,5 +48,18 @@ public class GroupController {
 			@RequestParam(value = "group", required = false) String groupId) {
 		faceAccountDao.addFaceAccountToGroup(faccount, groupId);
 		return true;
+	}
+	
+	@RequestMapping(value = "/list-face", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<FaceAccount> listAccount(@RequestParam(value = "group", required = false) String group,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+		Predicate predicate = new FaceAccountFilter(group).getPredicate();
+		return faceAccountDao.findFaceAccountsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
+	}
+
+	@RequestMapping(value = "/face-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Long countAccount(@RequestParam(value = "group", required = false) String group) throws ParseException {
+		Predicate predicate = new FaceAccountFilter(group).getPredicate();
+		return faceAccountDao.count(predicate);
 	}
 }

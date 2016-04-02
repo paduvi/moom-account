@@ -177,7 +177,7 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 * chotoxautinh.model.FaceAccount, com.chotoxautinh.model.Group)
 	 */
 	@Override
-	public FaceAccount addFaceAccountToGroup(FaceAccount faccount, Group group) {
+	public boolean addFaceAccountToGroup(FaceAccount faccount, Group group) {
 		return addFaceAccountToGroup(faccount, group.getId());
 	}
 
@@ -188,10 +188,15 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 * chotoxautinh.model.FaceAccount, java.lang.String)
 	 */
 	@Override
-	public FaceAccount addFaceAccountToGroup(FaceAccount faccount, String groupId) {
-		faccount.setGroup(groupId);
-		groupDao.incnAccounts(groupId);
-		return updateFaceAccount(faccount);
+	public boolean addFaceAccountToGroup(FaceAccount faccount, String groupId) {
+		if(faccount.getGroup() != groupId) {
+			faccount.setGroup(groupId);
+			groupDao.incnAccounts(groupId);
+		} else {
+			return false; 
+		}
+		updateFaceAccount(faccount);
+		return true;
 	}
 
 	/*

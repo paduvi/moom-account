@@ -19,6 +19,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			email : $scope.filter.email,
 			password : $scope.filter.password,
 			phone : $scope.filter.phone,
+			group : ''
 		};
 			
 		var config2 = {
@@ -116,7 +117,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		});
 	};
 	
-	$scope.droppedObjects = [];
+//	$scope.droppedObjects = [];
 	
 	$http.get('/group/list-group', config).success(
 		function(data) {
@@ -135,21 +136,40 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	}
 	
 	$scope.onDropComplete = function(data, id, evt){
-        var index = $scope.droppedObjects.indexOf(data);
-        if (index == -1)
-        $scope.droppedObjects.push(data);
+//        var index = $scope.droppedObjects.indexOf(data);
+//        if (index == -1)
+//        $scope.droppedObjects.push(data);
         addToGroup(data, id);
+        loadGroupAccount(id);
     }
 	
-    $scope.onDragSuccess = function(data, evt){
-        var index = $scope.droppedObjects.indexOf(data);
-        if (index > -1) {
-            $scope.droppedObjects.splice(index, 1);
-        }
+    $scope.onDragSuccess = function(data, id,evt){
+//        var index = $scope.droppedObjects.indexOf(data);
+//        if (index > -1) {
+//            $scope.droppedObjects.splice(index, 1);
+//        }
+    	 loadGroupAccount(id);
     }
     
     var inArray = function(array, obj) {
         var index = array.indexOf(obj);
+    }
+    
+    $scope.group1 = [];
+    
+    var loadGroupAccount = function(groupId, index) {
+    	$scope.loading = true;
+    	$http.get('/group/list-face?page=' + $scope.curPage + "&group=" + groupId, config).success(
+    			function(data) {
+    				$scope.group1[index] = data;
+    				$http.get('/group/face-count?group=', config).success(function(data2) {
+    					$scope.totalGroupItem[index] = data2;
+    				}).finally(function(){
+    					$scope.loading = false;
+    				});
+    			}).error(function(){
+    				$scope.loading = false;
+    			});
     }
 });
 
@@ -158,4 +178,12 @@ app.run(function(editableOptions, editableThemes) {
 	editableThemes.bs3.buttonsClass = 'btn-sm';
 	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2',
 	// 'default'
+});
+
+app.directive('myPanel', function() {
+	jQuery(".collapse").on('show.bs.collapse', function() {
+		alert(id);
+		var id = jQuery(this).attr("id");
+//		loadGroupAccount(id, id.split("-")[1]);
+	});		
 });
