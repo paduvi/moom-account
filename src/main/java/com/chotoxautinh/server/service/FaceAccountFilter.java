@@ -34,4 +34,20 @@ public class FaceAccountFilter {
 	private String toAlias(String input) {
 		return "%" + input + "%";
 	}
+	
+	public FaceAccountFilter(String group) {
+		if (group != null && !group.isEmpty())
+			builder.and(QFaceAccount.faceAccount.group.eq(group));
+	}
+	
+	public FaceAccountFilter(String id, String email, String password, String phone) {
+		if (id != null && !id.isEmpty())
+			builder.and(QFaceAccount.faceAccount.id.like(toAlias(id)));
+		if (email != null && !email.isEmpty())
+			builder.and(QFaceAccount.faceAccount.email.like(toAlias(email)));
+		if (password != null && !password.isEmpty())
+			builder.and(QFaceAccount.faceAccount.password.like(toAlias(password)));
+		if (phone != null && !phone.isEmpty())
+			builder.and(QFaceAccount.faceAccount.phone.like(toAlias(phone)));
+	}
 }

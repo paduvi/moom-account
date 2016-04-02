@@ -15,29 +15,29 @@
 					{{formError}}</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-4 col-sm-4 col-md-4">
+				<div class="col-xs-4 col-sm-4 col-md-4" style="overflow-y: scroll; height:1000px">
 					<div class="panel-group" id="accordion" ng-repeat="(id, group) in groups">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordion"
-										href="#collapse-{{id}}">Nhóm {{group.name}}<span class="badge">{{group.nAccounts}}</span></a>
+										href="#collapse-{{id}}">Nhóm {{group.name}} <span class="badge">{{group.nAccounts}}</span></a>
 										<span class="pull-right">Lần chạy cuối: {{group.lastExecution | date:"dd/MM/yyyy 'lúc' h:mma"}}</span>
 								</h4>
 							</div>
-							<div id="collapse-{{id}}" class="panel-collapse collapse in" ng-drop="true" ng-drop-success="onDropComplete($data, group.id,$event)">
+							<div id="collapse-{{id}}" class="panel-collapse collapse" ng-drop="true" ng-drop-success="onDropComplete($data, group.id,$event)" my-panel="loadGroupAccount(group.id, id)">
 								<div class="panel-body">
 									<table class="table table-striped table-bordered table-list">
 										<thead>
 											<tr>
-												<th>ID</th>
+												<th>Email</th>
 												<th>Tên</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="(key, account) in accounts | filter: " ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess($data, $event)">
-												<td>{{account.email}}</td>
-												<td>{{account.password}}</td>
+											<tr ng-repeat="(key, groupAccount) in group1[id]" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess($data, group.id, $event)">
+												<td>{{groupAccount.email}}</td>
+												<td>{{groupAccount.password}}</td>
 											</tr>
 										</tbody>
 									</table>
