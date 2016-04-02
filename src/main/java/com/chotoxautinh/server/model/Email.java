@@ -10,7 +10,6 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.google.gson.annotations.Expose;
 import com.mysema.query.annotations.QueryEntity;
 
 @QueryEntity
@@ -20,7 +19,6 @@ public class Email {
 	@Id
 	private String id;
 
-	@Expose
 	private String username;
 	private String password;
 	private String phone;

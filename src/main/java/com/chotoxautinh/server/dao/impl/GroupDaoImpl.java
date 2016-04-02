@@ -47,10 +47,15 @@ public class GroupDaoImpl implements GroupDao {
 	 * @see com.chotoxautinh.dao.GroupDao#addGroup(com.chotoxautinh.model.Group)
 	 */
 	@Override
-	public Group addGroup(Group group) {
-		group.setId(String.valueOf(counterDao.getNextSequence(collectionName)));
-		group.setLastExecution(System.currentTimeMillis());
-		return repository.save(group);
+	public boolean addGroup(Group group) {
+		try {
+			group.setId(String.valueOf(counterDao.getNextSequence(collectionName)));
+			group.setLastExecution(System.currentTimeMillis());
+			repository.save(group);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/*
@@ -60,9 +65,14 @@ public class GroupDaoImpl implements GroupDao {
 	 * com.chotoxautinh.dao.GroupDao#updateGroup(com.chotoxautinh.model.Group)
 	 */
 	@Override
-	public Group updateGroup(Group group) {
-		group.setLastExecution(System.currentTimeMillis());
-		return repository.save(group);
+	public boolean updateGroup(Group group) {
+		try {
+			group.setLastExecution(System.currentTimeMillis());
+			repository.save(group);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/*
@@ -71,7 +81,7 @@ public class GroupDaoImpl implements GroupDao {
 	 * @see com.chotoxautinh.dao.GroupDao#incnAccounts(java.lang.String)
 	 */
 	@Override
-	public Group incnAccounts(String id) {
+	public boolean incnAccounts(String id) {
 		return changenAccounts(id, 1);
 	}
 
@@ -81,11 +91,11 @@ public class GroupDaoImpl implements GroupDao {
 	 * @see com.chotoxautinh.dao.GroupDao#decnAccounts(java.lang.String)
 	 */
 	@Override
-	public Group decnAccounts(String id) {
+	public boolean decnAccounts(String id) {
 		return changenAccounts(id, -1);
 	}
 
-	private Group changenAccounts(String id, int number) {
+	private boolean changenAccounts(String id, int number) {
 		// get group id
 		Query query = new Query(Criteria.where("_id").is(id));
 
@@ -106,8 +116,9 @@ public class GroupDaoImpl implements GroupDao {
 		// generate.
 		if (group == null) {
 			log.info("Unable to get group document for id : " + id);
+			return false;
 		}
-		return group;
+		return true;
 	}
 
 	/*
@@ -116,13 +127,18 @@ public class GroupDaoImpl implements GroupDao {
 	 * @see com.chotoxautinh.dao.GroupDao#removeGroup(java.lang.String)
 	 */
 	@Override
-	public void removeGroup(String id) {
-		Group existingGroup = repository.findById(id);
+	public boolean removeGroup(String id) {
+		try {
+			Group existingGroup = repository.findById(id);
 
-		if (existingGroup == null) {
-			throw new CounterException("Unable to get group for id : " + id);
+			if (existingGroup == null) {
+				throw new CounterException("Unable to get group for id : " + id);
+			}
+			repository.delete(existingGroup);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
-		repository.delete(existingGroup);
 	}
 
 	/*
@@ -132,8 +148,8 @@ public class GroupDaoImpl implements GroupDao {
 	 * com.chotoxautinh.dao.GroupDao#removeGroup(com.chotoxautinh.model.Group)
 	 */
 	@Override
-	public void removeGroup(Group group) {
-		repository.delete(group);
+	public boolean removeGroup(Group group) {
+		return removeGroup(group.getId());
 	}
 
 	/*
@@ -144,7 +160,8 @@ public class GroupDaoImpl implements GroupDao {
 	@Override
 	public Group findGroupById(String id) {
 		Group group = repository.findById(id);
-		return updateGroup(group);
+		updateGroup(group);
+		return group;
 	}
 
 	/*
@@ -155,7 +172,8 @@ public class GroupDaoImpl implements GroupDao {
 	@Override
 	public Group findGroupByName(String name) {
 		Group group = repository.findByName(name);
-		return updateGroup(group);
+		updateGroup(group);
+		return group;
 	}
 
 	/*
@@ -167,7 +185,8 @@ public class GroupDaoImpl implements GroupDao {
 	@Override
 	public Group findGroup(Predicate predicate) {
 		Group group = repository.findOne(predicate);
-		return updateGroup(group);
+		updateGroup(group);
+		return group;
 	}
 
 	/*

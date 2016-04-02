@@ -14,4 +14,6 @@ public interface FaceAccountRepository
 		extends MongoRepository<FaceAccount, String>, QueryDslPredicateExecutor<FaceAccount> {
 
 	FaceAccount findById(String id);
+	
+	FaceAccount findByEmail(String email);
 }

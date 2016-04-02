@@ -16,7 +16,6 @@ import com.chotoxautinh.server.dao.CounterDao;
 import com.chotoxautinh.server.dao.EmailDao;
 import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.repository.EmailRepository;
-import com.chotoxautinh.server.service.CounterException;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
@@ -31,29 +30,46 @@ public class EmailDaoImpl implements EmailDao {
 	private EmailRepository repository;
 
 	@Override
-	public Email addEmail(Email email) {
-		email.setId(String.valueOf(counterDao.getNextSequence(collectionName)));
-		return repository.save(email);
-	}
-
-	@Override
-	public Email updateEmail(Email email) {
-		return repository.save(email);
-	}
-
-	@Override
-	public void removeEmail(String id) {
-		Email existingEmail = repository.findById(id);
-
-		if (existingEmail == null) {
-			throw new CounterException("Unable to get email for id : " + id);
+	public boolean addEmail(Email email) {
+		try {
+			if (repository.findByUsername(email.getUsername()) != null)
+				return false;
+			email.setId(String.valueOf(counterDao.getNextSequence(collectionName)));
+			repository.save(email);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
-		repository.delete(existingEmail);
 	}
 
 	@Override
-	public void removeEmail(Email email) {
-		repository.delete(email);
+	public boolean updateEmail(Email email) {
+		try {
+			repository.save(email);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean removeEmail(String id) {
+		try {
+			Email existingEmail = findEmailById(id);
+
+			if (existingEmail == null) {
+				return false;
+			}
+			repository.delete(existingEmail);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean removeEmail(Email email) {
+		return removeEmail(email.getId());
 	}
 
 	@Override

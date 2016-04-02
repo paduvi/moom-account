@@ -1,7 +1,6 @@
 package com.chotoxautinh.web.controller;
 
 import java.text.ParseException;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -80,14 +79,4 @@ public class TestController {
 		return true;
 	}
 
-	@RequestMapping(value = "/add-new", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<FaceAccount> listEmails(
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) {
-		List<FaceAccount> list = new LinkedList<>();
-		for (int i = 0; i < 13; i++) {
-			list.add(faceAccountDao.addFaceAccount(new FaceAccount("abc" + i + "@gmail.com", "123ac" + i, "098881232" + i)));
-		}
-		return list;
-	}
-	
 }

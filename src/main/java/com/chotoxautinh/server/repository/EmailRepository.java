@@ -13,4 +13,6 @@ import com.chotoxautinh.server.model.Email;
 public interface EmailRepository extends MongoRepository<Email, String>, QueryDslPredicateExecutor<Email> {
 
 	Email findById(String id);
+	
+	Email findByUsername(String username);
 }
