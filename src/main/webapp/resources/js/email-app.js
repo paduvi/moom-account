@@ -11,27 +11,20 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	$scope.curPage = 1;
 	$scope.pageSize = 15;
 	$scope.numPages = 10;
-
+	
+	$scope.filter = {
+			'username' : '',
+			'password' : '',
+			'email' : '',
+			'phone' : '',
+			'birthday' : ''
+	};
+	
 	var loadData = function() {
 		$scope.loading = true;
 
-		var birthday;
-		if(angular.isUndefined($scope.filter.birthday) || $scope.filter.birthday === null || $scope.filter.birthday == "") {
-			birthday = $scope.filter.birthday;
-		} else {
-			birthday = new Date($scope.filter.birthday).getTime();
-		}
-		
-		var datas = {
-			username : $scope.filter.username,
-			password : $scope.filter.password,
-			email : $scope.filter.email,
-			phone : $scope.filter.phone,
-			birthday: birthday
-		};
-		
 		var config2 = {
-			params : datas,
+			params : $scope.filter,
 			headers : {
 				'Accept' : 'application/json'
 			}
@@ -52,45 +45,31 @@ app.controller("loadData", function($scope, $http, $timeout) {
 
 	}
 
-	$scope.filter = {
-			'username' : '',
-			'password' : '',
-			'email' : '',
-			'phone' : '',
-			'birthday' : ''
-	};
 	// Instantiate these variables outside the watch
 	var tempFilter = {}, filterTextTimeout, delayTime = 0;
 	$scope.$watch('filter', function(val) {
 		if (filterTextTimeout){
 			$timeout.cancel(filterTextTimeout);
-			delayTime = 2000;
+			delayTime = 1000;
 		}
 
+		$scope.loading = true;
 		tempFilter = val;
 		filterTextTimeout = $timeout(function() {
 			$scope.filter = tempFilter;
 			loadData();
-		}, delayTime); // delay 2000 ms
+		}, delayTime); // delay 1000 ms
 	}, true);
 
 	$scope.pageChanged = function() {
 		loadData();
 	};
 	
-	$scope.createUser = function(newUser) {
+	$scope.createUser = function() {
 		$scope.formError = null;
 		$scope.formMessage = "Đợi nhé...";
 
-		newUser = {
-				'username' : $scope.newUser.username,
-				'password' : $scope.newUser.password,
-				'email' : $scope.newUser.email,
-				'phone' : $scope.newUser.phone,
-				'birthday' : new Date($scope.newUser.birthday).getTime()
-		};
-		
-		$http.post("/email/create-account", newUser, config).success(
+		$http.post("/email/create-account", $scope.newUser, config).success(
 				function(data, status, headers, config) {
 					$scope.formMessage = data ? 'Tạo tài khoản thành công!'
 							: null;
@@ -124,7 +103,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	$scope.updateUser = function(val) {
 		$scope.error = null;
 		$scope.message = "Đợi nhé...";
-
+		
 		return $http.post('/email/update-account', val, config).success(
 				function(data, status, headers, config) {
 					$scope.formMessage = 'Cập nhật tài khoản thành công!';
@@ -163,7 +142,7 @@ app.directive('mySearch', function() {
 	function link(scope, element, attrs) {
 		jQuery(function() {
 			jQuery('.createDay').datepicker({
-				dateFormat : "dd/mm/yy",
+				dateFormat : "dd-mm-yy",
 				changeMonth : true,
 				changeYear : true,
 				yearRange : "-100:+0",

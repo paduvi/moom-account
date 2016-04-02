@@ -30,7 +30,8 @@ import com.mysema.query.types.Predicate;
 @Component
 public class GroupDaoImpl implements GroupDao {
 
-	static Logger log = LoggerFactory.getLogger(GroupDaoImpl.class);
+	static Logger logger = LoggerFactory.getLogger(GroupDaoImpl.class);
+	
 	public static final String collectionName = "groups";
 	@Autowired
 	private CounterDao counterDao;
@@ -54,6 +55,7 @@ public class GroupDaoImpl implements GroupDao {
 			repository.save(group);
 			return true;
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return false;
 		}
 	}
@@ -71,6 +73,7 @@ public class GroupDaoImpl implements GroupDao {
 			repository.save(group);
 			return true;
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return false;
 		}
 	}
@@ -115,7 +118,7 @@ public class GroupDaoImpl implements GroupDao {
 		// optional, just a way to tell user when the sequence id is failed to
 		// generate.
 		if (group == null) {
-			log.info("Unable to get group document for id : " + id);
+			logger.error("Unable to get group document for id : " + id);
 			return false;
 		}
 		return true;
@@ -137,6 +140,7 @@ public class GroupDaoImpl implements GroupDao {
 			repository.delete(existingGroup);
 			return true;
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return false;
 		}
 	}

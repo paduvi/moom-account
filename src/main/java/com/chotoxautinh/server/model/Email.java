@@ -23,7 +23,7 @@ public class Email {
 	private String password;
 	private String phone;
 	private String retrieveEmail;
-	private Long birthday;
+	private String birthday;
 	private List<SecurityQuestion> questions;
 
 	public Email() {
@@ -89,11 +89,11 @@ public class Email {
 		this.questions = questions;
 	}
 
-	public Long getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Long birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	

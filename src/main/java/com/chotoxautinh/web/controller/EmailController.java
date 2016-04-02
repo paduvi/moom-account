@@ -50,7 +50,7 @@ public class EmailController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "number", required = false) String phone,
-			@RequestParam(value = "birthday", required = false) Long birthday,
+			@RequestParam(value = "birthday", required = false) String birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
 		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
 		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
@@ -62,7 +62,7 @@ public class EmailController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "phone", required = false) String phone,
-			@RequestParam(value = "birthday", required = false) Long birthday,
+			@RequestParam(value = "birthday", required = false) String birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
 		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
 		return emailDao.count(predicate);
@@ -70,20 +70,17 @@ public class EmailController {
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean addEmail(@RequestBody Email email) {
-		emailDao.addEmail(email);
-		return true;
+		return emailDao.addEmail(email);
 	}
 
 	@RequestMapping(value = "/update-account", method = RequestMethod.POST)
 	public @ResponseBody Boolean updateEmail(@RequestBody Email email) {
-		emailDao.updateEmail(email);
-		return true;
+		return emailDao.updateEmail(email);
 	}
 
 	@RequestMapping(value = "/del-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean delEmail(@RequestBody Email email) {
-		emailDao.removeEmail(email);
-		return true;
+		return emailDao.removeEmail(email);
 	}
 	
 }

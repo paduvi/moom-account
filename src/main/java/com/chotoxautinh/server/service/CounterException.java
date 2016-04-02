@@ -1,11 +1,10 @@
-package com.chotoxautinh.server.service;
-
 /**
  * @author chotoxautinh
  *
- * http://chotoxautinh.com/
- * Mar 23, 2016
+ * Apr 2, 2016 - http://chotoxautinh.com/
  */
+package com.chotoxautinh.server.service;
+
 public class CounterException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
@@ -35,3 +34,4 @@ public class CounterException extends RuntimeException {
 	}
 
 }
+

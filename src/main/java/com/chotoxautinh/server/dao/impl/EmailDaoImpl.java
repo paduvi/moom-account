@@ -7,6 +7,8 @@ package com.chotoxautinh.server.dao.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,11 +18,14 @@ import com.chotoxautinh.server.dao.CounterDao;
 import com.chotoxautinh.server.dao.EmailDao;
 import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.repository.EmailRepository;
+import com.chotoxautinh.server.util.StringUtils;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
 @Component
 public class EmailDaoImpl implements EmailDao {
+
+	static Logger logger = LoggerFactory.getLogger(EmailDaoImpl.class);
 
 	public static final String collectionName = "emails";
 	@Autowired
@@ -32,12 +37,18 @@ public class EmailDaoImpl implements EmailDao {
 	@Override
 	public boolean addEmail(Email email) {
 		try {
-			if (repository.findByUsername(email.getUsername()) != null)
+			if (repository.findByUsername(email.getUsername()) != null) {
+				logger.error("Duplicate username: " + email.getUsername());
 				return false;
+			}
 			email.setId(String.valueOf(counterDao.getNextSequence(collectionName)));
+			if (email.getBirthday() != null && !email.getBirthday().isEmpty()
+					&& !StringUtils.isValidFormat(email.getBirthday()))
+				return false;
 			repository.save(email);
 			return true;
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return false;
 		}
 	}
@@ -45,9 +56,13 @@ public class EmailDaoImpl implements EmailDao {
 	@Override
 	public boolean updateEmail(Email email) {
 		try {
+			if (email.getBirthday() != null && !email.getBirthday().isEmpty()
+					&& !StringUtils.isValidFormat(email.getBirthday()))
+				return false;
 			repository.save(email);
 			return true;
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return false;
 		}
 	}
@@ -58,11 +73,13 @@ public class EmailDaoImpl implements EmailDao {
 			Email existingEmail = findEmailById(id);
 
 			if (existingEmail == null) {
+				logger.error("Email not existed");
 				return false;
 			}
 			repository.delete(existingEmail);
 			return true;
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return false;
 		}
 	}

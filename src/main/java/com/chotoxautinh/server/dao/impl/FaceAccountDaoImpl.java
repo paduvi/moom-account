@@ -7,6 +7,8 @@ package com.chotoxautinh.server.dao.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,8 @@ import com.mysema.query.types.Predicate;
 
 @Component
 public class FaceAccountDaoImpl implements FaceAccountDao {
+
+	static Logger logger = LoggerFactory.getLogger(FaceAccountDaoImpl.class);
 
 	public static final String collectionName = "faccounts";
 	@Autowired
@@ -43,13 +47,16 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 */
 	@Override
 	public boolean addFaceAccount(FaceAccount faccount) {
-		if (repository.findByEmail(faccount.getEmail()) != null)
+		if (repository.findByEmail(faccount.getEmail()) != null) {
+			logger.error("Duplicate Email: " + faccount.getEmail());
 			return false;
+		}
 		try {
 			faccount.setId(String.valueOf(counterDao.getNextSequence(collectionName)));
 			repository.save(faccount);
 			return true;
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return false;
 		}
 	}
@@ -67,6 +74,7 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 			repository.save(faccount);
 			return true;
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return false;
 		}
 	}
@@ -83,12 +91,14 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 			FaceAccount existingFaceAccount = findFaceAccountById(id);
 
 			if (existingFaceAccount == null) {
+				logger.error("Account not existed");
 				return false;
 			}
 			groupDao.decnAccounts(existingFaceAccount.getGroup());
 			repository.delete(existingFaceAccount);
 			return true;
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return false;
 		}
 	}

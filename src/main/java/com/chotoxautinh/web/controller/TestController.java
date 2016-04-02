@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.chotoxautinh.server.dao.EmailDao;
 import com.chotoxautinh.server.dao.FaceAccountDao;
+import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.service.FaceAccountFilter;
 import com.mysema.query.types.Predicate;
@@ -33,12 +35,15 @@ public class TestController {
 	@Autowired
 	private FaceAccountDao faceAccountDao;
 
+	@Autowired
+	private EmailDao emailDao;
+
 	@RequestMapping("/home")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.face");
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/list-face", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<FaceAccount> listAccount(@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "email", required = false) String email,
@@ -47,7 +52,8 @@ public class TestController {
 			@RequestParam(value = "group", required = false) String group,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
 		Predicate predicate = new FaceAccountFilter(id, password, email, phone, group).getPredicate();
-		return faceAccountDao.findFaceAccountsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
+		return faceAccountDao.findFaceAccountsByPage(predicate,
+				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
 
 	@RequestMapping(value = "/face-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,6 +82,15 @@ public class TestController {
 	@RequestMapping(value = "/del-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean delAccount(@RequestBody FaceAccount account) {
 		faceAccountDao.removeFaceAccount(account);
+		return true;
+	}
+
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public @ResponseBody Boolean test() {
+		for (int i = 0; i < 20; i++) {
+			Email email = new Email("abc" + i, "" + i + i + i);
+			emailDao.addEmail(email);
+		}
 		return true;
 	}
 

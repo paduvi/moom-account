@@ -105,8 +105,8 @@
 								onaftersave="updateUser(account)" e-style="width: 100%">{{account.phone}}</a>
 						</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<a class="edit" href="#" editable-date="account.birthday | date : 'dd/MM/yyyy'"
-								onaftersave="updateUser(account)" e-style="width: 100%">{{account.birthday | date : 'dd/MM/yyyy'}}</a>
+							<a class="edit" href="#" e-placeholder="dd-mm-yyyy" editable-text="account.birthday"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.birthday}}</a>
 						</div>
 						<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
 							<a data-toggle="modal" data-target="#userInfo-{{key}}"
