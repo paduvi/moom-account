@@ -120,17 +120,25 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	
 	$http.get('/group/list-group', config).success(
 		function(data) {
-			$scope.nAccounts = data;
+			$scope.groups = data;
 		}).error(function(){
 			$scope.loading = false;
 	});
 	
-	$scope.droppedObjects = angular.fromJson($scope.nAccounts);
+	var addToGroup = function(val, groupId) {
+		$http.post('/group/add-to-group?group=' + groupId, val, config).success(
+			function(data) {
+				loadData();
+			}).error(function(){
+				$scope.loading = false;
+			});
+	}
 	
-	$scope.onDropComplete = function(data, evt){
+	$scope.onDropComplete = function(data, id, evt){
         var index = $scope.droppedObjects.indexOf(data);
         if (index == -1)
         $scope.droppedObjects.push(data);
+        addToGroup(data, id);
     }
 	
     $scope.onDragSuccess = function(data, evt){

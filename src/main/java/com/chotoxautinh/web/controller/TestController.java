@@ -76,7 +76,7 @@ public class TestController {
 
 	@RequestMapping(value = "/del-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean delAccount(@RequestBody FaceAccount account) {
-		faceAccountDao.removeFaceAccount(account);;
+		faceAccountDao.removeFaceAccount(account);
 		return true;
 	}
 
