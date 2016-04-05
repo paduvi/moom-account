@@ -30,4 +30,10 @@ public class UserController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping("/")
+	public ModelAndView home() {
+		ModelAndView mv = new ModelAndView("web.user");
+		return mv;
+	}
 }

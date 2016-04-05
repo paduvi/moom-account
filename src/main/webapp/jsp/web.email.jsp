@@ -17,7 +17,7 @@
 			</div>
 			<div class="panel panel-default panel-table">
 				<div class="panel-heading">
-					<h3 class="panel-title">Tài khoản Facebook <i ng-if="loading == true" class="fa fa-spinner fa-spin"></i></h3>
+					<h3 class="panel-title">Quản lý mail <i ng-if="loading == true" class="fa fa-spinner fa-spin"></i></h3>
 				</div>
 				<div class="panel-body" style="padding: 0 15px;">
 					<div class="row">

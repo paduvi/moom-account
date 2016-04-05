@@ -38,7 +38,7 @@ public class EmailController {
 	@Autowired
 	private EmailDao emailDao;
 
-	@RequestMapping("/home")
+	@RequestMapping("/")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.email");
 		return mv;

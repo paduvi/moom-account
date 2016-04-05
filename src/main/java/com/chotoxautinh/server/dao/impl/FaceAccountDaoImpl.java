@@ -214,7 +214,7 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 */
 	@Override
 	public boolean addFaceAccountToGroup(FaceAccount faccount, String groupId) {
-		if (faccount.getGroup().equals(groupId))
+		if (faccount.getGroup() != null && faccount.getGroup().equals(groupId))
 			return false;
 		faccount.setGroup(groupId);
 		groupDao.incnAccounts(groupId);

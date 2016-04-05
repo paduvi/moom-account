@@ -88,25 +88,21 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		if (r == false)
 			return;
 
-		$scope.error = null;
-		$scope.message = "Đợi nhé...";
-
 		$http.post("/email/del-account", user, config).success(
 				function(data, status, headers, config) {
 					loadData();
-					$scope.message = 'Xóa tài khoản thành công!';
+					if(data) $scope.formMessage = 'Xóa tài khoản thành công!';
+					else $scope.formError = 'Có lỗi xảy ra!';
 				}).error(function(data, status, headers, config) {
-			$scope.error = "Có lỗi xảy ra!";
+			$scope.formError = "Có lỗi xảy ra!";
 		});
 	};
 
 	$scope.updateUser = function(val) {
-		$scope.error = null;
-		$scope.message = "Đợi nhé...";
-		
 		return $http.post('/email/update-account', val, config).success(
 				function(data, status, headers, config) {
-					$scope.formMessage = 'Cập nhật tài khoản thành công!';
+					if(data) $scope.formMessage = 'Cập nhật tài khoản thành công!';
+					else $scope.formError = 'Không cập nhật được tài khoản!';
 				}).error(function(data, status, headers, config) {
 			$scope.formError = 'Không cập nhật được tài khoản!';
 		});

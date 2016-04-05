@@ -24,6 +24,7 @@ import com.chotoxautinh.server.dao.GroupDao;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
 import com.chotoxautinh.server.service.FaceAccountFilter;
+import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
 @Controller
@@ -46,8 +47,7 @@ public class GroupController {
 	@RequestMapping(value = "/add-to-group", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean addToGroup(@RequestBody FaceAccount faccount,
 			@RequestParam(value = "group", required = false) String groupId) {
-		faceAccountDao.addFaceAccountToGroup(faccount, groupId);
-		return true;
+		return faceAccountDao.addFaceAccountToGroup(faccount, groupId);
 	}
 	
 	@RequestMapping(value = "/list-face", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

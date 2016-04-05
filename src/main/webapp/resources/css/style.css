@@ -70,3 +70,15 @@
 .editable-wrap {
 	width: 100%;
 }
+
+.panel {
+	border-radius: 0px !important;
+}
+
+.panel-heading:hover {
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+	box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}

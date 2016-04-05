@@ -38,7 +38,7 @@ public class TestController {
 	@Autowired
 	private EmailDao emailDao;
 
-	@RequestMapping("/home")
+	@RequestMapping("/")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.face");
 		return mv;
@@ -50,8 +50,8 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new FaceAccountFilter(id, password, email, phone).getPredicate();
-		return faceAccountDao.findFaceAccountsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
+		Predicate predicate = new FaceAccountFilter(id, email, password, phone).getPredicate();
+		return faceAccountDao.findFaceAccountsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
 	}
 
 	@RequestMapping(value = "/face-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,7 +60,7 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new FaceAccountFilter(id, password, email, phone).getPredicate();
+		Predicate predicate = new FaceAccountFilter(id, email, password, phone).getPredicate();
 		return faceAccountDao.count(predicate);
 	}
 
