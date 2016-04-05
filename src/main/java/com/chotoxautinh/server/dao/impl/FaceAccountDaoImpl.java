@@ -20,6 +20,7 @@ import com.chotoxautinh.server.dao.GroupDao;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
 import com.chotoxautinh.server.repository.FaceAccountRepository;
+import com.google.common.collect.Lists;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
@@ -156,8 +157,8 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 * types.Predicate)
 	 */
 	@Override
-	public Iterable<FaceAccount> findAllFaceAccounts(Predicate predicate) {
-		return repository.findAll(predicate);
+	public List<FaceAccount> findAllFaceAccounts(Predicate predicate) {
+		return Lists.newLinkedList(repository.findAll(predicate));
 	}
 
 	/*
@@ -168,8 +169,8 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 * types.Predicate, com.mysema.query.types.OrderSpecifier[])
 	 */
 	@Override
-	public Iterable<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders) {
-		return repository.findAll(predicate, orders);
+	public List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders) {
+		return Lists.newLinkedList(repository.findAll(predicate, orders));
 	}
 
 	/*

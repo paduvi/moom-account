@@ -32,6 +32,7 @@ public class CustomApplicationLoaderListener implements ApplicationListener<Cont
 		insertCounterDocIfNotExist("emails");
 		insertCounterDocIfNotExist("faccounts");
 		insertCounterDocIfNotExist("groups");
+		insertCounterDocIfNotExist("users");
 	}
 
 	private void insertCounterDocIfNotExist(String key) {

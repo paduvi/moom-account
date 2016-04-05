@@ -29,9 +29,9 @@ public interface EmailDao {
 
 	List<Email> findAllEmails();
 	
-	Iterable<Email> findAllEmails(Predicate predicate);
+	List<Email> findAllEmails(Predicate predicate);
 	
-	Iterable<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders);
+	List<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders);
 	
 	Page<Email> findEmailsByPage(Pageable page);
 

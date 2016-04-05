@@ -24,6 +24,7 @@ import com.chotoxautinh.server.dao.GroupDao;
 import com.chotoxautinh.server.model.Group;
 import com.chotoxautinh.server.repository.GroupRepository;
 import com.chotoxautinh.server.service.CounterException;
+import com.google.common.collect.Lists;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
@@ -210,8 +211,8 @@ public class GroupDaoImpl implements GroupDao {
 	 * Predicate)
 	 */
 	@Override
-	public Iterable<Group> findAllGroups(Predicate predicate) {
-		return repository.findAll(predicate);
+	public List<Group> findAllGroups(Predicate predicate) {
+		return Lists.newLinkedList(repository.findAll(predicate));
 	}
 
 	/*
@@ -221,8 +222,8 @@ public class GroupDaoImpl implements GroupDao {
 	 * Predicate, com.mysema.query.types.OrderSpecifier[])
 	 */
 	@Override
-	public Iterable<Group> findAllGroups(Predicate predicate, OrderSpecifier<?>... orders) {
-		return repository.findAll(predicate, orders);
+	public List<Group> findAllGroups(Predicate predicate, OrderSpecifier<?>... orders) {
+		return Lists.newLinkedList(repository.findAll(predicate, orders));
 	}
 
 	/*

@@ -34,9 +34,9 @@ public interface FaceAccountDao {
 
 	List<FaceAccount> findAllFaceAccounts();
 	
-	Iterable<FaceAccount> findAllFaceAccounts(Predicate predicate);
+	List<FaceAccount> findAllFaceAccounts(Predicate predicate);
 	
-	Iterable<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders);
+	List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders);
 	
 	Page<FaceAccount> findFaceAccountsByPage(Pageable page);
 

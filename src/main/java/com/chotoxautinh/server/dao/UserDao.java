@@ -31,9 +31,9 @@ public interface UserDao {
 	
 	List<User> findAllUsers();
 	
-	Iterable<User> findAllUsers(Predicate predicate);
+	List<User> findAllUsers(Predicate predicate);
 	
-	Iterable<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders);
+	List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders);
 	
 	Page<User> findUsersByPage(Pageable page);
 

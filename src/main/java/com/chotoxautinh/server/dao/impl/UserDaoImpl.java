@@ -16,6 +16,7 @@ import com.chotoxautinh.server.dao.CounterDao;
 import com.chotoxautinh.server.dao.UserDao;
 import com.chotoxautinh.server.model.User;
 import com.chotoxautinh.server.repository.UserRepository;
+import com.google.common.collect.Lists;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
@@ -120,16 +121,16 @@ public class UserDaoImpl implements UserDao{
 	 * @see com.chotoxautinh.server.dao.UserDao#findAllUsers(com.mysema.query.types.Predicate)
 	 */
 	@Override
-	public Iterable<User> findAllUsers(Predicate predicate) {
-		return repository.findAll(predicate);
+	public List<User> findAllUsers(Predicate predicate) {
+		return Lists.newLinkedList(repository.findAll(predicate));
 	}
 
 	/* (non-Javadoc)
 	 * @see com.chotoxautinh.server.dao.UserDao#findAllUsers(com.mysema.query.types.Predicate, com.mysema.query.types.OrderSpecifier[])
 	 */
 	@Override
-	public Iterable<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders) {
-		return repository.findAll(predicate, orders);
+	public List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders) {
+		return Lists.newLinkedList(repository.findAll(predicate, orders));
 	}
 
 	/* (non-Javadoc)
