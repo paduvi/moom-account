@@ -17,7 +17,10 @@
 			</div>
 			<div class="panel panel-default panel-table">
 				<div class="panel-heading">
-					<h3 class="panel-title">Quản lý mail <i ng-if="loading == true" class="fa fa-spinner fa-spin"></i></h3>
+					<h3 class="panel-title">
+						Quản lý mail <i ng-if="loading == true"
+							class="fa fa-spinner fa-spin"></i>
+					</h3>
 				</div>
 				<div class="panel-body" style="padding: 0 15px;">
 					<div class="row">
@@ -28,7 +31,8 @@
 							minh</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 header">Số điện thoại</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 header">Ngày sinh</div>
-						<div class="col-xs-1 col-md-1 col-sm-1 header" style="text-align:center">
+						<div class="col-xs-1 col-md-1 col-sm-1 header"
+							style="text-align: center">
 							<span class="fa fa-align-justify"></span>
 						</div>
 					</div>
@@ -51,7 +55,8 @@
 								ng-model="filter.phone">
 						</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<input class="form-control input-sm createDay" type="text" ng-model="filter.birthday" my-search>
+							<input class="form-control input-sm createDay" type="text"
+								ng-model="filter.birthday" my-search>
 						</div>
 						<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
 						</div>
@@ -72,20 +77,20 @@
 									ng-model="newUser.retrieveEmail">
 							</div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" type="text" ng-model="newUser.phone">
+								<input class="form-control input-sm" type="text"
+									ng-model="newUser.phone">
 							</div>
 							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm createDay" type="text" ng-model="newUser.birthday" my-search>
+								<input class="form-control input-sm createDay" type="text"
+									ng-model="newUser.birthday" my-search>
 							</div>
-							<div class="col-xs-1 col-md-1 col-sm-1 cell"
-								align="center">
+							<div class="col-xs-1 col-md-1 col-sm-1 cell" style="text-align: center">
 								<button type="submit" class="btn btn-sm btn-success"
 									style="margin: auto">Thêm mới</button>
 							</div>
 						</div>
 					</form>
-					<div class="row"
-						ng-repeat="(key, account) in accounts">
+					<div class="row" ng-repeat="(key, account) in accounts">
 						<div class="col-xs-1 col-md-1 col-sm-1 cell">{{$index+(curPage-1)
 							* pageSize+1}}</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 cell">
@@ -105,7 +110,8 @@
 								onaftersave="updateUser(account)" e-style="width: 100%">{{account.phone}}</a>
 						</div>
 						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<a class="edit" href="#" e-placeholder="dd-mm-yyyy" editable-text="account.birthday"
+							<a class="edit" href="#" e-placeholder="dd-mm-yyyy"
+								editable-text="account.birthday"
 								onaftersave="updateUser(account)" e-style="width: 100%">{{account.birthday}}</a>
 						</div>
 						<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
@@ -123,22 +129,22 @@
 									</div>
 									<div class="modal-body">
 										<button class="btn btn-default"
-											ng-click="addQuestion(account)">
+											ng-click="addQuestion(account)" style="margin-bottom:5px;">
 											<i class="fa fa-2 fa-plus"></i>
 										</button>
 										<div ng-repeat="(index, q) in account.questions">
 											<button class="btn btn-default"
 												ng-click="removeQuestion(account, index)">
 												<i class="fa fa-2 fa-minus"></i>
-											</button>
-											
+											</button><br>
+
 											<span>Câu hỏi:</span>
-											<div style="width:100%; height: 34px">
+											<div style="width: 100%; height: 34px">
 												<a class="edit" href="#" editable-text="q.question"
 													onaftersave="updateUser(account)" e-style="width: 100%">{{q.question}}</a>
 											</div>
 											<span>Câu trả lời:</span>
-											<div style="width:100%; height: 34px">
+											<div style="width: 100%; height: 34px">
 												<a class="edit" href="#" editable-text="q.answer"
 													onaftersave="updateUser(account)" e-style="width: 100%">{{q.answer}}</a>
 											</div>
@@ -164,6 +170,7 @@
 				</div>
 			</div>
 		</div>
-
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/email-app.js'/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

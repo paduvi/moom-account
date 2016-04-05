@@ -5,7 +5,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%><%@ page
 	contentType="text/html;charset=UTF-8"%>
 
-<tiles:insertDefinition name="pageTemplate">
+<tiles:insertDefinition name="homeTemplate">
 	<tiles:putAttribute name="body">
 		<div class="container" style="width: 100%" ng-controller="loadData">
 			<div class="alert-wrapper fade in">
@@ -38,32 +38,32 @@
 								<tr>
 									<td></td>
 									<td><input class="form-control input-sm" type="text"
-										ng-model="filter.email"></td>
+										ng-model="filter.username"></td>
 									<td><input class="form-control input-sm" type="text"
 										ng-model="filter.password"></td>
 									<td><input class="form-control input-sm" type="text"
-										ng-model="filter.phone"></td>
+										ng-model="filter.fullname"></td>
 									<td></td>
 								</tr>
 								<tr>
 									<form ng-submit="createUser(newUser)">
 										<td></td>
 										<td><input class="form-control input-sm" type="text"
-											ng-model="newUser.email"></td>
+											ng-model="newUser.username"></td>
 										<td><input class="form-control input-sm" type="text"
 											ng-model="newUser.password"></td>
 										<td><input class="form-control input-sm" type="text"
-											ng-model="newUser.phone"></td>
-										<td><button type="submit" class="btn btn-sm btn-success"
+											ng-model="newUser.fullname"></td>
+										<td style="text-align: center"><button type="submit" class="btn btn-sm btn-success"
 												style="margin: auto">Thêm mới</button></td>
 									</form>
 								</tr>
 								<tr ng-repeat="(key, account) in accounts" ng-drag="true"
 									ng-drag-data="account" data-allow-transform="true">
 									<td align="center">{{$index+(curPage-1) * pageSize+1}}</td>
-									<td>{{account.email}}</td>
+									<td>{{account.username}}</td>
 									<td>{{account.password}}</td>
-									<td>{{account.phone}}</td>
+									<td>{{account.fullname}}</td>
 									<td><a ng-click="delUser(account)" class="btn btn-danger"><i
 											class="fa fa-2 fa-trash"></i></a></td>
 								</tr>
@@ -83,5 +83,7 @@
 
 			</div>
 		</div>
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/user-app.js'/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
