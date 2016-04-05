@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 
 import com.chotoxautinh.server.dao.GroupDao;
 import com.chotoxautinh.server.model.Group;
@@ -24,6 +26,7 @@ public class FaceAccountFilter {
 	@Autowired
 	private GroupDao groupDao;
 
+	private static final int LATEST = -3;
 	private static final int NONE = -2;
 	private static final int HAVE = -1;
 
@@ -39,6 +42,13 @@ public class FaceAccountFilter {
 		if (group != null) {
 			List<String> allGroupId = groupDao.findAllGroups().stream().map(Group::getId).collect(Collectors.toList());
 			switch (group) {
+			case LATEST:
+				List<Group> groupPage = groupDao
+						.findGroupsByPage(new PageRequest(0, 1, Direction.DESC, "lastExecution")).getContent();
+				if (!groupPage.isEmpty()) {
+					builder.and(QFaceAccount.faceAccount.group.eq(groupPage.get(0).getId()));
+				}
+				break;
 			case NONE:
 				builder.and(QFaceAccount.faceAccount.group.notIn(allGroupId));
 				break;
@@ -50,9 +60,10 @@ public class FaceAccountFilter {
 				break;
 			}
 		}
-		if (groupName != null && !groupName.isEmpty()){
+		if (groupName != null && !groupName.isEmpty()) {
 			Predicate predicate = QGroup.group.name.like(toAlias(groupName));
-			List<String> allGroupId = groupDao.findAllGroups(predicate).stream().map(Group::getId).collect(Collectors.toList());
+			List<String> allGroupId = groupDao.findAllGroups(predicate).stream().map(Group::getId)
+					.collect(Collectors.toList());
 			builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
 		}
 	}
