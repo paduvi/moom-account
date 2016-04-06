@@ -28,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.chotoxautinh.server.dao.UserDao;
 import com.chotoxautinh.server.model.User;
 import com.chotoxautinh.server.service.UserFilter;
-import com.mysema.query.types.Predicate;
 
 @Controller
 @RequestMapping("/user")
