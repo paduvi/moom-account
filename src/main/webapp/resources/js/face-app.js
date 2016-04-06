@@ -1,4 +1,4 @@
-var app = angular.module("faceApp", [ "xeditable", "ui.bootstrap", "ngDraggable" ]);
+var app = angular.module("myApp", [ "xeditable", "ui.bootstrap", "ngDraggable" ]);
 
 app.controller("loadData", function($scope, $http, $timeout) {
 	var config = {
@@ -19,7 +19,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			email : $scope.filter.email,
 			password : $scope.filter.password,
 			number : $scope.filter.phone,
-			group : ''
+			g : '-2'
 		};
 			
 		var config2 = {
@@ -159,10 +159,10 @@ app.controller("loadData", function($scope, $http, $timeout) {
     $scope.totalGroupItem = [];
     
     $scope.loadGroupAccount = function(groupId, index) {
-    	$http.get('/group/list-face?page=' + $scope.curPage + "&group=" + groupId, config).success(
+    	$http.get('/faccount/list-face?page=' + $scope.curPage + "&g=" + groupId, config).success(
     			function(data) {
     				$scope.group1[index] = data;
-    				$http.get('/group/face-count?group=' + groupId, config).success(function(data2) {
+    				$http.get('/faccount/face-count?g=' + groupId, config).success(function(data2) {
     					if($scope.groupCurPage[index] === null || angular.isUndefined($scope.groupCurPage[index]))
     						$scope.groupCurPage[index] = 1;
     					$scope.totalGroupItem[index] = data2;

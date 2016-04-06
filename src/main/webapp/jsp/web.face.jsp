@@ -5,7 +5,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%><%@ page
 	contentType="text/html;charset=UTF-8"%>
 
-<tiles:insertDefinition name="pageTemplate">
+<tiles:insertDefinition name="homeTemplate">
 	<tiles:putAttribute name="body">
 		<div class="container" style="width: 100%" ng-controller="loadData">
 			<div class="alert-wrapper fade in">
@@ -40,13 +40,14 @@
 										Nhóm {{group.name}} <span class="badge">{{groups.length}}</span>
 									</h4>
 								</div>
-								<div class="panel-body" style="overflow-y: scroll; height: 700px">
+								<div class="panel-body"
+									style="overflow-y: scroll; height: 700px">
 									<div class="panel-group" id="accordion"
 										ng-repeat="(id, group) in groups" style="margin-bottom: 10px;">
 										<div class="panel panel-default" ng-drop="true"
 											ng-drop-success="onDropComplete($data, group.id, id, $event)">
-											<div class="panel-heading">
-												<h4 class="panel-title" style="font-size:13px">
+											<div class="panel-heading panel-header-group">
+												<h4 class="panel-title" style="font-size: 13px">
 													<a data-toggle="collapse" data-parent="#accordion"
 														ng-href="#collapse-{{id}}"
 														ng-click="loadGroupAccount(group.id, id)">Nhóm
@@ -163,5 +164,7 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/face-app.js'/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

@@ -3,13 +3,7 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	<definition name="homeTemplate" template="/jsp/web.home.layout.jsp">
-		<put-attribute name="header" value="/jsp/web.page.header.jsp" />
-		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="/jsp/web.page.footer.jsp" />
-	</definition>
-
-	<definition name="pageTemplate" template="/jsp/web.page.layout.jsp">
+	<definition name="homeTemplate" template="/jsp/web.layout.jsp">
 		<put-attribute name="header" value="/jsp/web.page.header.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/jsp/web.page.footer.jsp" />
