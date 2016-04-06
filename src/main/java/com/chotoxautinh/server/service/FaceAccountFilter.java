@@ -31,7 +31,18 @@ public class FaceAccountFilter {
 	private static final int NONE = -2;
 	private static final int HAVE = -1;
 
-	public FaceAccountFilter(String id, String email, String password, String phone, Integer group, String groupName) {
+	public FaceAccountFilter() {}
+	
+	public FaceAccountFilter build(Integer group) {
+		return build(null, null, null, null, group, null);
+	}
+	
+	public FaceAccountFilter build(String id, String email, String password, String phone) {
+		return build(id, email, password, phone, null, null);
+	}
+
+	public FaceAccountFilter build(String id, String email, String password, String phone, Integer group,
+			String groupName) {
 		if (id != null && !id.isEmpty())
 			builder.and(QFaceAccount.faceAccount.id.like(toAlias(id)));
 		if (email != null && !email.isEmpty())
@@ -67,6 +78,7 @@ public class FaceAccountFilter {
 					.collect(Collectors.toList());
 			builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
 		}
+		return this;
 	}
 
 	public Predicate getPredicate() {
@@ -77,19 +89,4 @@ public class FaceAccountFilter {
 		return "%" + input + "%";
 	}
 
-	public FaceAccountFilter(String group) {
-		if (group != null && !group.isEmpty())
-			builder.and(QFaceAccount.faceAccount.group.eq(group));
-	}
-
-	public FaceAccountFilter(String id, String email, String password, String phone) {
-		if (id != null && !id.isEmpty())
-			builder.and(QFaceAccount.faceAccount.id.like(toAlias(id)));
-		if (email != null && !email.isEmpty())
-			builder.and(QFaceAccount.faceAccount.email.like(toAlias(email)));
-		if (password != null && !password.isEmpty())
-			builder.and(QFaceAccount.faceAccount.password.like(toAlias(password)));
-		if (phone != null && !phone.isEmpty())
-			builder.and(QFaceAccount.faceAccount.phone.like(toAlias(phone)));
-	}
 }

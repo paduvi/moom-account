@@ -57,7 +57,7 @@ public class FaceAccountController {
 			@RequestParam(value = "g", required = false) int group,
 			@RequestParam(value = "group", required = false) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new FaceAccountFilter(id, email, password, phone, group, groupName).getPredicate();
+		Predicate predicate = new FaceAccountFilter().build(id, email, password, phone, group, groupName).getPredicate();
 		return faceAccountDao.findFaceAccountsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
 	}
 
@@ -69,7 +69,7 @@ public class FaceAccountController {
 			@RequestParam(value = "g", required = false) int group,
 			@RequestParam(value = "group", required = false) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new FaceAccountFilter(id, email, password, phone, group, groupName).getPredicate();
+		Predicate predicate = new FaceAccountFilter().build(id, email, password, phone, group, groupName).getPredicate();
 		return faceAccountDao.count(predicate);
 	}
 

@@ -9,8 +9,6 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,14 +21,12 @@ import com.chotoxautinh.server.dao.FaceAccountDao;
 import com.chotoxautinh.server.dao.GroupDao;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
-import com.chotoxautinh.server.service.FaceAccountFilter;
-import com.mysema.query.types.Predicate;
 
 @Controller
 @RequestMapping("/user/group")
 public class GroupController {
 
-	private int PAGE_SIZE = 15;
+	private static final int PAGE_SIZE = 15;
 	
 	@Autowired
 	private GroupDao groupDao;
