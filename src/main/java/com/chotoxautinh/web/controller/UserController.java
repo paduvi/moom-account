@@ -53,6 +53,7 @@ public class UserController {
 		}
 		return mv;
 	}
+
 	@RequestMapping("")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.user");
@@ -71,7 +72,9 @@ public class UserController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "email", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return userDao.findUsersByPage(UserFilter.build(id, username, password, fullname),
+		UserFilter filter = new UserFilter();
+		filter.build(id, username, password, fullname);
+		return userDao.findUsersByPage(filter.getPredicate(),
 				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
 
@@ -81,7 +84,9 @@ public class UserController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "fullname", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return userDao.count(UserFilter.build(id, username, password, fullname));
+		UserFilter filter = new UserFilter();
+		filter.build(id, username, password, fullname);
+		return userDao.count(filter.getPredicate());
 	}
 
 	@RequestMapping(value = "/create-user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
