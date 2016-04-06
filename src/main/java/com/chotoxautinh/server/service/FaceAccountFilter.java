@@ -3,11 +3,13 @@
  **************************************************************************/
 package com.chotoxautinh.server.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 
@@ -33,14 +35,17 @@ public class FaceAccountFilter {
 
 	public FaceAccountFilter() {}
 	
+	@PostConstruct
 	public FaceAccountFilter build(Integer group) {
 		return build(null, null, null, null, group, null);
 	}
 	
+	@PostConstruct
 	public FaceAccountFilter build(String id, String email, String password, String phone) {
 		return build(id, email, password, phone, null, null);
 	}
 
+	@PostConstruct
 	public FaceAccountFilter build(String id, String email, String password, String phone, Integer group,
 			String groupName) {
 		if (id != null && !id.isEmpty())
