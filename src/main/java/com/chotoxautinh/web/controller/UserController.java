@@ -45,7 +45,7 @@ public class UserController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			return new ModelAndView("redirect:/faccount/");
+			return new ModelAndView("redirect:/user/faccount/");
 		}
 		ModelAndView mv = new ModelAndView("web.user.login");
 		if (error != null) {
@@ -62,7 +62,9 @@ public class UserController {
 
 	@RequestMapping("/information")
 	public ModelAndView info() {
-		ModelAndView mv = new ModelAndView("web.user.info");
+		ModelAndView mv = new ModelAndView("web.account.info");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    mv.addObject("info" ,userDao.findUserByUsername(auth.getName()));
 		return mv;
 	}
 
