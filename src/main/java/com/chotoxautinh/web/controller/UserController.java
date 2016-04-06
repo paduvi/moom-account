@@ -33,14 +33,14 @@ import com.mysema.query.types.Predicate;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	private int PAGE_SIZE = 15;
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -54,27 +54,28 @@ public class UserController {
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping("/")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.user");
 		return mv;
 	}
-	
+
 	@RequestMapping("/information")
 	public ModelAndView info() {
 		ModelAndView mv = new ModelAndView("web.user.info");
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/list-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<User> listUser(@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "email", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new UserFilter(id, username, password,fullname).getPredicate();
-		return userDao.findUsersByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
+		Predicate predicate = new UserFilter().build(id, username, password, fullname).getPredicate();
+		return userDao.findUsersByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username"))
+				.getContent();
 	}
 
 	@RequestMapping(value = "/user-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -83,7 +84,7 @@ public class UserController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "fullname", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new UserFilter(id, username, password, fullname).getPredicate();
+		Predicate predicate = new UserFilter().build(id, username, password, fullname).getPredicate();
 		return userDao.count(predicate);
 	}
 
