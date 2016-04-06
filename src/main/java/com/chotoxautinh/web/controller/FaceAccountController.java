@@ -30,7 +30,7 @@ import com.chotoxautinh.server.service.FaceAccountFilter;
 import com.mysema.query.types.Predicate;
 
 @Controller
-@RequestMapping("/faccount")
+@RequestMapping("/user/faccount")
 public class FaceAccountController {
 
 	Logger logger = LoggerFactory.getLogger(FaceAccountController.class);
@@ -43,7 +43,7 @@ public class FaceAccountController {
 	@Autowired
 	private EmailDao emailDao;
 
-	@RequestMapping("/")
+	@RequestMapping("")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.face");
 		return mv;
@@ -53,7 +53,7 @@ public class FaceAccountController {
 	public @ResponseBody List<FaceAccount> listAccount(@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "number", required = false) String phone,
+			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "g", required = false) int group,
 			@RequestParam(value = "group", required = false) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
@@ -65,7 +65,7 @@ public class FaceAccountController {
 	public @ResponseBody Long countAccount(@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "number", required = false) String phone,
+			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "g", required = false) int group,
 			@RequestParam(value = "group", required = false) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {

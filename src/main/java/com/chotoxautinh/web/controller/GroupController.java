@@ -27,7 +27,7 @@ import com.chotoxautinh.server.service.FaceAccountFilter;
 import com.mysema.query.types.Predicate;
 
 @Controller
-@RequestMapping("/group")
+@RequestMapping("/user/group")
 public class GroupController {
 
 	private int PAGE_SIZE = 15;

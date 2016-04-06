@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@ page language="java" pageEncoding="UTF-8"%><%@ page
 	contentType="text/html;charset=UTF-8"%>
 <nav class="navbar navbar-default nav-site">
@@ -13,12 +15,14 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-             <li><a href="/user/" style="color:#FFFFFF">Quản lý người dùng</a></li>
+             <security:authorize access="hasRole('ADMIN')">
+             	<li><a href="/user/" style="color:#FFFFFF">Quản lý người dùng</a></li>
+             </security:authorize>
               <li class="active"><a href="/faccount/" style="color:#FFFFFF">Quản lý Facebook</a></li>
               <li><a href="/email/" style="color:#FFFFFF">Quản lý Email </a></li>
               <li><a href="/user/information" style="color:#FFFFFF">Thông tin của tôi</a></li>
               <li><a href="j_spring_security_logout" style="color:#FFFFFF">Đăng xuất</a></li>
             </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
+          </div>
+        </div>
       </nav>

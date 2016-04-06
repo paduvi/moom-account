@@ -18,20 +18,12 @@
 				khoản Facebook</h2>
 			<div class="row">
 				<div class="col-xs-4 col-sm-4 col-md-4">
-					<div>
-						<table class="table table-striped table-bordered table-list">
-							<tbody>
-								<tr>
-									<td><input class="form-control input-sm" type="text"
-										ng-model="groupFilter.email"></td>
-									<td><input class="form-control input-sm" type="text"
-										ng-model="groupFilter.password"></td>
-									<td style="text-align: center; vertical-align: middle;"><i
-										class="fa fa-search"></i></td>
-								</tr>
-							</tbody>
-						</table>
+					<div class="input-group" style="margin-bottom: 10px;">
+						<input class="form-control"
+							aria-label="Text input with dropdown button" type="text">
+						<span class="input-group-addon"><span class="fa fa-search"></span></span>
 					</div>
+
 					<div>
 						<div class="panel-group" id="accordion">
 							<div class="panel panel-default">
@@ -67,6 +59,12 @@
 															</tr>
 														</thead>
 														<tbody>
+															<tr>
+																<td><input class="form-control input-sm"
+																	type="text" ng-model="filter.email"></td>
+																<td><input class="form-control input-sm"
+																	type="text" ng-model="filter.password"></td>
+															</tr>
 															<tr ng-repeat="(key, groupAccount) in group1[id]"
 																ng-drag="true" ng-drag-data="obj"
 																ng-drag-success="onDragSuccess($data, group.id, id, $event)">
