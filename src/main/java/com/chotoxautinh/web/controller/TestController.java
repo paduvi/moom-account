@@ -22,7 +22,6 @@ import com.chotoxautinh.server.dao.FaceAccountDao;
 import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.service.FaceAccountFilter;
-import com.mysema.query.types.Predicate;
 
 @Controller
 @RequestMapping("/face")
@@ -50,8 +49,7 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new FaceAccountFilter().build(id, email, password, phone).getPredicate();
-		return faceAccountDao.findFaceAccountsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
+		return faceAccountDao.findFaceAccountsByPage(FaceAccountFilter.build(id, email, password, phone), new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
 	}
 
 	@RequestMapping(value = "/face-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,8 +58,7 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new FaceAccountFilter().build(id, email, password, phone).getPredicate();
-		return faceAccountDao.count(predicate);
+		return faceAccountDao.count(FaceAccountFilter.build(id, email, password, phone));
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

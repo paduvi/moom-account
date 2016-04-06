@@ -10,13 +10,10 @@ import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
 
 public class EmailFilter {
-	private BooleanBuilder builder = new BooleanBuilder();
 
-	public EmailFilter() {
-	}
-
-	public EmailFilter build(String id, String username, String password, String retrieveEmail, String phone,
+	public static Predicate build(String id, String username, String password, String retrieveEmail, String phone,
 			String birthday) {
+		BooleanBuilder builder = new BooleanBuilder();
 		if (id != null && !id.isEmpty())
 			builder.and(QEmail.email.id.like(toAlias(id)));
 		if (username != null && !username.isEmpty())
@@ -29,14 +26,10 @@ public class EmailFilter {
 			builder.and(QEmail.email.phone.like(toAlias(phone)));
 		if (birthday != null && !birthday.isEmpty())
 			builder.and(QEmail.email.birthday.like(toAlias(birthday)));
-		return this;
-	}
-
-	public Predicate getPredicate() {
 		return builder.getValue();
 	}
 
-	private String toAlias(String input) {
+	private static String toAlias(String input) {
 		return "%" + input + "%";
 	}
 }

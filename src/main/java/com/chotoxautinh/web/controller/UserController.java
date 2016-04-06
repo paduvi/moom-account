@@ -73,9 +73,8 @@ public class UserController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "email", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new UserFilter().build(id, username, password, fullname).getPredicate();
-		return userDao.findUsersByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username"))
-				.getContent();
+		return userDao.findUsersByPage(UserFilter.build(id, username, password, fullname),
+				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
 
 	@RequestMapping(value = "/user-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -84,8 +83,7 @@ public class UserController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "fullname", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new UserFilter().build(id, username, password, fullname).getPredicate();
-		return userDao.count(predicate);
+		return userDao.count(UserFilter.build(id, username, password, fullname));
 	}
 
 	@RequestMapping(value = "/create-user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

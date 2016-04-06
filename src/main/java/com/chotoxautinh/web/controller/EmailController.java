@@ -25,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.chotoxautinh.server.dao.EmailDao;
 import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.service.EmailFilter;
-import com.mysema.query.types.Predicate;
 
 @Controller
 @RequestMapping("/email")
@@ -52,8 +51,8 @@ public class EmailController {
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "birthday", required = false) String birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new EmailFilter().build(id, username, password, email, phone, birthday).getPredicate();
-		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
+		return emailDao.findEmailsByPage(EmailFilter.build(id, username, password, email, phone, birthday),
+				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
 
 	@RequestMapping(value = "/email-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,8 +63,7 @@ public class EmailController {
 			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "birthday", required = false) String birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new EmailFilter().build(id, username, password, email, phone, birthday).getPredicate();
-		return emailDao.count(predicate);
+		return emailDao.count(EmailFilter.build(id, username, password, email, phone, birthday));
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -82,5 +80,5 @@ public class EmailController {
 	public @ResponseBody Boolean delEmail(@RequestBody Email email) {
 		return emailDao.removeEmail(email);
 	}
-	
+
 }
