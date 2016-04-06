@@ -52,7 +52,7 @@ public class EmailController {
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "birthday", required = false) String birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
+		Predicate predicate = new EmailFilter().build(id, username, password, email, phone, birthday).getPredicate();
 		return emailDao.findEmailsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
 
@@ -64,7 +64,7 @@ public class EmailController {
 			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "birthday", required = false) String birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new EmailFilter(id, username, password, email, phone, birthday).getPredicate();
+		Predicate predicate = new EmailFilter().build(id, username, password, email, phone, birthday).getPredicate();
 		return emailDao.count(predicate);
 	}
 

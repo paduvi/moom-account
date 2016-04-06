@@ -50,7 +50,7 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new FaceAccountFilter(id, email, password, phone).getPredicate();
+		Predicate predicate = new FaceAccountFilter().build(id, email, password, phone).getPredicate();
 		return faceAccountDao.findFaceAccountsByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
 	}
 
@@ -60,7 +60,7 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new FaceAccountFilter(id, email, password, phone).getPredicate();
+		Predicate predicate = new FaceAccountFilter().build(id, email, password, phone).getPredicate();
 		return faceAccountDao.count(predicate);
 	}
 

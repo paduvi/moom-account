@@ -12,7 +12,11 @@ import com.mysema.query.types.Predicate;
 public class EmailFilter {
 	private BooleanBuilder builder = new BooleanBuilder();
 
-	public EmailFilter(String id, String username, String password, String retrieveEmail, String phone, String birthday) {
+	public EmailFilter() {
+	}
+
+	public EmailFilter build(String id, String username, String password, String retrieveEmail, String phone,
+			String birthday) {
 		if (id != null && !id.isEmpty())
 			builder.and(QEmail.email.id.like(toAlias(id)));
 		if (username != null && !username.isEmpty())
@@ -25,6 +29,7 @@ public class EmailFilter {
 			builder.and(QEmail.email.phone.like(toAlias(phone)));
 		if (birthday != null && !birthday.isEmpty())
 			builder.and(QEmail.email.birthday.like(toAlias(birthday)));
+		return this;
 	}
 
 	public Predicate getPredicate() {
