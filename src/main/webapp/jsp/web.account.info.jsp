@@ -14,10 +14,9 @@
 						<legend>Thông tin tài khoản</legend>
 							<div class="form-group is-empty">
 							<label class="col-md-2 control-label">Tên</label>
-
 							<div class="col-lg-4 col-md-5">
 								<input class="form-control" id="inputFullName" placeholder="Tên"
-									type="text">
+									type="text" value="${user.fullname}">
 							</div>
 							<span class="material-input"></span>
 						</div>
@@ -26,7 +25,7 @@
 
 							<div class="col-lg-4 col-md-5">
 								<input class="form-control" id="inputUsername" placeholder="tài khoản"
-									type="text">
+									type="text" value="${user}">
 							</div>
 							<span class="material-input"></span>
 						</div>

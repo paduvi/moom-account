@@ -3,11 +3,8 @@
  **************************************************************************/
 package com.chotoxautinh.server.service;
 
-import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -24,30 +21,25 @@ import com.mysema.query.types.Predicate;
  * Author : tungtt Mar 28, 2016
  */
 public class FaceAccountFilter {
-	private BooleanBuilder builder = new BooleanBuilder();
 
 	@Autowired
-	private GroupDao groupDao;
+	private static GroupDao groupDao;
 
 	private static final int LATEST = -3;
 	private static final int NONE = -2;
 	private static final int HAVE = -1;
 
-	public FaceAccountFilter() {}
-	
-	@PostConstruct
-	public FaceAccountFilter build(Integer group) {
+	public static Predicate build(Integer group) {
 		return build(null, null, null, null, group, null);
 	}
-	
-	@PostConstruct
-	public FaceAccountFilter build(String id, String email, String password, String phone) {
+
+	public static Predicate build(String id, String email, String password, String phone) {
 		return build(id, email, password, phone, null, null);
 	}
 
-	@PostConstruct
-	public FaceAccountFilter build(String id, String email, String password, String phone, Integer group,
+	public static Predicate build(String id, String email, String password, String phone, Integer group,
 			String groupName) {
+		BooleanBuilder builder = new BooleanBuilder();
 		if (id != null && !id.isEmpty())
 			builder.and(QFaceAccount.faceAccount.id.like(toAlias(id)));
 		if (email != null && !email.isEmpty())
@@ -83,14 +75,10 @@ public class FaceAccountFilter {
 					.collect(Collectors.toList());
 			builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
 		}
-		return this;
-	}
-
-	public Predicate getPredicate() {
 		return builder.getValue();
 	}
 
-	private String toAlias(String input) {
+	private static String toAlias(String input) {
 		return "%" + input + "%";
 	}
 

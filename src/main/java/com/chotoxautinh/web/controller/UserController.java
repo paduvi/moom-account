@@ -46,7 +46,7 @@ public class UserController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			return new ModelAndView("redirect:/faccount/");
+			return new ModelAndView("redirect:/user/faccount/");
 		}
 		ModelAndView mv = new ModelAndView("web.user.login");
 		if (error != null) {
@@ -62,7 +62,9 @@ public class UserController {
 
 	@RequestMapping("/information")
 	public ModelAndView info() {
-		ModelAndView mv = new ModelAndView("web.user.info");
+		ModelAndView mv = new ModelAndView("web.account.info");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    mv.addObject("info" ,userDao.findUserByUsername(auth.getName()));
 		return mv;
 	}
 
@@ -72,9 +74,8 @@ public class UserController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "email", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new UserFilter().build(id, username, password, fullname).getPredicate();
-		return userDao.findUsersByPage(predicate, new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username"))
-				.getContent();
+		return userDao.findUsersByPage(UserFilter.build(id, username, password, fullname),
+				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
 
 	@RequestMapping(value = "/user-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -83,8 +84,7 @@ public class UserController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "fullname", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		Predicate predicate = new UserFilter().build(id, username, password, fullname).getPredicate();
-		return userDao.count(predicate);
+		return userDao.count(UserFilter.build(id, username, password, fullname));
 	}
 
 	@RequestMapping(value = "/create-user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
