@@ -17,6 +17,7 @@
 	<context:component-scan base-package="com.chotoxautinh.web.controller" />
 	<context:component-scan base-package="com.chotoxautinh.web.config" />
 	<context:component-scan base-package="com.chotoxautinh.server.dao.impl" />
+	<context:component-scan base-package="com.chotoxautinh.server.service" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

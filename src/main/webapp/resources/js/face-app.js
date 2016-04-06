@@ -18,7 +18,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		var datas = {
 			email : $scope.filter.email,
 			password : $scope.filter.password,
-			number : $scope.filter.phone,
+			phone : $scope.filter.phone,
 			g : '-2'
 		};
 			
@@ -29,10 +29,10 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			}
 		};
 		
-		$http.get('/faccount/list-face?page=' + $scope.curPage, config2).success(
+		$http.get('/user/faccount/list-face?page=' + $scope.curPage, config2).success(
 			function(data) {
 				$scope.accounts = data;
-				$http.get('/faccount/face-count',config2).success(function(data2) {
+				$http.get('/user/faccount/face-count',config2).success(function(data2) {
 					$scope.totalItem = data2;
 				}).finally(function(){
 					$scope.loading = false;
@@ -78,7 +78,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			'phone' : $scope.newUser.phone,
 		};
 		
-		$http.post("/faccount/create-account", newUser, config).success(
+		$http.post("/user/faccount/create-account", newUser, config).success(
 				function(data, status, headers, config) {
 					$scope.formMessage = data ? 'Tạo tài khoản thành công!'
 							: null;
@@ -97,7 +97,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		if (r == false)
 			return;
 
-		$http.post("/faccount/del-account", user, config).success(
+		$http.post("/user/faccount/del-account", user, config).success(
 				function(data, status, headers, config) {
 					loadData();
 					if(data) $scope.formMessage = 'Xóa tài khoản thành công!';
@@ -108,7 +108,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	};
 
 	$scope.updateUser = function(val) {
-		return $http.post('/face/update-account', val, config).success(
+		return $http.post('/user/faccount/update-account', val, config).success(
 				function(data, status, headers, config) {
 					if(data) $scope.formMessage = 'Cập nhật tài khoản thành công!';
 					else $scope.formError = 'Không cập nhật được tài khoản!';
@@ -119,7 +119,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	
 //	$scope.droppedObjects = [];
 	
-	$http.get('/group/list-group', config).success(
+	$http.get('/user/group/list-group', config).success(
 		function(data) {
 			$scope.groups = data;
 		}).error(function(){
@@ -127,7 +127,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	});
 	
 	var addToGroup = function(val, groupId) {
-		$http.post('/group/add-to-group?group=' + groupId, val, config).success(
+		$http.post('/user/group/add-to-group?group=' + groupId, val, config).success(
 			function(data) {
 				loadData();
 			}).error(function(){
@@ -159,10 +159,10 @@ app.controller("loadData", function($scope, $http, $timeout) {
     $scope.totalGroupItem = [];
     
     $scope.loadGroupAccount = function(groupId, index) {
-    	$http.get('/faccount/list-face?page=' + $scope.curPage + "&g=" + groupId, config).success(
+    	$http.get('/user/faccount/list-face?page=' + $scope.curPage + "&g=" + groupId, config).success(
     			function(data) {
     				$scope.group1[index] = data;
-    				$http.get('/faccount/face-count?g=' + groupId, config).success(function(data2) {
+    				$http.get('/user/faccount/face-count?g=' + groupId, config).success(function(data2) {
     					if($scope.groupCurPage[index] === null || angular.isUndefined($scope.groupCurPage[index]))
     						$scope.groupCurPage[index] = 1;
     					$scope.totalGroupItem[index] = data2;

@@ -27,7 +27,7 @@ import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.service.EmailFilter;
 
 @Controller
-@RequestMapping("/email")
+@RequestMapping("/user/email")
 public class EmailController {
 
 	Logger logger = LoggerFactory.getLogger(EmailController.class);
@@ -37,7 +37,7 @@ public class EmailController {
 	@Autowired
 	private EmailDao emailDao;
 
-	@RequestMapping("/")
+	@RequestMapping("")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.email");
 		return mv;

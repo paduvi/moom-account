@@ -1,6 +1,5 @@
 package com.chotoxautinh.web.controller;
 
-import java.text.ParseException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.expression.ParseException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,11 +29,11 @@ public class TestController {
 
 	Logger logger = LoggerFactory.getLogger(TestController.class);
 
-	private int PAGE_SIZE = 15;
-
+	private static final int PAGE_SIZE = 15;
+	
 	@Autowired
 	private FaceAccountDao faceAccountDao;
-
+	
 	@Autowired
 	private EmailDao emailDao;
 

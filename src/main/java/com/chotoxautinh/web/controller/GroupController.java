@@ -23,7 +23,7 @@ import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
 
 @Controller
-@RequestMapping("/group")
+@RequestMapping("/user/group")
 public class GroupController {
 
 	private static final int PAGE_SIZE = 15;
