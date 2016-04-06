@@ -56,7 +56,10 @@ public class FaceAccountController {
 			@RequestParam(value = "g", required = false) int group,
 			@RequestParam(value = "group", required = false) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return faceAccountDao.findFaceAccountsByPage(FaceAccountFilter.build(id, email, password, phone, group, groupName), new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
+		FaceAccountFilter filter = new FaceAccountFilter();
+		filter.build(id, email, password, phone, group, groupName);
+		return faceAccountDao.findFaceAccountsByPage(filter.getPredicate(),
+				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
 	}
 
 	@RequestMapping(value = "/face-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,7 +70,9 @@ public class FaceAccountController {
 			@RequestParam(value = "g", required = false) int group,
 			@RequestParam(value = "group", required = false) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return faceAccountDao.count(FaceAccountFilter.build(id, email, password, phone, group, groupName));
+		FaceAccountFilter filter = new FaceAccountFilter();
+		filter.build(id, email, password, phone, group, groupName);
+		return faceAccountDao.count(filter.getPredicate());
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

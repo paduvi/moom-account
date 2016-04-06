@@ -30,10 +30,10 @@ public class TestController {
 	Logger logger = LoggerFactory.getLogger(TestController.class);
 
 	private static final int PAGE_SIZE = 15;
-	
+
 	@Autowired
 	private FaceAccountDao faceAccountDao;
-	
+
 	@Autowired
 	private EmailDao emailDao;
 
@@ -49,7 +49,10 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return faceAccountDao.findFaceAccountsByPage(FaceAccountFilter.build(id, email, password, phone), new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
+		FaceAccountFilter filter = new FaceAccountFilter();
+		filter.build(id, email, password, phone);
+		return faceAccountDao.findFaceAccountsByPage(filter.getPredicate(),
+				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
 	}
 
 	@RequestMapping(value = "/face-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,7 +61,9 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return faceAccountDao.count(FaceAccountFilter.build(id, email, password, phone));
+		FaceAccountFilter filter = new FaceAccountFilter();
+		filter.build(id, email, password, phone);
+		return faceAccountDao.count(filter.getPredicate());
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
