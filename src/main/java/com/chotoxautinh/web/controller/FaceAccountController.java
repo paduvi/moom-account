@@ -42,6 +42,9 @@ public class FaceAccountController {
 	@Autowired
 	private EmailDao emailDao;
 
+	@Autowired
+	private FaceAccountFilter faceAccountFilter;
+
 	@RequestMapping("")
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.face");
@@ -53,12 +56,10 @@ public class FaceAccountController {
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "phone", required = false) String phone,
-			@RequestParam(value = "g", required = false) int group,
+			@RequestParam(value = "g", required = false) Integer group,
 			@RequestParam(value = "group", required = false) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		FaceAccountFilter filter = new FaceAccountFilter();
-		filter.build(id, email, password, phone, group, groupName);
-		return faceAccountDao.findFaceAccountsByPage(filter.getPredicate(),
+		return faceAccountDao.findFaceAccountsByPage(faceAccountFilter.build(id, email, password, phone, group, groupName),
 				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
 	}
 
@@ -67,12 +68,10 @@ public class FaceAccountController {
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "phone", required = false) String phone,
-			@RequestParam(value = "g", required = false) int group,
+			@RequestParam(value = "g", required = false) Integer group,
 			@RequestParam(value = "group", required = false) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		FaceAccountFilter filter = new FaceAccountFilter();
-		filter.build(id, email, password, phone, group, groupName);
-		return faceAccountDao.count(filter.getPredicate());
+		return faceAccountDao.count(faceAccountFilter.build(id, email, password, phone, group, groupName));
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -5,18 +5,18 @@
  */
 package com.chotoxautinh.server.service;
 
-import javax.annotation.PostConstruct;
+import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.server.model.QEmail;
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
 
+@Component
 public class EmailFilter {
-	private BooleanBuilder builder = new BooleanBuilder();
 
-	@PostConstruct
-	public void build(String id, String username, String password, String retrieveEmail, String phone,
+	public Predicate build(String id, String username, String password, String retrieveEmail, String phone,
 			String birthday) {
+		BooleanBuilder builder = new BooleanBuilder();
 		if (id != null && !id.isEmpty())
 			builder.and(QEmail.email.id.like(toAlias(id)));
 		if (username != null && !username.isEmpty())
@@ -29,9 +29,6 @@ public class EmailFilter {
 			builder.and(QEmail.email.phone.like(toAlias(phone)));
 		if (birthday != null && !birthday.isEmpty())
 			builder.and(QEmail.email.birthday.like(toAlias(birthday)));
-	}
-
-	public Predicate getPredicate() {
 		return builder.getValue();
 	}
 

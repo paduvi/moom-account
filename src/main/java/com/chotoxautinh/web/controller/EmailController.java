@@ -36,6 +36,9 @@ public class EmailController {
 
 	@Autowired
 	private EmailDao emailDao;
+	
+	@Autowired
+	private EmailFilter emailFilter;
 
 	@RequestMapping("")
 	public ModelAndView home() {
@@ -51,9 +54,7 @@ public class EmailController {
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "birthday", required = false) String birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		EmailFilter filter = new EmailFilter();
-		filter.build(id, username, password, email, phone, birthday);
-		return emailDao.findEmailsByPage(filter.getPredicate(),
+		return emailDao.findEmailsByPage(emailFilter.build(id, username, password, email, phone, birthday),
 				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
 
@@ -65,9 +66,7 @@ public class EmailController {
 			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "birthday", required = false) String birthday,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		EmailFilter filter = new EmailFilter();
-		filter.build(id, username, password, email, phone, birthday);
-		return emailDao.count(filter.getPredicate());
+		return emailDao.count(emailFilter.build(id, username, password, email, phone, birthday));
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -40,6 +40,9 @@ public class UserController {
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	private UserFilter userFilter;
+
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -64,7 +67,7 @@ public class UserController {
 	public ModelAndView info() {
 		ModelAndView mv = new ModelAndView("web.account.info");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    mv.addObject("info" ,userDao.findUserByUsername(auth.getName()));
+		mv.addObject("info", userDao.findUserByUsername(auth.getName()));
 		return mv;
 	}
 
@@ -74,9 +77,7 @@ public class UserController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "email", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		UserFilter filter = new UserFilter();
-		filter.build(id, username, password, fullname);
-		return userDao.findUsersByPage(filter.getPredicate(),
+		return userDao.findUsersByPage(userFilter.build(id, username, password, fullname),
 				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
 	}
 
@@ -86,9 +87,7 @@ public class UserController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "fullname", required = false) String fullname,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		UserFilter filter = new UserFilter();
-		filter.build(id, username, password, fullname);
-		return userDao.count(filter.getPredicate());
+		return userDao.count(userFilter.build(id, username, password, fullname));
 	}
 
 	@RequestMapping(value = "/create-user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

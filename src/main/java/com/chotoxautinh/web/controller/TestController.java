@@ -35,6 +35,9 @@ public class TestController {
 	private FaceAccountDao faceAccountDao;
 
 	@Autowired
+	private FaceAccountFilter faceAccountFilter;
+
+	@Autowired
 	private EmailDao emailDao;
 
 	@RequestMapping("/")
@@ -49,9 +52,7 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		FaceAccountFilter filter = new FaceAccountFilter();
-		filter.build(id, email, password, phone);
-		return faceAccountDao.findFaceAccountsByPage(filter.getPredicate(),
+		return faceAccountDao.findFaceAccountsByPage(faceAccountFilter.build(id, email, password, phone),
 				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
 	}
 
@@ -61,9 +62,7 @@ public class TestController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "number", required = false) String phone,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		FaceAccountFilter filter = new FaceAccountFilter();
-		filter.build(id, email, password, phone);
-		return faceAccountDao.count(filter.getPredicate());
+		return faceAccountDao.count(faceAccountFilter.build(id, email, password, phone));
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

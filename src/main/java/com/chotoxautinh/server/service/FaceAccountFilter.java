@@ -6,11 +6,10 @@ package com.chotoxautinh.server.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.server.dao.GroupDao;
 import com.chotoxautinh.server.model.Group;
@@ -22,28 +21,22 @@ import com.mysema.query.types.Predicate;
 /**
  * Author : tungtt Mar 28, 2016
  */
+@Component
 public class FaceAccountFilter {
 
 	@Autowired
 	private GroupDao groupDao;
 
-	private BooleanBuilder builder = new BooleanBuilder();
 	private static final int LATEST = -3;
 	private static final int NONE = -2;
 	private static final int HAVE = -1;
 
-	@PostConstruct
-	public void build(Integer group) {
-		build(null, null, null, null, group, null);
+	public Predicate build(String id, String email, String password, String phone) {
+		return build(id, email, password, phone, null, null);
 	}
 
-	@PostConstruct
-	public void build(String id, String email, String password, String phone) {
-		build(id, email, password, phone, null, null);
-	}
-
-	@PostConstruct
-	public void build(String id, String email, String password, String phone, Integer group, String groupName) {
+	public Predicate build(String id, String email, String password, String phone, Integer group, String groupName) {
+		BooleanBuilder builder = new BooleanBuilder();
 		if (id != null && !id.isEmpty())
 			builder.and(QFaceAccount.faceAccount.id.like(toAlias(id)));
 		if (email != null && !email.isEmpty())
@@ -79,9 +72,6 @@ public class FaceAccountFilter {
 					.collect(Collectors.toList());
 			builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
 		}
-	}
-
-	public Predicate getPredicate() {
 		return builder.getValue();
 	}
 
