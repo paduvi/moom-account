@@ -171,6 +171,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
     				});
     			})
     }
+    
 });
 
 app.run(function(editableOptions, editableThemes) {

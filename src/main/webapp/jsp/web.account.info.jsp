@@ -7,46 +7,38 @@
 
 <tiles:insertDefinition name="homeTemplate">
 	<tiles:putAttribute name="body">
-		<div class="container">
+		<div class="container" ng-controller="loadData">
 			<div class="well bs-component">
 				<form class="form-horizontal">
 					<fieldset>
 						<legend>Thông tin tài khoản</legend>
-							<div class="form-group is-empty">
+						<div class="form-group">
 							<label class="col-md-2 control-label">Tên</label>
 							<div class="col-lg-4 col-md-5">
 								<input class="form-control" id="inputFullName" placeholder="Tên"
-									type="text" value="${user.fullname}">
+									type="text" value="${info.fullname}">
 							</div>
-							<span class="material-input"></span>
 						</div>
-						<div class="form-group is-empty">
+						<div class="form-group">
 							<label class="col-md-2 control-label">Tài khoản</label>
-
 							<div class="col-lg-4 col-md-5">
-								<input class="form-control" id="inputUsername" placeholder="tài khoản"
-									type="text" value="${user}">
+								<input class="form-control" id="inputUsername"
+									placeholder="tài khoản" type="text" value="${info.username}">
 							</div>
-							<span class="material-input"></span>
 						</div>
-						<div class="form-group is-empty">
-							<label class="col-md-2 control-label">Email</label>
-
-							<div class="col-lg-4 col-md-5">
-								<input class="form-control" id="inputEmail" placeholder="Email"
-									type="email">
-							</div>
-							<span class="material-input"></span>
-						</div>
-						<div class="form-group is-empty">
+						<div class="form-group">
 							<label class="col-md-2 control-label">Mật khẩu</label>
-
 							<div class="col-lg-4 col-md-5">
-								<input class="form-control" id="inputPassword"
-									placeholder="Mật khẩu" type="password">
-
+								<div class="input-group">
+									<input class="form-control" id="inputPassword"
+										placeholder="Mật khẩu" type="{{inputType}}"
+										value="${info.password}"> <a id="show"
+										class="input-group-addon"
+										style="background-color: white; cursor: pointer;"
+										ng-click="showPassword()"><i
+										class="{{showIcon}}"></i></a>
+								</div>
 							</div>
-							<span class="material-input"></span>
 						</div>
 						<div class="form-group">
 							<div class="col-lg-4 col-md-5 col-md-offset-2">
@@ -58,5 +50,7 @@
 				</form>
 			</div>
 		</div>
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/user-app.js'/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

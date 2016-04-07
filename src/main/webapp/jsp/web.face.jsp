@@ -28,8 +28,20 @@
 						<div class="panel-group" id="accordion">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h4 class="panel-title">
-										Nhóm {{group.name}} <span class="badge">{{groups.length}}</span>
+									<h4 class="panel-title" style="display:inline-block; width: 100%">
+										<span>Nhóm {{group.name}} <span class="badge">{{groups.length}}</span></span>
+										<!-- <div class="input-group pull-right" style="width: 60%;">
+											<div class="input-group-btn" style="font-size:14px;">
+												<select ng-model="select.selected" style="height: 34px; padding: 6px 12px;">
+													<option value="email">Email</option>
+													<option value="name">Tên</option>
+												</select>
+											</div>
+											<input class="form-control"
+												aria-label="Text input with dropdown button" type="text">
+											<span class="input-group-addon"><span
+												class="fa fa-search"></span></span>
+										</div> -->
 									</h4>
 								</div>
 								<div class="panel-body"
