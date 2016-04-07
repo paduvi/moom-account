@@ -2,30 +2,30 @@ var app = angular.module("myApp", [ "xeditable", "ui.bootstrap" ]);
 
 app.controller("loadData", function($scope, $http, $timeout) {
 	var config = {
-		headers : {
-			'Accept' : 'application/json'
-		}
+			headers : {
+				'Accept' : 'application/json'
+			}
 	};
 
 	$scope.loading = false;
 	$scope.curPage = 1;
 	$scope.pageSize = 15;
 	$scope.numPages = 10;
-	
+
 	$scope.filter = {
 			'username' : '',
 			'password' : '',
 			'fullname' : '',
 	};
-	
+
 	var loadData = function() {
 		$scope.loading = true;
 
 		var config2 = {
-			params : $scope.filter,
-			headers : {
-				'Accept' : 'application/json'
-			}
+				params : $scope.filter,
+				headers : {
+					'Accept' : 'application/json'
+				}
 		};
 
 		$scope.loading = true;
@@ -62,7 +62,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	$scope.pageChanged = function() {
 		loadData();
 	};
-	
+
 	$scope.createUser = function() {
 		$scope.formError = null;
 		$scope.formMessage = "Đợi nhé...";
@@ -77,8 +77,8 @@ app.controller("loadData", function($scope, $http, $timeout) {
 						loadData();
 					}
 				}).error(function(data, status, headers, config) {
-			$scope.formError = 'Có lỗi xảy ra!';
-		});
+					$scope.formError = 'Có lỗi xảy ra!';
+				});
 	};
 
 	$scope.delUser = function(user, index) {
@@ -92,8 +92,8 @@ app.controller("loadData", function($scope, $http, $timeout) {
 					if(data) $scope.formMessage = 'Xóa tài khoản thành công!';
 					else $scope.formError = 'Có lỗi xảy ra!';
 				}).error(function(data, status, headers, config) {
-			$scope.formError = "Có lỗi xảy ra!";
-		});
+					$scope.formError = "Có lỗi xảy ra!";
+				});
 	};
 
 	$scope.updateUser = function(val) {
@@ -102,10 +102,23 @@ app.controller("loadData", function($scope, $http, $timeout) {
 					if(data) $scope.formMessage = 'Cập nhật tài khoản thành công!';
 					else $scope.formError = 'Không cập nhật được tài khoản!';
 				}).error(function(data, status, headers, config) {
-			$scope.formError = 'Không cập nhật được tài khoản!';
-		});
+					$scope.formError = 'Không cập nhật được tài khoản!';
+				});
 	};
-
+	
+	$scope.inputType = 'password';
+	$scope.showIcon = 'fa fa-eye'; 
+	 
+	$scope.showPassword = function(){
+		 if ($scope.showIcon == 'fa fa-eye') {
+			 $scope.inputType = 'text';
+			 $scope.showIcon = 'fa fa-eye-slash';
+		 } else {
+			 $scope.inputType = 'password';
+			 $scope.showIcon = 'fa fa-eye';
+		 }
+	 };
+			
 });
 
 app.run(function(editableOptions, editableThemes) {
