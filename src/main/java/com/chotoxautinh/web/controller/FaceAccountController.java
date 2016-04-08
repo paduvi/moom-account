@@ -32,7 +32,7 @@ import com.chotoxautinh.server.service.FaceAccountFilter;
 import com.mysema.query.types.OrderSpecifier;
 
 @Controller
-@RequestMapping("/user/faccount")
+@RequestMapping("faccount")
 public class FaceAccountController {
 
 	Logger logger = LoggerFactory.getLogger(FaceAccountController.class);

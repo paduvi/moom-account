@@ -20,7 +20,7 @@
 				<div class="col-xs-4 col-sm-4 col-md-4">
 					<div class="input-group" style="margin-bottom: 10px;">
 						<input class="form-control"
-							aria-label="Text input with dropdown button" type="text">
+							ng-model="groupF.name" type="text">
 						<span class="input-group-addon"><span class="fa fa-search"></span></span>
 					</div>
 
@@ -30,22 +30,23 @@
 								<div class="panel-heading">
 									<h4 class="panel-title" style="display:inline-block; width: 100%">
 										<span>Nhóm {{group.name}} <span class="badge">{{groups.length}}</span></span>
-										<!-- <div class="input-group pull-right" style="width: 60%;">
+										<div class="input-group pull-right" style="width: 60%;">
 											<div class="input-group-btn" style="font-size:14px;">
-												<select ng-model="select.selected" style="height: 34px; padding: 6px 12px;">
-													<option value="email">Email</option>
-													<option value="name">Tên</option>
-												</select>
-											</div>
-											<input class="form-control"
-												aria-label="Text input with dropdown button" type="text">
-											<span class="input-group-addon"><span
-												class="fa fa-search"></span></span>
-										</div> -->
+										</div>
 									</h4>
 								</div>
 								<div class="panel-body"
 									style="overflow-y: scroll; height: 700px">
+									<div class="row" style="margin-bottom:10px">
+										<div class="col-sm-6">
+											<input class="form-control input-sm" type="text"
+												ng-model="groupFilter.email">
+										</div>
+										<div class="col-sm-6">
+											<input class="form-control input-sm" type="text"
+												ng-model="groupFilter.password">
+										</div>
+									</div>
 									<div class="panel-group" id="accordion"
 										ng-repeat="(id, group) in groups" style="margin-bottom: 10px;">
 										<div class="panel panel-default" ng-drop="true"
@@ -67,32 +68,19 @@
 														<thead>
 															<tr>
 																<th>Email</th>
-																<th>Tên</th>
+																<th>password</th>
+																<th>Số điện thoại</th>
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
-																<td><input class="form-control input-sm"
-																	type="text" ng-model="filter.email"></td>
-																<td><input class="form-control input-sm"
-																	type="text" ng-model="filter.password"></td>
-															</tr>
 															<tr ng-repeat="(key, groupAccount) in group1[id]"
 																ng-drag="true" ng-drag-data="obj"
 																ng-drag-success="onDragSuccess($data, group.id, id, $event)">
-																<td>{{groupAccount.email}}</td>
+																<td><a class="edit" href="#" editable-text="account.email" onaftersave="updateUser(groupAccount)" e-style="width: 100%">{{groupAccount.email}}</a></td>
 																<td>{{groupAccount.password}}</td>
+																<td>{{groupAccount.phone}}</td>
 															</tr>
 														</tbody>
-														<div ng-show="group1.length">
-															<uib-pagination class="pull-right"
-																total-items="totalGroupItem[id]"
-																ng-model="groupCurPage[id]" max-size="numPages"
-																class="pagination-md" items-per-page="pageSize"
-																boundary-links="true"
-																ng-change="loadGroupAccount(group.id, id)"
-																style="margin-top:2px;"></uib-pagination>
-														</div>
 													</table>
 												</div>
 											</div>
@@ -151,9 +139,15 @@
 									<tr ng-repeat="(key, account) in accounts" ng-drag="true"
 										ng-drag-data="account" data-allow-transform="true">
 										<td align="center">{{$index+(curPage-1) * pageSize+1}}</td>
-										<td>{{account.email}}</td>
-										<td>{{account.password}}</td>
-										<td>{{account.phone}}</td>
+										<td><a class="edit" href="#"
+									editable-text="account.email"
+									onaftersave="updateUser(account)" e-style="width: 100%">{{account.email}}</a></td>
+										<td><a class="edit" href="#"
+									editable-text="account.password"
+									onaftersave="updateUser(account)" e-style="width: 100%">{{account.password}}</a></td>
+										<td><a class="edit" href="#"
+									editable-text="account.phone"
+									onaftersave="updateUser(account)" e-style="width: 100%">{{account.phone}}</a></td>
 										<td><a ng-click="delUser(account)" class="btn btn-danger"><i
 												class="fa fa-2 fa-trash"></i></a></td>
 									</tr>

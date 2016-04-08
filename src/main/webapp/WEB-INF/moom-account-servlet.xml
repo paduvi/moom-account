@@ -55,12 +55,15 @@
 	</mvc:annotation-driven>
 
 	<security:http auto-config="true" use-expressions="true">
-		<security:intercept-url pattern="/test-auth"
-			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/resources/**"
+			access="permitAll" />
 		<security:intercept-url pattern="/user/login" access="permitAll" />
-		<security:intercept-url pattern="/user/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
-		<security:form-login login-page="/user/login"
-			default-target-url="/user/faccount" authentication-failure-url="/user/login?error"
+		<security:intercept-url pattern="**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<security:intercept-url pattern="/faccount*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<security:intercept-url pattern="/user*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<security:intercept-url pattern="/email*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<security:form-login login-page="/user/login" always-use-default-target="true"
+			default-target-url="/faccount" authentication-failure-url="/user/login?error"
 			username-parameter="username" password-parameter="password" />
 		<security:logout logout-success-url="/user/login" />
 	</security:http>

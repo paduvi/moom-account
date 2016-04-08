@@ -66,11 +66,15 @@ public class UserController {
 	@RequestMapping("/information")
 	public ModelAndView info() {
 		ModelAndView mv = new ModelAndView("web.account.info");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		mv.addObject("info", userDao.findUserByUsername(auth.getName()));
 		return mv;
 	}
 
+	@RequestMapping(value = "/user-info", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody User getUserInfo() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return userDao.findUserByUsername(auth.getName());
+	}
+	
 	@RequestMapping(value = "/list-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<User> listUser(@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "username", required = false) String username,

@@ -31,10 +31,10 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		};
 
 		$scope.loading = true;
-		$http.get('/user/email/list-email?page=' + $scope.curPage, config2).success(
+		$http.get('/email/list-email?page=' + $scope.curPage, config2).success(
 				function(data) {
 					$scope.accounts = data;
-					$http.get('/user/email/email-count', config2).success(function(data2) {
+					$http.get('/email/email-count', config2).success(function(data2) {
 						$scope.totalItem = data2;
 					}).finally(function(){
 						$scope.loading = false;
@@ -69,7 +69,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		$scope.formError = null;
 		$scope.formMessage = "Đợi nhé...";
 
-		$http.post("/user/email/create-account", $scope.newUser, config).success(
+		$http.post("/email/create-account", $scope.newUser, config).success(
 				function(data, status, headers, config) {
 					$scope.formMessage = data ? 'Tạo tài khoản thành công!'
 							: null;
@@ -88,7 +88,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		if (r == false)
 			return;
 
-		$http.post("/user/email/del-account", user, config).success(
+		$http.post("/email/del-account", user, config).success(
 				function(data, status, headers, config) {
 					loadData();
 					if(data) $scope.formMessage = 'Xóa tài khoản thành công!';
@@ -99,7 +99,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	};
 
 	$scope.updateUser = function(val) {
-		return $http.post('/user/email/update-account', val, config).success(
+		return $http.post('/email/update-account', val, config).success(
 				function(data, status, headers, config) {
 					if(data) $scope.formMessage = 'Cập nhật tài khoản thành công!';
 					else $scope.formError = 'Không cập nhật được tài khoản!';

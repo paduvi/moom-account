@@ -22,155 +22,127 @@
 							class="fa fa-spinner fa-spin"></i>
 					</h3>
 				</div>
-				<div class="panel-body" style="padding: 0 15px;">
-					<div class="row">
-						<div class="col-xs-1 col-md-1 col-sm-1 header">#</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 header">Tên đăng nhập</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 header">Mật khẩu</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 header">Email xác
-							minh</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 header">Số điện thoại</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 header">Ngày sinh</div>
-						<div class="col-xs-1 col-md-1 col-sm-1 header"
-							style="text-align: center">
-							<span class="fa fa-align-justify"></span>
-						</div>
-					</div>
-					<div class="row" style="clear: both">
-						<div class="col-xs-1 col-md-1 col-sm-1 cell"></div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<input class="form-control input-sm" type="text"
-								ng-model="filter.username">
-						</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<input class="form-control input-sm" type="text"
-								ng-model="filter.password">
-						</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<input class="form-control input-sm" type="text"
-								ng-model="filter.email">
-						</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<input class="form-control input-sm" type="text"
-								ng-model="filter.phone">
-						</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<input class="form-control input-sm createDay" type="text"
-								ng-model="filter.birthday" my-search>
-						</div>
-						<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
-						</div>
-					</div>
-					<form ng-submit="createUser(newUser)">
-						<div class="row" style="clear: both">
-							<div class="col-xs-1 col-md-1 col-sm-1 cell"></div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" type="text"
-									ng-model="newUser.username">
-							</div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" type="text"
-									ng-model="newUser.password">
-							</div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" type="text"
-									ng-model="newUser.retrieveEmail">
-							</div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm" type="text"
-									ng-model="newUser.phone">
-							</div>
-							<div class="col-xs-2 col-md-2 col-sm-2 cell">
-								<input class="form-control input-sm createDay" type="text"
-									ng-model="newUser.birthday" my-search>
-							</div>
-							<div class="col-xs-1 col-md-1 col-sm-1 cell" style="text-align: center">
-								<button type="submit" class="btn btn-sm btn-success"
-									style="margin: auto">Thêm mới</button>
-							</div>
-						</div>
-					</form>
-					<div class="row" ng-repeat="(key, account) in accounts">
-						<div class="col-xs-1 col-md-1 col-sm-1 cell">{{$index+(curPage-1)
-							* pageSize+1}}</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<a class="edit" href="#" editable-text="account.username"
-								onaftersave="updateUser(account)" e-style="width: 100%">{{account.username}}</a>
-						</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<a class="edit" href="#" editable-text="account.password"
-								onaftersave="updateUser(account)" e-style="width: 100%">{{account.password}}</a>
-						</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<a class="edit" href="#" editable-email="account.retrieveEmail"
-								onaftersave="updateUser(account)" e-style="width: 100%">{{account.retrieveEmail}}</a>
-						</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<a class="edit" href="#" editable-tel="account.phone"
-								onaftersave="updateUser(account)" e-style="width: 100%">{{account.phone}}</a>
-						</div>
-						<div class="col-xs-2 col-md-2 col-sm-2 cell">
-							<a class="edit" href="#" e-placeholder="dd-mm-yyyy"
-								editable-text="account.birthday"
-								onaftersave="updateUser(account)" e-style="width: 100%">{{account.birthday}}</a>
-						</div>
-						<div class="col-xs-1 col-md-1 col-sm-1 cell" align="center">
-							<a data-toggle="modal" data-target="#userInfo-{{key}}"
-								class="btn btn-default" style="margin-right: 5px;"><i
-								class="fa fa-2 fa-ellipsis-h"></i></a><a ng-click="delUser(account)"
-								class="btn btn-danger"><i class="fa fa-2 fa-trash"></i></a>
-						</div>
-						<div class="modal fade" id="userInfo-{{key}}" role="dialog">
-							<div class="modal-dialog">
-								<div class="modal-content" style="border-radius: 1px">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">Câu hỏi bảo mật</h4>
-									</div>
-									<div class="modal-body">
-										<button class="btn btn-default"
-											ng-click="addQuestion(account)" style="margin-bottom:5px;">
-											<i class="fa fa-2 fa-plus"></i>
-										</button>
-										<div ng-repeat="(index, q) in account.questions">
-											<button class="btn btn-default"
-												ng-click="removeQuestion(account, index)">
-												<i class="fa fa-2 fa-minus"></i>
-											</button><br>
-
-											<span>Câu hỏi:</span>
-											<div style="width: 100%; height: 34px">
-												<a class="edit" href="#" editable-text="q.question"
-													onaftersave="updateUser(account)" e-style="width: 100%">{{q.question}}</a>
+				<div class="panel-body" style="padding: 15px 15px;">
+					<table class="table table-striped table-bordered table-list">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Tên đăng nhập</th>
+								<th>Mật khẩu</th>
+								<th>Email xác minh </th>
+								<th>Số điện thoại</th>
+								<th>Ngày sinh</th>
+								<th style="text-align:center"><span class="fa fa-align-justify"></span></th>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td><input class="form-control input-sm" type="text"
+									ng-model="filter.username"></td>
+								<td><input class="form-control input-sm" type="text"
+									ng-model="filter.password"></td>
+								<td><input class="form-control input-sm" type="text"
+									ng-model="filter.email"></td>
+								<td><input class="form-control input-sm" type="text"
+									ng-model="filter.phone"></td>
+								<td><input class="form-control input-sm createDay"
+									type="text" ng-model="filter.birthday" my-search></td>
+								<td>
+									<form ng-submit="createUser(newUser)">
+										<tr>
+											<td></td>
+											<td><input class="form-control input-sm" type="text"
+												ng-model="newUser.username"></td>
+											<td><input class="form-control input-sm" type="text"
+												ng-model="newUser.password"></td>
+											<td><input class="form-control input-sm" type="text"
+												ng-model="newUser.retrieveEmail"></td>
+											<td><input class="form-control input-sm" type="text"
+												ng-model="newUser.phone"></td>
+											<td><input class="form-control input-sm createDay"
+												type="text" ng-model="newUser.birthday" my-search></td>
+											<td>
+												<button type="submit" class="btn btn-sm btn-success"
+													style="margin: auto">Thêm mới</button>
+											</td>
+										</tr>
+									</form>
+							<tr ng-repeat="(key, account) in accounts">
+								<td>{{$index+(curPage-1) * pageSize+1}}</td>
+								<td><a class="edit" href="#"
+									editable-text="account.username"
+									onaftersave="updateUser(account)" e-style="width: 100%">{{account.username}}</a>
+								</td>
+								<td><a class="edit" href="#"
+									editable-text="account.password"
+									onaftersave="updateUser(account)" e-style="width: 100%">{{account.password}}</a>
+								</td>
+								<td><a class="edit" href="#"
+									editable-email="account.retrieveEmail"
+									onaftersave="updateUser(account)" e-style="width: 100%">{{account.retrieveEmail}}</a>
+								</td>
+								<td><a class="edit" href="#" editable-tel="account.phone"
+									onaftersave="updateUser(account)" e-style="width: 100%">{{account.phone}}</a>
+								</td>
+								<td><a class="edit" href="#" e-placeholder="dd-mm-yyyy"
+									editable-text="account.birthday"
+									onaftersave="updateUser(account)" e-style="width: 100%">{{account.birthday}}</a>
+								</td>
+								<td><a data-toggle="modal" data-target="#userInfo-{{key}}"
+									class="btn btn-default" style="margin-right: 5px;"><i
+										class="fa fa-2 fa-ellipsis-h"></i></a><a
+									ng-click="delUser(account)" class="btn btn-danger"><i
+										class="fa fa-2 fa-trash"></i></a></td>
+								<div class="modal fade" id="userInfo-{{key}}" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content" style="border-radius: 1px">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Câu hỏi bảo mật</h4>
 											</div>
-											<span>Câu trả lời:</span>
-											<div style="width: 100%; height: 34px">
-												<a class="edit" href="#" editable-text="q.answer"
-													onaftersave="updateUser(account)" e-style="width: 100%">{{q.answer}}</a>
+											<div class="modal-body">
+												<button class="btn btn-default"
+													ng-click="addQuestion(account)" style="margin-bottom: 5px;">
+													<i class="fa fa-2 fa-plus"></i>
+												</button>
+												<div ng-repeat="(index, q) in account.questions">
+													<button class="btn btn-default"
+														ng-click="removeQuestion(account, index)">
+														<i class="fa fa-2 fa-minus"></i>
+													</button>
+													<br> <span>Câu hỏi:</span>
+													<div style="width: 100%; height: 34px">
+														<a class="edit" href="#" editable-text="q.question"
+															onaftersave="updateUser(account)" e-style="width: 100%">{{q.question}}</a>
+													</div>
+													<span>Câu trả lời:</span>
+													<div style="width: 100%; height: 34px">
+														<a class="edit" href="#" editable-text="q.answer"
+															onaftersave="updateUser(account)" e-style="width: 100%">{{q.answer}}</a>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Close</button>
 											</div>
 										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Close</button>
+
 									</div>
 								</div>
-
-							</div>
+						</tbody>
+					</table>
+					<div class="panel-footer">
+						<div class="row" ng-show="accounts.length">
+							<uib-pagination class="pull-right" total-items="totalItem"
+								ng-model="curPage" max-size="numPages" class="pagination-md"
+								items-per-page="pageSize" boundary-links="true"
+								style="margin-right: 20px;" ng-change="pageChanged()"></uib-pagination>
 						</div>
-					</div>
-				</div>
-				<div class="panel-footer">
-					<div class="row" ng-show="accounts.length">
-						<uib-pagination class="pull-right" total-items="totalItem"
-							ng-model="curPage" max-size="numPages" class="pagination-md"
-							items-per-page="pageSize" boundary-links="true"
-							style="margin-right: 20px;" ng-change="pageChanged()"></uib-pagination>
 					</div>
 				</div>
 			</div>
-		</div>
-		<script type="text/javascript"
-			src="<c:url value='/resources/js/email-app.js'/>"></script>
+			<script type="text/javascript"
+				src="<c:url value='/resources/js/email-app.js'/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

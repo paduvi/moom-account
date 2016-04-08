@@ -16,8 +16,15 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			'username' : '',
 			'password' : '',
 			'fullname' : '',
+			'role' : '',
 	};
 
+	
+	 $scope.roles = [
+	      {value: 1, text: 'ADMIN'},
+	      {value: 0, text: 'USER'}
+	 ]; 
+	
 	var loadData = function() {
 		$scope.loading = true;
 
@@ -106,6 +113,14 @@ app.controller("loadData", function($scope, $http, $timeout) {
 				});
 	};
 	
+	$http.get('/user/user-info', config).success(
+		function(data) {
+			$scope.user = data;
+		}).error(function(){
+			$scope.loading = false;
+		});
+		
+	/* show password */
 	$scope.inputType = 'password';
 	$scope.showIcon = 'fa fa-eye'; 
 	 
@@ -118,7 +133,6 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			 $scope.showIcon = 'fa fa-eye';
 		 }
 	 };
-			
 });
 
 app.run(function(editableOptions, editableThemes) {

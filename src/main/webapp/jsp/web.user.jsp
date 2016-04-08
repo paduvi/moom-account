@@ -30,6 +30,7 @@
 									<th>Tên</th>
 									<th>Tài khoản</th>
 									<th>Mật khẩu</th>
+									<th>Quyền</th>
 									<th style="text-align: center"><span
 										class="fa fa-align-justify"></span></th>
 								</tr>
@@ -43,6 +44,8 @@
 										ng-model="filter.password"></td>
 									<td><input class="form-control input-sm" type="text"
 										ng-model="filter.fullname"></td>
+									<td><input class="form-control input-sm" type="text"
+										ng-model="filter.role"></td>
 									<td></td>
 								</tr>
 								<tr>
@@ -54,16 +57,22 @@
 											ng-model="newUser.password"></td>
 										<td><input class="form-control input-sm" type="text"
 											ng-model="newUser.fullname"></td>
+										<td><input class="form-control input-sm" type="text"
+											ng-model="newUser.role"></td>
 										<td style="text-align: center"><button type="submit" class="btn btn-sm btn-success"
 												style="margin: auto">Thêm mới</button></td>
 									</form>
 								</tr>
-								<tr ng-repeat="(key, account) in accounts" ng-drag="true"
-									ng-drag-data="account" data-allow-transform="true">
+								<tr ng-repeat="(key, account) in accounts">
 									<td align="center">{{$index+(curPage-1) * pageSize+1}}</td>
-									<td>{{account.username}}</td>
-									<td>{{account.password}}</td>
-									<td>{{account.fullname}}</td>
+									<td><a class="edit" href="#" editable-text="account.username"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.username}}</a></td>
+									<td><a class="edit" href="#" editable-text="account.password"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.password}}</a></td>
+									<td><a class="edit" href="#" editable-text="account.fullname"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.fullname}}</a></td>
+									<td><a class="edit" href="#" editable-select="account.role" e-ng-options="role.value as role.text for role in roles"
+								onaftersave="updateUser(account)" e-style="width: 100%">{{account.role}}</a></td>
 									<td><a ng-click="delUser(account)" class="btn btn-danger"><i
 											class="fa fa-2 fa-trash"></i></a></td>
 								</tr>
