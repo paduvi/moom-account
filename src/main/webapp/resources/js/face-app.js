@@ -29,10 +29,10 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			}
 		};
 		
-		$http.get('/user/faccount/list-face?page=' + $scope.curPage, config2).success(
+		$http.get('/faccount/list-face?page=' + $scope.curPage, config2).success(
 			function(data) {
 				$scope.accounts = data;
-				$http.get('/user/faccount/face-count',config2).success(function(data2) {
+				$http.get('/faccount/face-count',config2).success(function(data2) {
 					$scope.totalItem = data2;
 				}).finally(function(){
 					$scope.loading = false;
@@ -42,13 +42,14 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		});
 	}
 
+	/* account filter */
 	$scope.filter = {
 			'email' : '',
 			'password' : '',
 			'phone' : '',
 			'group'	: '',
 	};
-	// Instantiate these variables outside the watch
+
 	var tempFilter = {}, filterTextTimeout, delayTime = 0;
 	$scope.$watch('filter', function(val) {
 		if (filterTextTimeout){
@@ -78,7 +79,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			'phone' : $scope.newUser.phone,
 		};
 		
-		$http.post("/user/faccount/create-account", newUser, config).success(
+		$http.post("/faccount/create-account", newUser, config).success(
 				function(data, status, headers, config) {
 					$scope.formMessage = data ? 'Tạo tài khoản thành công!'
 							: null;
@@ -97,7 +98,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		if (r == false)
 			return;
 
-		$http.post("/user/faccount/del-account", user, config).success(
+		$http.post("/faccount/del-account", user, config).success(
 				function(data, status, headers, config) {
 					loadData();
 					if(data) $scope.formMessage = 'Xóa tài khoản thành công!';
@@ -117,37 +118,13 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		});
 	};
 	
-//	$scope.droppedObjects = [];
-	
-	$http.get('/user/group/list-group', config).success(
-		function(data) {
-			$scope.groups = data;
-		}).error(function(){
-			$scope.loading = false;
-	});
-	
-	var addToGroup = function(val, groupId) {
-		$http.post('/user/group/add-to-group?group=' + groupId, val, config).success(
-			function(data) {
-				loadData();
-			}).error(function(){
-				$scope.loading = false;
-			});
-	}
-	
+	/* drag & drop */
 	$scope.onDropComplete = function(data, groupId, id, evt){
-//        var index = $scope.droppedObjects.indexOf(data);
-//        if (index == -1)
-//        $scope.droppedObjects.push(data);
         addToGroup(data, groupId);
         $scope.loadGroupAccount(groupId, id);
     }
 	
     $scope.onDragSuccess = function(data, groupId, id, evt){
-//        var index = $scope.droppedObjects.indexOf(data);
-//        if (index > -1) {
-//            $scope.droppedObjects.splice(index, 1);
-//        }
     	 $scope.loadGroupAccount(groupId, id);
     }
     
@@ -155,23 +132,89 @@ app.controller("loadData", function($scope, $http, $timeout) {
         var index = array.indexOf(obj);
     }
     
+    var addToGroup = function(val, groupId) {
+		$http.post('/group/add-to-group?group=' + groupId, val, config).success(
+			function(data) {
+				loadData();
+			}).error(function(){
+				$scope.loading = false;
+			});
+	}
+    
+	/* load list group */
+	$scope.groupF = {'name' : ''};
+	
+	var loadGroup = function(val) {
+		if(val != null) val = val.name;
+		$http.get('/group/list-group?name=' + val, config).success(
+				function(data) {
+					$scope.groups = data;
+				}).error(function(){
+					$scope.loading = false;
+				});
+	}
+	loadGroup();
+	var tempGFilter = {}, filterGTextTimeout, delayTime = 0;
+	$scope.$watch('groupF', function(val) {
+		if (filterGroupTextTimeout){
+			$timeout.cancel(filterGTextTimeout);
+			delayTime = 1000;
+		}
+
+		tempGFilter = val;
+		filterGTextTimeout = $timeout(function() {
+			$scope.groupF = tempGFilter;
+			loadGroup($scope.groupF);
+		}, delayTime); // delay 1000 ms
+	}, true);
+    
+    /* load list group account */
     $scope.group1 = [];
-    $scope.totalGroupItem = [];
     
     $scope.loadGroupAccount = function(groupId, index) {
-    	$http.get('/user/faccount/list-face?page=' + $scope.curPage + "&g=" + groupId, config).success(
+    	var groupData = {
+    		email : $scope.groupFilter.email,
+    		password : $scope.groupFilter.password,
+    		phone : $scope.groupFilter.phone
+    	};
+    	
+    	var config2 = {
+    			params : groupData,
+    			headers : {
+    				'Accept' : 'application/json'
+    			}
+    	};
+
+    	$http.get('/faccount/list-face?page=' + $scope.curPage + "&g=" + groupId, config2).success(
     			function(data) {
     				$scope.group1[index] = data;
-    				$http.get('/user/faccount/face-count?g=' + groupId, config).success(function(data2) {
-    					if($scope.groupCurPage[index] === null || angular.isUndefined($scope.groupCurPage[index]))
-    						$scope.groupCurPage[index] = 1;
-    					$scope.totalGroupItem[index] = data2;
-    				}).finally(function(){
-    					$scope.loading = false;
-    				});
     			})
     }
     
+    $scope.groupFilter = {
+			'email' : '',
+			'password' : '',
+			'phone' : '',
+			'group' : ''
+	};
+
+    var tempGroupFilter = {}, filterGroupTextTimeout, delayTime = 0;
+	$scope.$watch('groupFilter', function(val) {
+		if (filterGroupTextTimeout){
+			$timeout.cancel(filterGroupTextTimeout);
+			delayTime = 1000;
+		}
+
+		tempGroupFilter = val;
+		filterGroupTextTimeout = $timeout(function() {
+			$scope.groupFilter = tempGroupFilter;
+			$scope.loadGroupAccount(-1,0);
+		}, delayTime); // delay 1000 ms
+	}, true);
+
+	$scope.pageChanged = function() {
+		loadData();
+	};
 });
 
 app.run(function(editableOptions, editableThemes) {

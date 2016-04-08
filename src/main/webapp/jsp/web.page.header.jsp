@@ -16,10 +16,10 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
              <security:authorize access="hasRole('ROLE_ADMIN')">
-             	<li><a href="/user/" style="color:#FFFFFF">Quản lý người dùng</a></li>
+             	<li><a href="/user" style="color:#FFFFFF">Quản lý người dùng</a></li>
              </security:authorize>
-              <li class="active"><a href="/user/faccount" style="color:#FFFFFF">Quản lý Facebook</a></li>
-              <li><a href="/user/email" style="color:#FFFFFF">Quản lý Email</a></li>
+              <li class="active"><a href="/faccount" style="color:#FFFFFF">Quản lý Facebook</a></li>
+              <li><a href="/email" style="color:#FFFFFF">Quản lý Email</a></li>
               <li><a href="/user/information" style="color:#FFFFFF">Thông tin của tôi</a></li>
               <li><a href="<c:url value="j_spring_security_logout"/>" style="color:#FFFFFF">Đăng xuất</a></li>
             </ul>

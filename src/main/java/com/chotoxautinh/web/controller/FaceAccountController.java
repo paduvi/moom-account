@@ -29,7 +29,7 @@ import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.service.FaceAccountFilter;
 
 @Controller
-@RequestMapping("/user/faccount")
+@RequestMapping("faccount")
 public class FaceAccountController {
 
 	Logger logger = LoggerFactory.getLogger(FaceAccountController.class);

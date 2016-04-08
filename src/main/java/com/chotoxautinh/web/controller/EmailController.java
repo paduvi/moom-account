@@ -27,7 +27,7 @@ import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.service.EmailFilter;
 
 @Controller
-@RequestMapping("/user/email")
+@RequestMapping("email")
 public class EmailController {
 
 	Logger logger = LoggerFactory.getLogger(EmailController.class);
