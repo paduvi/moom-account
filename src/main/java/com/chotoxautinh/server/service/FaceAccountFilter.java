@@ -27,12 +27,20 @@ public class FaceAccountFilter {
 	@Autowired
 	private GroupDao groupDao;
 
-	private static final int LATEST = -3;
-	private static final int NONE = -2;
-	private static final int HAVE = -1;
-
+	public static final int LATEST = -3;
+	public static final int NONE = -2;
+	public static final int HAVE = -1;
+	
+	public Predicate build(Integer group, String groupName) {
+		return build(null, null, null, null, group, groupName);
+	}
+	
 	public Predicate build(String id, String email, String password, String phone) {
 		return build(id, email, password, phone, null, null);
+	}
+	
+	public Predicate build(String id, String email, String password, String phone, Integer group) {
+		return build(id, email, password, phone, group, null);
 	}
 
 	public Predicate build(String id, String email, String password, String phone, Integer group, String groupName) {
