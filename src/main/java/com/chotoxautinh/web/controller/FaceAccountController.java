@@ -6,6 +6,7 @@
 package com.chotoxautinh.web.controller;
 
 import java.text.ParseException;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,6 +48,13 @@ public class FaceAccountController {
 
 	@Autowired
 	private FaceAccountFilter faceAccountFilter;
+	
+	private class GroupComparator implements Comparator<FaceAccount> {
+		@Override
+		public int compare(FaceAccount a, FaceAccount b) {
+			return Integer.compare(Integer.parseInt(a.getGroup()), Integer.parseInt(b.getGroup()));
+		}
+	}
 
 	@RequestMapping("")
 	public ModelAndView home() {
@@ -61,9 +69,7 @@ public class FaceAccountController {
 		if ((groupName == null || groupName.isEmpty()) && (groupId == null)) {
 			groupId = FaceAccountFilter.LATEST;
 		}
-		OrderSpecifier<Integer> sortSpec = QFaceAccount.faceAccount.group.castToNum(Integer.class).asc();
-		return faceAccountDao.findAllFaceAccounts(faceAccountFilter.build(null, null, null, null, groupId, groupName),
-				sortSpec);
+		return faceAccountDao.findAllFaceAccounts(faceAccountFilter.build(null, null, null, null, groupId, groupName));
 	}
 
 	@RequestMapping(value = "/list-face-have-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,11 +79,9 @@ public class FaceAccountController {
 			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "gName", required = false) String groupName,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		OrderSpecifier<Integer> groupSpec = QFaceAccount.faceAccount.group.castToNum(Integer.class).asc();
 		OrderSpecifier<String> emailSpec = QFaceAccount.faceAccount.email.asc();
 		List<FaceAccount> accounts = faceAccountDao.findAllFaceAccounts(
-				faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.HAVE, groupName), groupSpec,
-				emailSpec);
+				faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.HAVE, groupName), emailSpec);
 		List<String> listGroup = new LinkedList<>();
 		List<FaceAccount> temp = new LinkedList<>();
 		int index = 0;
@@ -89,6 +93,7 @@ public class FaceAccountController {
 			if (index > (pageNumber - 1) * PAGE_SIZE && index <= pageNumber * PAGE_SIZE)
 				temp.add(faceAccount);
 		}
+		temp.sort(new GroupComparator());
 		return temp;
 	}
 
