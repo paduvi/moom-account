@@ -48,13 +48,13 @@ public class FaceAccountController {
 
 	@Autowired
 	private FaceAccountFilter faceAccountFilter;
-	
-	private class GroupComparator implements Comparator<FaceAccount> {
+
+	private final static Comparator<FaceAccount> GROUP_COMPARATOR = new Comparator<FaceAccount>() {
 		@Override
 		public int compare(FaceAccount a, FaceAccount b) {
 			return Integer.compare(Integer.parseInt(a.getGroup()), Integer.parseInt(b.getGroup()));
 		}
-	}
+	};
 
 	@RequestMapping("")
 	public ModelAndView home() {
@@ -93,7 +93,7 @@ public class FaceAccountController {
 			if (index > (pageNumber - 1) * PAGE_SIZE && index <= pageNumber * PAGE_SIZE)
 				temp.add(faceAccount);
 		}
-		temp.sort(new GroupComparator());
+		temp.sort(GROUP_COMPARATOR);
 		return temp;
 	}
 
