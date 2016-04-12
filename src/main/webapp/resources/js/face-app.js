@@ -141,54 +141,35 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	}
     
 	/* load list group */
-/*	$scope.groupF = {'name' : ''};
-	
-	var loadGroup = function(val) {
-		if(val != null) val = val.name;
-		$http.get('/group/list-group?name=' + val, config).success(
-				function(data) {
-					$scope.groups = data;
-				}).error(function(){
-					$scope.loading = false;
-				});
-	}
-	loadGroup();
-	var tempGFilter = {}, filterGTextTimeout, delayTime = 0;
-	$scope.$watch('groupF', function(val) {
-		if (filterGroupTextTimeout){
-			$timeout.cancel(filterGTextTimeout);
-			delayTime = 1000;
-		}
-
-		tempGFilter = val;
-		filterGTextTimeout = $timeout(function() {
-			$scope.groupF = tempGFilter;
-			loadGroup($scope.groupF);
-		}, delayTime); // delay 1000 ms
-	}, true);*/
+/*
+ * $scope.groupF = {'name' : ''};
+ * 
+ * var loadGroup = function(val) { if(val != null) val = val.name;
+ * $http.get('/group/list-group?name=' + val, config).success( function(data) {
+ * $scope.groups = data; }).error(function(){ $scope.loading = false; }); }
+ * loadGroup(); var tempGFilter = {}, filterGTextTimeout, delayTime = 0;
+ * $scope.$watch('groupF', function(val) { if (filterGroupTextTimeout){
+ * $timeout.cancel(filterGTextTimeout); delayTime = 1000; }
+ * 
+ * tempGFilter = val; filterGTextTimeout = $timeout(function() { $scope.groupF =
+ * tempGFilter; loadGroup($scope.groupF); }, delayTime); // delay 1000 ms },
+ * true);
+ */
     
     /* load list group account */
     
-   /* $scope.loadGroupAccount = function(groupId, index) {
-    	var groupData = {
-    		email : $scope.groupFilter.email,
-    		password : $scope.groupFilter.password,
-    		phone : $scope.groupFilter.phone
-    	};
-    	
-    	var config2 = {
-    			params : groupData,
-    			headers : {
-    				'Accept' : 'application/json'
-    			}
-    	};
-
-    	$http.get("/faccount/list-face-by-group?&gId=" + groupId, config2).success(
-    			function(data) {
-    				$scope.group1[index] = data;
-    			})
-    }*/
-	$scope.group1 = [];
+   /*
+	 * $scope.loadGroupAccount = function(groupId, index) { var groupData = {
+	 * email : $scope.groupFilter.email, password : $scope.groupFilter.password,
+	 * phone : $scope.groupFilter.phone };
+	 * 
+	 * var config2 = { params : groupData, headers : { 'Accept' :
+	 * 'application/json' } };
+	 * 
+	 * $http.get("/faccount/list-face-by-group?&gId=" + groupId,
+	 * config2).success( function(data) { $scope.group1[index] = data; }) }
+	 */
+	
     $scope.groupFilter = {
 			'email' : '',
 			'password' : '',
@@ -225,14 +206,17 @@ app.controller("loadData", function($scope, $http, $timeout) {
     }
     
     var test = function(data) {
+    	$scope.group1 = [];
+    	alert("length: " +$scope.group1.length);
     	angular.forEach(data, function(value, key) {
-    		if($scope.group1.indexOf(value.group) == -1) {
+    		if($scope.group1[value.group] === undefined) {
+    			alert("Group ID: "+value.group);
     			$scope.group1[value.group] = [];
     		}
     		$scope.group1[value.group].push(value);
     	});
+    	alert("length: " +$scope.group1.length);
     }
-    alert($scope.group1.length);
     
     var tempGroupFilter = {}, filterGroupTextTimeout, delayTime = 0;
 	$scope.$watch('groupFilter', function(val) {

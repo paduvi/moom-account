@@ -64,7 +64,7 @@
 											<div class="panel-heading panel-header-group">
 												<h4 class="panel-title" style="font-size: 13px">
 													<a data-toggle="collapse" data-parent="#accordion"
-														ng-href="#collapse-{{id}}">Nhóm
+														href="#collapse-{{id}}">Nhóm {{id}}
 														<!-- {{group.name}} <span class="badge">{{group.nAccounts}} --></span>
 													</a> <span class="pull-right">Lần chạy cuối:
 													<!-- 	{{group.lastExecution | date:"dd/MM/yyyy 'lúc' h:mma"}} --></span>
