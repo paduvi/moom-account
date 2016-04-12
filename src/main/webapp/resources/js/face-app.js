@@ -19,7 +19,6 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			email : $scope.filter.email,
 			password : $scope.filter.password,
 			phone : $scope.filter.phone,
-			g : '-2'
 		};
 			
 		var config2 = {
@@ -29,10 +28,10 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			}
 		};
 		
-		$http.get('/faccount/list-face?page=' + $scope.curPage, config2).success(
+		$http.get('/faccount/list-face-none-group?page=' + $scope.curPage, config2).success(
 			function(data) {
 				$scope.accounts = data;
-				$http.get('/faccount/face-count',config2).success(function(data2) {
+				$http.get('/faccount/face-count-none-group',config2).success(function(data2) {
 					$scope.totalItem = data2;
 				}).finally(function(){
 					$scope.loading = false;
@@ -142,7 +141,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	}
     
 	/* load list group */
-	$scope.groupF = {'name' : ''};
+/*	$scope.groupF = {'name' : ''};
 	
 	var loadGroup = function(val) {
 		if(val != null) val = val.name;
@@ -166,12 +165,11 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			$scope.groupF = tempGFilter;
 			loadGroup($scope.groupF);
 		}, delayTime); // delay 1000 ms
-	}, true);
+	}, true);*/
     
     /* load list group account */
-    $scope.group1 = [];
     
-    $scope.loadGroupAccount = function(groupId, index) {
+   /* $scope.loadGroupAccount = function(groupId, index) {
     	var groupData = {
     		email : $scope.groupFilter.email,
     		password : $scope.groupFilter.password,
@@ -185,19 +183,57 @@ app.controller("loadData", function($scope, $http, $timeout) {
     			}
     	};
 
-    	$http.get('/faccount/list-face?page=' + $scope.curPage + "&g=" + groupId, config2).success(
+    	$http.get("/faccount/list-face-by-group?&gId=" + groupId, config2).success(
     			function(data) {
     				$scope.group1[index] = data;
     			})
-    }
-    
+    }*/
+	$scope.group1 = [];
     $scope.groupFilter = {
 			'email' : '',
 			'password' : '',
 			'phone' : '',
 			'group' : ''
 	};
+	
+     var loadAccountHaveGroup = function() {
+    	var groupData = {
+    		email : $scope.groupFilter.email,
+    		password : $scope.groupFilter.password,
+    		phone : $scope.groupFilter.phone
+    	};
+    	
+    	var config2 = {
+    			params : groupData,
+    			headers : {
+    				'Accept' : 'application/json'
+    			}
+    	};
 
+    	$http.get('/faccount/list-face-have-group?page=' + $scope.curPage, config2).success(
+    			function(data) {
+    				$scope.groupAccounts = data;
+    				test(data);
+    				$http.get('/faccount/face-count-have-group',config2).success(function(data2) {
+    					$scope.groupTotalItem = data2;
+    				}).finally(function(){
+    					$scope.loading = false;
+    				});
+    			}).error(function(){
+    				$scope.loading = false;
+    		});
+    }
+    
+    var test = function(data) {
+    	angular.forEach(data, function(value, key) {
+    		if($scope.group1.indexOf(value.group) == -1) {
+    			$scope.group1[value.group] = [];
+    		}
+    		$scope.group1[value.group].push(value);
+    	});
+    }
+    alert($scope.group1.length);
+    
     var tempGroupFilter = {}, filterGroupTextTimeout, delayTime = 0;
 	$scope.$watch('groupFilter', function(val) {
 		if (filterGroupTextTimeout){
@@ -208,12 +244,36 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		tempGroupFilter = val;
 		filterGroupTextTimeout = $timeout(function() {
 			$scope.groupFilter = tempGroupFilter;
-			$scope.loadGroupAccount(-1,0);
+			 loadAccountHaveGroup();
 		}, delayTime); // delay 1000 ms
 	}, true);
 
 	$scope.pageChanged = function() {
 		loadData();
+	};
+	
+	$scope.groupCurPage = 1;
+	
+	$scope.groupPageChanged = function() {
+		loadAccountHaveGroup();
+	};
+	
+	$scope.createGroup = function(val) {
+		$http.post('/group/create-group', val, config).success(
+			function(data) {
+				$scope.group1[index] = data;
+			});
+	}
+	
+	$scope.createGroup = function(newGroup) {
+		newGroup = {
+			'name' : $scope.newGroup.name,
+		};
+		
+		$http.post("/group/create-group", newGroup, config).success(
+				function(data, status, headers, config) {
+				}).error(function(data, status, headers, config) {
+		});
 	};
 });
 

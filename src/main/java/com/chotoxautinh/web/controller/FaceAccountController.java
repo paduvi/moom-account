@@ -39,6 +39,7 @@ public class FaceAccountController {
 	Logger logger = LoggerFactory.getLogger(FaceAccountController.class);
 
 	private int PAGE_SIZE = 15;
+	private int GROUP_PAGE_SIZE = 5;
 
 	@Autowired
 	private FaceAccountDao faceAccountDao;
@@ -90,7 +91,7 @@ public class FaceAccountController {
 				listGroup.add(faceAccount.getGroup());
 				index++;
 			}
-			if (index > (pageNumber - 1) * PAGE_SIZE && index <= pageNumber * PAGE_SIZE)
+			if (index > (pageNumber - 1) * GROUP_PAGE_SIZE && index <= pageNumber * GROUP_PAGE_SIZE)
 				temp.add(faceAccount);
 		}
 		temp.sort(GROUP_COMPARATOR);

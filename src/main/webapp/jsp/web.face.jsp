@@ -31,7 +31,9 @@
 									<h4 class="panel-title" style="display:inline-block; width: 100%">
 										<span>Nhóm {{group.name}} <span class="badge">{{groups.length}}</span></span>
 										<div class="input-group pull-right" style="width: 60%;">
-											<div class="input-group-btn" style="font-size:14px;">
+											<input class="form-control"	ng-model="newGroup.name" type="text">
+											<span class="input-group-addon" ><a href="#" ng-click="createGroup(newGroup)"><span
+												class="fa fa-plus-circle"></span></a></span>
 										</div>
 									</h4>
 								</div>
@@ -47,18 +49,25 @@
 												ng-model="groupFilter.password">
 										</div>
 									</div>
+									
+									<div class="row" ng-show="accounts.length">
+											<uib-pagination class="pull-right" total-items="groupTotalItem"
+												ng-model="groupCurPage" max-size="numPages" class="pagination-md"
+												items-per-page="pageSize" boundary-links="true"
+												style="margin-right: 20px;" ng-change="groupPageChanged()"></uib-pagination>
+									</div>
+									
 									<div class="panel-group" id="accordion"
-										ng-repeat="(id, group) in groups" style="margin-bottom: 10px;">
+										ng-repeat="(id, group) in group1" style="margin-bottom: 10px;">
 										<div class="panel panel-default" ng-drop="true"
 											ng-drop-success="onDropComplete($data, group.id, id, $event)">
 											<div class="panel-heading panel-header-group">
 												<h4 class="panel-title" style="font-size: 13px">
 													<a data-toggle="collapse" data-parent="#accordion"
-														ng-href="#collapse-{{id}}"
-														ng-click="loadGroupAccount(group.id, id)">Nhóm
-														{{group.name}} <span class="badge">{{group.nAccounts}}</span>
+														ng-href="#collapse-{{id}}">Nhóm
+														<!-- {{group.name}} <span class="badge">{{group.nAccounts}} --></span>
 													</a> <span class="pull-right">Lần chạy cuối:
-														{{group.lastExecution | date:"dd/MM/yyyy 'lúc' h:mma"}}</span>
+													<!-- 	{{group.lastExecution | date:"dd/MM/yyyy 'lúc' h:mma"}} --></span>
 												</h4>
 											</div>
 											<div id="collapse-{{id}}" class="panel-collapse collapse">
@@ -73,12 +82,12 @@
 															</tr>
 														</thead>
 														<tbody>
-															<tr ng-repeat="(key, groupAccount) in group1[id]"
+															<tr ng-repeat="(key, values) in group"
 																ng-drag="true" ng-drag-data="obj"
 																ng-drag-success="onDragSuccess($data, group.id, id, $event)">
-																<td><a class="edit" href="#" editable-text="account.email" onaftersave="updateUser(groupAccount)" e-style="width: 100%">{{groupAccount.email}}</a></td>
-																<td>{{groupAccount.password}}</td>
-																<td>{{groupAccount.phone}}</td>
+																<td><a class="edit" href="#" editable-text="values.email" onaftersave="updateUser(values)" e-style="width: 100%">{{values.email}}</a></td>
+																<td>{{values.password}}</td>
+																<td>{{values.phone}}</td>
 															</tr>
 														</tbody>
 													</table>
