@@ -49,7 +49,7 @@
 								<td><input class="form-control input-sm createDay"
 									type="text" ng-model="filter.birthday" my-search></td>
 								<td>
-									<form ng-submit="createUser(newUser)">
+									<form>
 										<tr>
 											<td></td>
 											<td><input class="form-control input-sm" type="text"
@@ -90,7 +90,6 @@
 																</div>
 															</div>
 															<div class="modal-footer">
-																<button type="submit" class="btn btn-sm btn-success">Thêm</button>
 																<button type="button" class="btn btn-default"
 																	data-dismiss="modal">Đóng</button>
 															</div>
@@ -98,7 +97,7 @@
 
 													</div>
 												</div>
-												<button type="submit" class="btn btn-sm btn-success"
+												<button type="button" ng-click="createUser(newUser)" class="btn btn-sm btn-success"
 													style="margin: auto">Thêm mới</button></td>
 										</tr>
 								</td>

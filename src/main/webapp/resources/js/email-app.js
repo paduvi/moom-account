@@ -108,9 +108,10 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		});
 	};
 	
+	$scope.newUser = {};
+	
 	$scope.addQuestions = function(val) {
-		if (angular.isUndefined(val.questions) || val.questions === null)
-			val.questions = [];
+		val.questions = [];
 		var question = {};
 		val.questions.push(question);
 	}
