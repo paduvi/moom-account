@@ -207,15 +207,12 @@ app.controller("loadData", function($scope, $http, $timeout) {
     
     var test = function(data) {
     	$scope.group1 = [];
-    	alert("length: " +$scope.group1.length);
     	angular.forEach(data, function(value, key) {
     		if($scope.group1[value.group] === undefined) {
-    			alert("Group ID: "+value.group);
     			$scope.group1[value.group] = [];
     		}
     		$scope.group1[value.group].push(value);
     	});
-    	alert("length: " +$scope.group1.length);
     }
     
     var tempGroupFilter = {}, filterGroupTextTimeout, delayTime = 0;

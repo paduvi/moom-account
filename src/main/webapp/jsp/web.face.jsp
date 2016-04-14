@@ -19,8 +19,7 @@
 			<div class="row">
 				<div class="col-xs-4 col-sm-4 col-md-4">
 					<div class="input-group" style="margin-bottom: 10px;">
-						<input class="form-control"
-							ng-model="groupF.name" type="text">
+						<input class="form-control" ng-model="groupF.name" type="text">
 						<span class="input-group-addon"><span class="fa fa-search"></span></span>
 					</div>
 
@@ -28,18 +27,20 @@
 						<div class="panel-group" id="accordion">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h4 class="panel-title" style="display:inline-block; width: 100%">
+									<h4 class="panel-title"
+										style="display: inline-block; width: 100%">
 										<span>Nhóm {{group.name}} <span class="badge">{{groups.length}}</span></span>
 										<div class="input-group pull-right" style="width: 60%;">
-											<input class="form-control"	ng-model="newGroup.name" type="text">
-											<span class="input-group-addon" ><a href="#" ng-click="createGroup(newGroup)"><span
-												class="fa fa-plus-circle"></span></a></span>
+											<input class="form-control" ng-model="newGroup.name"
+												type="text"> <span class="input-group-addon"><a
+												href="#" ng-click="createGroup(newGroup)"><span
+													class="fa fa-plus-circle"></span></a></span>
 										</div>
 									</h4>
 								</div>
 								<div class="panel-body"
 									style="overflow-y: scroll; height: 700px">
-									<div class="row" style="margin-bottom:10px">
+									<div class="row" style="margin-bottom: 10px">
 										<div class="col-sm-6">
 											<input class="form-control input-sm" type="text"
 												ng-model="groupFilter.email">
@@ -49,26 +50,28 @@
 												ng-model="groupFilter.password">
 										</div>
 									</div>
-									
+
 									<div class="row" ng-show="accounts.length">
-											<uib-pagination class="pull-right" total-items="groupTotalItem"
-												ng-model="groupCurPage" max-size="numPages" class="pagination-md"
-												items-per-page="pageSize" boundary-links="true"
-												style="margin-right: 20px;" ng-change="groupPageChanged()"></uib-pagination>
+										<uib-pagination class="pull-right"
+											total-items="groupTotalItem" ng-model="groupCurPage"
+											max-size="numPages" class="pagination-md"
+											items-per-page="pageSize" boundary-links="true"
+											style="margin-right: 20px;" ng-change="groupPageChanged()"></uib-pagination>
 									</div>
-									
+
 									<div class="panel-group" id="accordion"
 										ng-repeat="(id, group) in group1" style="margin-bottom: 10px;">
 										<div class="panel panel-default" ng-drop="true"
+											ng-if="group.length > 0"
 											ng-drop-success="onDropComplete($data, group.id, id, $event)">
 											<div class="panel-heading panel-header-group">
-												<h4 class="panel-title" style="font-size: 13px">
-													<a data-toggle="collapse" data-parent="#accordion"
-														href="#collapse-{{id}}">Nhóm {{id}}
-														<!-- {{group.name}} <span class="badge">{{group.nAccounts}} --></span>
-													</a> <span class="pull-right">Lần chạy cuối:
-													<!-- 	{{group.lastExecution | date:"dd/MM/yyyy 'lúc' h:mma"}} --></span>
-												</h4>
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{id}}">
+													<h4 class="panel-title" style="font-size: 13px">
+														Nhóm {{id}}
+														<!-- {{group.name}} <span class="badge">{{group.nAccounts}}
+														</span> --> <span class="pull-right">Lần chạy cuối: <!-- 	{{group.lastExecution | date:"dd/MM/yyyy 'lúc' h:mma"}} --></span>
+													</h4> 
+												</a>
 											</div>
 											<div id="collapse-{{id}}" class="panel-collapse collapse">
 												<div class="panel-body">
@@ -82,12 +85,14 @@
 															</tr>
 														</thead>
 														<tbody>
-															<tr ng-repeat="(key, values) in group"
-																ng-drag="true" ng-drag-data="obj"
+															<tr ng-repeat="(key, account) in group" ng-drag="true"
+																ng-drag-data="obj"
 																ng-drag-success="onDragSuccess($data, group.id, id, $event)">
-																<td><a class="edit" href="#" editable-text="values.email" onaftersave="updateUser(values)" e-style="width: 100%">{{values.email}}</a></td>
-																<td>{{values.password}}</td>
-																<td>{{values.phone}}</td>
+																<td><a class="edit" href="#"
+																	editable-text="account.email"
+																	onaftersave="updateUser(account)" e-style="width: 100%">{{account.email}}</a></td>
+																<td>{{account.password}}</td>
+																<td>{{account.phone}}</td>
 															</tr>
 														</tbody>
 													</table>
@@ -149,14 +154,14 @@
 										ng-drag-data="account" data-allow-transform="true">
 										<td align="center">{{$index+(curPage-1) * pageSize+1}}</td>
 										<td><a class="edit" href="#"
-									editable-text="account.email"
-									onaftersave="updateUser(account)" e-style="width: 100%">{{account.email}}</a></td>
+											editable-text="account.email"
+											onaftersave="updateUser(account)" e-style="width: 100%">{{account.email}}</a></td>
 										<td><a class="edit" href="#"
-									editable-text="account.password"
-									onaftersave="updateUser(account)" e-style="width: 100%">{{account.password}}</a></td>
+											editable-text="account.password"
+											onaftersave="updateUser(account)" e-style="width: 100%">{{account.password}}</a></td>
 										<td><a class="edit" href="#"
-									editable-text="account.phone"
-									onaftersave="updateUser(account)" e-style="width: 100%">{{account.phone}}</a></td>
+											editable-text="account.phone"
+											onaftersave="updateUser(account)" e-style="width: 100%">{{account.phone}}</a></td>
 										<td><a ng-click="delUser(account)" class="btn btn-danger"><i
 												class="fa fa-2 fa-trash"></i></a></td>
 									</tr>
