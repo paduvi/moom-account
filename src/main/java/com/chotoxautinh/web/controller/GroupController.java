@@ -41,8 +41,9 @@ public class GroupController {
 	private GroupFilter groupFilter;
 
 	@RequestMapping(value = "/list-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Group> listAccount(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "name", required = false) String name, @RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+	public @ResponseBody List<Group> listGroup(@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
 		return groupDao.findGroupsByPage(groupFilter.build(id, name),
 				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "name")).getContent();
 	}
@@ -52,10 +53,15 @@ public class GroupController {
 			@RequestParam(value = "group", required = false) String groupId) {
 		return faceAccountDao.addFaceAccountToGroup(faccount, groupId);
 	}
-	
+
 	@RequestMapping(value = "/create-group", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean createGroup(@RequestBody Group group) {
 		groupDao.addGroup(group);
 		return true;
+	}
+
+	@RequestMapping(value = "/load", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Group loadGroup(@RequestParam(value = "id", required = true) String id) throws ParseException {
+		return groupDao.findGroupById(id);
 	}
 }
