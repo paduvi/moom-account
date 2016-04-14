@@ -17,7 +17,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			'password' : '',
 			'email' : '',
 			'phone' : '',
-			'birthday' : '',
+			'birthday' : ''
 	};
 	
 	var loadData = function() {
