@@ -40,9 +40,11 @@ public class EmailController {
 	@Autowired
 	private EmailFilter emailFilter;
 
-	@RequestMapping("")
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.email");
+		mv.addObject("title", "Quản lý email");
+		mv.addObject("emails", "active");
 		return mv;
 	}
 

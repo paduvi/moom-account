@@ -8,9 +8,11 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	};
 
 	$scope.loading = false;
+	$scope.groupLoading = false;
 	$scope.curPage = 1;
 	$scope.pageSize = 15;
 	$scope.numPages = 10;
+	$scope.groupPageSize =5;
 	$scope.groups = [];
 
 	var loadData = function() {
@@ -119,34 +121,42 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	};
 	
 	/* drag & drop */
-	$scope.onDropComplete = function(data, groupId, id, evt){
-        addToGroup(data, groupId);
-        $scope.loadGroupAccount(groupId, id);
+	$scope.onDropComplete = function(data, groupId, index, evt){
+        addToGroup(data, groupId, index);
     }
 	
-    $scope.onDragSuccess = function(data, groupId, id, evt){
-    	 $scope.loadGroupAccount(groupId, id);
-    }
-    
     var inArray = function(array, obj) {
         var index = array.indexOf(obj);
     }
     
-    var addToGroup = function(val, groupId) {
+    var addToGroup = function(val, groupId, index) {
+    	$scope.groupLoading = true;
 		$http.post('/group/add-to-group?group=' + groupId, val, config).success(
 			function(data) {
 				loadData();
+		        $scope.groups[index].group.nAccounts++;
+		        $scope.groups[index].accounts.push(val);
 			}).error(function(){
-				$scope.loading = false;
+				$scope.groupLoading = false;
 			});
 	}
     
-    var removeAccount = function(val, groupId) {
+    $scope.removeAccount = function(val, groupId, key, groupIndex) {
+    	var r = confirm("Tài khoản sẽ được chuyển về trạng thái không thuộc nhóm nào. Bạn có chắc muốn loại tài khoản này khỏi nhóm?");
+		if (r == false)
+			return;
+		$scope.groupLoading = true;
 		$http.post('/group/remove-face?group=' + groupId, val, config).success(
 			function(data) {
 				loadData();
-			}).error(function(){
-				$scope.loading = false;
+				$scope.groups[groupIndex].accounts.splice(key, 1);
+				$scope.groups[groupIndex].group.nAccounts--;
+				if(!$scope.groupFilter.email && !$scope.groupFilter.password && !$scope.groupFilter.phone && !$scope.groupFilter.gName)
+					return;
+				if($scope.groups[groupIndex].accounts.length == 0)
+					$scope.groups.splice(groupIndex,1);
+			}).finally(function(){
+				$scope.groupLoading = false;
 			});
 	}
     
@@ -154,14 +164,15 @@ app.controller("loadData", function($scope, $http, $timeout) {
 			'email' : '',
 			'password' : '',
 			'phone' : '',
-			'group' : ''
+			'gName' : ''
 	};
 	
      var loadAccountHaveGroup = function() {
     	var groupData = {
     		email : $scope.groupFilter.email,
     		password : $scope.groupFilter.password,
-    		phone : $scope.groupFilter.phone
+    		phone : $scope.groupFilter.phone,
+    		gName : $scope.groupFilter.gName
     	};
     	
     	var config2 = {
@@ -171,6 +182,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
     			}
     	};
 
+    	$scope.groupLoading = true;
     	$http.get('/faccount/list-face-have-group?page=' + $scope.curPage, config2).success(
     			function(data) {
     				$scope.groupAccounts = data;
@@ -178,25 +190,36 @@ app.controller("loadData", function($scope, $http, $timeout) {
     				$http.get('/faccount/face-count-have-group',config2).success(function(data2) {
     					$scope.groupTotalItem = data2;
     				}).finally(function(){
-    					$scope.loading = false;
+    					$scope.groupLoading = false;
     				});
     			}).error(function(){
-    				$scope.loading = false;
+    				$scope.groupLoading = false;
     		});
     }
+     
+     var containId = function(input, id){
+    	 angular.forEach(input, function(value, key) {
+    		 if(value.group.id == id)
+    			 return key;
+    	 });
+    	 return -1;
+     }
     
     var divide = function(data) {
     	$scope.groups = [];
     	angular.forEach(data, function(value, key) {
-    		if($scope.groups[value.group] === undefined) {
-    			$scope.groups[value.group] = {};
+    		var index = containId($scope.groups, value.group);
+    		if(index == -1){
+    			var temp = {};
     	    	$http.get('/group/load?id=' + value.group, config).success(
     	    			function(gData) {
-    	    				$scope.groups[value.group].group = gData;
+    	    				temp.group = gData;
     	    			});
-    			$scope.groups[value.group].accounts = [];
-    		}
-    		$scope.groups[value.group].accounts.push(value);
+    	    	temp.accounts = [];
+    	    	temp.accounts.push(value);
+    	    	$scope.groups.push(temp);
+    		} else
+    			$scope.groups[index].accounts.push(value);
     	});
     }
     
@@ -210,7 +233,7 @@ app.controller("loadData", function($scope, $http, $timeout) {
 		tempGroupFilter = val;
 		filterGroupTextTimeout = $timeout(function() {
 			$scope.groupFilter = tempGroupFilter;
-			 loadAccountHaveGroup();
+			loadDataGroups();
 		}, delayTime); // delay 1000 ms
 	}, true);
 
@@ -221,26 +244,50 @@ app.controller("loadData", function($scope, $http, $timeout) {
 	$scope.groupCurPage = 1;
 	
 	$scope.groupPageChanged = function() {
-		loadAccountHaveGroup();
+		loadDataGroups();
 	};
 	
+	var loadDataGroups = function(){
+		if(!$scope.groupFilter.email && !$scope.groupFilter.password && !$scope.groupFilter.phone && !$scope.groupFilter.gName)
+			loadGroups();
+		else
+			loadAccountHaveGroup();
+	}
+	
+	var loadGroups = function(){
+		$scope.groupLoading = true;
+		$http.get('/group/list-group?page='+$scope.groupCurPage,config).success(function(data) {
+			$scope.groups = [];
+	    	angular.forEach(data, function(value, key) {
+	    		var temp = {};
+	    	    temp.group = value;
+	    	    $http.get('/faccount/list-face-by-group?gId=' + value.id, config).success(
+	    	    		function(fData) {
+	    	 	    	    temp.accounts = fData;
+	    	 	    	});
+	    	    $scope.groups.push(temp);
+	    	});
+			$http.get('/group/count-group',config).success(function(data2) {
+				$scope.groupTotalItem = data2;
+			}).finally(function(){
+				$scope.groupLoading = false;
+			});
+		}).finally(function(){
+			$scope.groupLoading = false;
+		});
+	}
+	
 	$scope.createGroup = function(val) {
+		$scope.groupLoading = true;
 		$http.post('/group/create-group', val, config).success(
 			function(data) {
-				$scope.group1[index] = data;
+				loadGroups();
+				$scope.newGroup = {};
+			}).finally(function(){
+				$scope.loading = false;
 			});
 	}
 	
-	$scope.createGroup = function(newGroup) {
-		newGroup = {
-			'name' : $scope.newGroup.name,
-		};
-		
-		$http.post("/group/create-group", newGroup, config).success(
-				function(data, status, headers, config) {
-				}).error(function(data, status, headers, config) {
-		});
-	};
 });
 
 app.run(function(editableOptions, editableThemes) {

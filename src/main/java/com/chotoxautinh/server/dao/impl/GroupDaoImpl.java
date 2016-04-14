@@ -20,7 +20,9 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.server.dao.CounterDao;
+import com.chotoxautinh.server.dao.FaceAccountDao;
 import com.chotoxautinh.server.dao.GroupDao;
+import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
 import com.chotoxautinh.server.repository.GroupRepository;
 import com.chotoxautinh.server.service.CounterException;
@@ -32,10 +34,13 @@ import com.mysema.query.types.Predicate;
 public class GroupDaoImpl implements GroupDao {
 
 	static Logger logger = LoggerFactory.getLogger(GroupDaoImpl.class);
-	
+
 	public static final String collectionName = "groups";
 	@Autowired
 	private CounterDao counterDao;
+
+	@Autowired
+	private FaceAccountDao accountDao;
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
@@ -248,6 +253,28 @@ public class GroupDaoImpl implements GroupDao {
 	@Override
 	public Page<Group> findGroupsByPage(Predicate predicate, Pageable page) {
 		return repository.findAll(predicate, page);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.chotoxautinh.server.dao.GroupDao#removeAccount(com.chotoxautinh.
+	 * server.model.FaceAccount)
+	 */
+	@Override
+	public boolean removeAccount(String id, FaceAccount account) {
+		account.setGroup(null);
+		if (accountDao.updateFaceAccount(account) == true)
+			return decnAccounts(id);
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.chotoxautinh.server.dao.GroupDao#count(com.mysema.query.types.Predicate)
+	 */
+	@Override
+	public Long count(Predicate predicate) {
+		return repository.count(predicate);
 	}
 
 }

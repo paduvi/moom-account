@@ -18,10 +18,6 @@
 				khoản Facebook</h2>
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-6">
-					<div class="input-group" style="margin-bottom: 10px;">
-						<input class="form-control" ng-model="groupF.name" type="text">
-						<span class="input-group-addon"><span class="fa fa-search"></span></span>
-					</div>
 
 					<div>
 						<div class="panel-group" id="accordion">
@@ -30,28 +26,36 @@
 									<h4 class="panel-title"
 										style="display: inline-block; width: 100%">
 										<span>Nhóm</span>
+										<i ng-if="groupLoading == true"
+									class="fa fa-spinner fa-spin"></i>
 										<div class="input-group pull-right" style="width: 60%;">
 											<input class="form-control" ng-model="newGroup.name"
-												type="text"> <span class="input-group-addon"><a
+												type="text" placeholder="Điền tên nhóm cần tạo mới"> <span class="input-group-addon"><a
 												href="#" ng-click="createGroup(newGroup)"><span
 													class="fa fa-plus-circle"></span></a></span>
 										</div>
 									</h4>
 								</div>
 								<div class="panel-body"
-									style="overflow-y: scroll; height: 700px">
+									style="overflow-y: scroll; height: 1025px">
+									<div class="row" style="margin-bottom: 10px">
+										<div class="col-sm-12">
+											<input class="form-control input-sm" type="text"
+												ng-model="groupFilter.gName" placeholder="Tên nhóm">
+										</div>
+									</div>
 									<div class="row" style="margin-bottom: 10px">
 										<div class="col-sm-4">
 											<input class="form-control input-sm" type="text"
-												ng-model="groupFilter.email">
+												ng-model="groupFilter.email" placeholder="Email">
 										</div>
 										<div class="col-sm-4">
 											<input class="form-control input-sm" type="text"
-												ng-model="groupFilter.password">
+												ng-model="groupFilter.password" placeholder="Mật khẩu">
 										</div>
 										<div class="col-sm-4">
 											<input class="form-control input-sm" type="text"
-												ng-model="groupFilter.phone">
+												ng-model="groupFilter.phone" placeholder="Số điện thoại">
 										</div>
 									</div>
 
@@ -59,46 +63,49 @@
 										<uib-pagination class="pull-right"
 											total-items="groupTotalItem" ng-model="groupCurPage"
 											max-size="numPages" class="pagination-md"
-											items-per-page="pageSize" boundary-links="true"
+											items-per-page="groupPageSize" boundary-links="true"
 											style="margin-right: 20px;" ng-change="groupPageChanged()"></uib-pagination>
 									</div>
 
 									<div class="panel-group" id="accordion"
-										ng-repeat="(id, item) in groups" style="margin-bottom: 10px;">
+										ng-repeat="(index, item) in groups"
+										style="margin-bottom: 10px;">
 										<div class="panel panel-default" ng-drop="true"
-											ng-if="item.accounts.length > 0"
-											ng-drop-success="onDropComplete($data, group.id, id, $event)">
+											ng-drop-success="onDropComplete($data, item.group.id, index, $event)">
 											<div class="panel-heading panel-header-group">
 												<a data-toggle="collapse" data-parent="#accordion"
-													href="#collapse-{{id}}">
+													href="#collapse-{{index}}">
 													<h4 class="panel-title" style="font-size: 13px">
 														Nhóm {{item.group.name}} <span class="badge">{{item.group.nAccounts}}
 														</span>
 													</h4>
 												</a>
 											</div>
-											<div id="collapse-{{id}}" class="panel-collapse collapse">
+											<div id="collapse-{{index}}" class="panel-collapse collapse">
 												<div class="panel-body">
 													<table
 														class="table table-striped table-bordered table-list">
 														<thead>
 															<tr>
 																<th>Email</th>
-																<th>password</th>
+																<th>Password</th>
 																<th>Số điện thoại</th>
 																<th></th>
 															</tr>
 														</thead>
 														<tbody>
-															<tr ng-repeat="(key, account) in item.accounts"
-																ng-drag="true" ng-drag-data="obj"
-																ng-drag-success="onDragSuccess($data, group.id, id, $event)">
+															<tr ng-repeat="(key, account) in item.accounts">
 																<td><a class="edit" href="#"
 																	editable-text="account.email"
 																	onaftersave="updateUser(account)" e-style="width: 100%">{{account.email}}</a></td>
-																<td>{{account.password}}</td>
-																<td>{{account.phone}}</td>
-																<td><a ng-click="removeAccount(account)"
+																<td><a class="edit" href="#"
+																	editable-text="account.password"
+																	onaftersave="updateUser(account)" e-style="width: 100%">{{account.password}}</a></td>
+																<td><a class="edit" href="#"
+																	editable-text="account.phone"
+																	onaftersave="updateUser(account)" e-style="width: 100%">{{account.phone}}</a></td>
+																<td><a
+																	ng-click="removeAccount(account, item.group.id, key, index)"
 																	class="btn btn-danger"><i class="fa fa-2 fa-trash"></i></a></td>
 															</tr>
 														</tbody>

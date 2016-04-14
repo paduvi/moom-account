@@ -29,7 +29,7 @@ import com.chotoxautinh.server.service.GroupFilter;
 @RequestMapping("group")
 public class GroupController {
 
-	private static final int PAGE_SIZE = 15;
+	private static final int PAGE_SIZE = 5;
 
 	@Autowired
 	private GroupDao groupDao;
@@ -47,6 +47,13 @@ public class GroupController {
 		return groupDao.findGroupsByPage(groupFilter.build(id, name),
 				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "name")).getContent();
 	}
+	
+	@RequestMapping(value = "/count-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Long countAccountNoneGroup(@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+		return groupDao.count(groupFilter.build(id, name));
+	}
 
 	@RequestMapping(value = "/add-to-group", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean addToGroup(@RequestBody FaceAccount faccount,
@@ -57,17 +64,17 @@ public class GroupController {
 	@RequestMapping(value = "/remove-face", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean removeFaceAccount(@RequestBody FaceAccount faccount,
 			@RequestParam(value = "group", required = false) String groupId) {
-		return faceAccountDao.removeFaceAccount(faccount);
+		return groupDao.removeAccount(groupId, faccount);
 	}
 
 	@RequestMapping(value = "/create-group", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean createGroup(@RequestBody Group group) {
-		groupDao.addGroup(group);
-		return true;
+		return groupDao.addGroup(group);
 	}
 
 	@RequestMapping(value = "/load", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Group loadGroup(@RequestParam(value = "id", required = true) String id) throws ParseException {
 		return groupDao.findGroupById(id);
 	}
+	
 }

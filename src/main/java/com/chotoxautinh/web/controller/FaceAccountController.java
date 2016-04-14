@@ -57,20 +57,24 @@ public class FaceAccountController {
 		}
 	};
 
-	@RequestMapping("")
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.face");
+		mv.addObject("title", "Quản lý tài khoản");
+		mv.addObject("faccounts", "active");
 		return mv;
 	}
 
 	@RequestMapping(value = "/list-face-by-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<FaceAccount> listAccount(
+	public @ResponseBody List<FaceAccount> listAccount(@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "gName", required = false) String groupName,
 			@RequestParam(value = "gId", required = false) Integer groupId) throws ParseException {
 		if ((groupName == null || groupName.isEmpty()) && (groupId == null)) {
 			groupId = FaceAccountFilter.LATEST;
 		}
-		return faceAccountDao.findAllFaceAccounts(faceAccountFilter.build(null, null, null, null, groupId, groupName));
+		return faceAccountDao.findAllFaceAccounts(faceAccountFilter.build(null, email, password, phone, groupId, groupName));
 	}
 
 	@RequestMapping(value = "/list-face-have-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -30,15 +30,15 @@ public class FaceAccountFilter {
 	public static final int LATEST = -3;
 	public static final int NONE = -2;
 	public static final int HAVE = -1;
-	
+
 	public Predicate build(Integer group, String groupName) {
 		return build(null, null, null, null, group, groupName);
 	}
-	
+
 	public Predicate build(String id, String email, String password, String phone) {
 		return build(id, email, password, phone, null, null);
 	}
-	
+
 	public Predicate build(String id, String email, String password, String phone, Integer group) {
 		return build(id, email, password, phone, group, null);
 	}
@@ -53,7 +53,12 @@ public class FaceAccountFilter {
 			builder.and(QFaceAccount.faceAccount.password.like(toAlias(password)));
 		if (phone != null && !phone.isEmpty())
 			builder.and(QFaceAccount.faceAccount.phone.like(toAlias(phone)));
-		if (group != null) {
+		if (groupName != null && !groupName.isEmpty()) {
+			Predicate predicate = QGroup.group.name.like(toAlias(groupName));
+			List<String> allGroupId = groupDao.findAllGroups(predicate).stream().map(Group::getId)
+					.collect(Collectors.toList());
+			builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
+		} else if (group != null) {
 			List<String> allGroupId = groupDao.findAllGroups().stream().map(Group::getId).collect(Collectors.toList());
 			switch (group) {
 			case LATEST:
@@ -74,12 +79,7 @@ public class FaceAccountFilter {
 				break;
 			}
 		}
-		if (groupName != null && !groupName.isEmpty()) {
-			Predicate predicate = QGroup.group.name.like(toAlias(groupName));
-			List<String> allGroupId = groupDao.findAllGroups(predicate).stream().map(Group::getId)
-					.collect(Collectors.toList());
-			builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
-		}
+
 		return builder.getValue();
 	}
 

@@ -57,15 +57,19 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping("")
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("web.user");
+		mv.addObject("title", "Quản lý người dùng");
+		mv.addObject("users", "active");
 		return mv;
 	}
 
 	@RequestMapping("/information")
 	public ModelAndView info() {
 		ModelAndView mv = new ModelAndView("web.account.info");
+		mv.addObject("title", "Thông tin của tôi");
+		mv.addObject("userView", "active");
 		return mv;
 	}
 

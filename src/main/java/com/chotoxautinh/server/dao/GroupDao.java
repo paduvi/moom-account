@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
@@ -40,7 +41,9 @@ public interface GroupDao {
 	boolean removeGroup(String id);
 
 	boolean removeGroup(Group group);
-
+	
+	boolean removeAccount(String id, FaceAccount account);
+	
 	Group findGroupById(String id);
 
 	Group findGroupByName(String name);
@@ -56,4 +59,6 @@ public interface GroupDao {
 	Page<Group> findGroupsByPage(Pageable page);
 
 	Page<Group> findGroupsByPage(Predicate predicate, Pageable page);
+
+	Long count(Predicate predicate);
 }
