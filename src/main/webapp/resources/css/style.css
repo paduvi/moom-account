@@ -1,0 +1,131 @@
+.nav-site {
+	background-color: rgb(63, 92, 154);
+	box-shadow: 0px 2px 1px -2px rgba(0, 0, 0, 0.52);
+	border-radius: 0px;
+}
+
+.nav-site .navbar-nav > li > a:focus:focus,
+	.nav-site .navbar-nav > li > a:hover {
+	background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.nav-site .navbar-nav .active>a {
+	color: #050560 !important;
+	box-shadow: 0px 2px 2px -3px rgba(0, 0, 0, 0.52);
+} 
+
+.nav-site .navbar-nav .active>a:hover {
+	color: #FFFFFF !important;
+} 
+
+.cell {
+	border: 1px solid #ddd;
+	padding: 8px;
+	height: 48px;
+}
+
+.header {
+	font-weight: bold;
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+.select-box {
+	height: 30px;
+	width: 100%;
+	padding-left: 12%;
+	border-radius: 3px;
+}
+
+.alert-wrapper {
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	z-index: 9999;
+	transform: translateX(-50%);
+}
+
+.alert-box {
+	color: #555;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-family: Tahoma, Geneva, Arial, sans-serif;
+	font-size: 11px;
+	padding: 10px 36px;
+	display: inline-block;
+}
+
+.alert-box span {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.message {
+	background: #90DED7 url('/resources/images/success.png') no-repeat 10px
+		50%;
+	border: 1px solid #53DED8;
+	border-bottom: none;
+}
+
+.error {
+	background: #ffecec url('/resources/images/error.png') no-repeat 10px
+		50%;
+	border: 1px solid #f5aca6;
+	border-bottom: none;
+}
+
+.edit {
+	width: 100%;
+	height: 100%;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.editable-controls {
+	display: flex !important; 
+}
+
+.editable-wrap {
+	width: 100%;
+}
+
+.panel {
+	border-radius: 0px !important;
+}
+
+.panel-header-group:hover {
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+	box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.badge {
+	background-color: #0071AB !important;
+}
+
+.btn {
+	border-radius: 2px;
+	/* -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px
+		rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px
+		rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); */
+}
+
+.form-control, .input-group-addon, .dropdown-menu {
+	border-radius: 2px;
+}
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-    input:focus {
+    border-color: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+.editable-click, a.editable-click{
+	height:24px;
+}
