@@ -65,12 +65,12 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public boolean removeUser(String id) {
 		try {
-			User existingEmail = findUserById(id);
+			User existingUser = findUserById(id);
 
-			if (existingEmail == null) {
+			if (existingUser == null) {
 				return false;
 			}
-			repository.delete(existingEmail);
+			repository.delete(existingUser);
 			return true;
 		} catch (Exception e) {
 			return false;

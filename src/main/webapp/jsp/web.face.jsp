@@ -29,7 +29,7 @@
 								<div class="panel-heading">
 									<h4 class="panel-title"
 										style="display: inline-block; width: 100%">
-										<span>Nhóm {{group.name}} <span class="badge">{{groups.length}}</span></span>
+										<span>Nhóm</span>
 										<div class="input-group pull-right" style="width: 60%;">
 											<input class="form-control" ng-model="newGroup.name"
 												type="text"> <span class="input-group-addon"><a
@@ -60,17 +60,17 @@
 									</div>
 
 									<div class="panel-group" id="accordion"
-										ng-repeat="(id, group) in group1" style="margin-bottom: 10px;">
+										ng-repeat="(id, item) in groups" style="margin-bottom: 10px;">
 										<div class="panel panel-default" ng-drop="true"
-											ng-if="group.length > 0"
+											ng-if="item.accounts.length > 0"
 											ng-drop-success="onDropComplete($data, group.id, id, $event)">
 											<div class="panel-heading panel-header-group">
-												<a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{id}}">
+												<a data-toggle="collapse" data-parent="#accordion"
+													href="#collapse-{{id}}">
 													<h4 class="panel-title" style="font-size: 13px">
-														Nhóm {{id}}
-														<!-- {{group.name}} <span class="badge">{{group.nAccounts}}
-														</span> --> <span class="pull-right">Lần chạy cuối: <!-- 	{{group.lastExecution | date:"dd/MM/yyyy 'lúc' h:mma"}} --></span>
-													</h4> 
+														Nhóm {{item.group.name}} <span class="badge">{{item.group.nAccounts}}
+														</span>
+													</h4>
 												</a>
 											</div>
 											<div id="collapse-{{id}}" class="panel-collapse collapse">
@@ -85,8 +85,8 @@
 															</tr>
 														</thead>
 														<tbody>
-															<tr ng-repeat="(key, account) in group" ng-drag="true"
-																ng-drag-data="obj"
+															<tr ng-repeat="(key, account) in item.accounts"
+																ng-drag="true" ng-drag-data="obj"
 																ng-drag-success="onDragSuccess($data, group.id, id, $event)">
 																<td><a class="edit" href="#"
 																	editable-text="account.email"

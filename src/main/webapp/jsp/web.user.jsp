@@ -27,9 +27,9 @@
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Tên</th>
 									<th>Tài khoản</th>
 									<th>Mật khẩu</th>
+									<th>Tên</th>
 									<th>Quyền</th>
 									<th style="text-align: center"><span
 										class="fa fa-align-justify"></span></th>
