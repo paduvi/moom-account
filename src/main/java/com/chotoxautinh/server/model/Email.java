@@ -7,13 +7,13 @@ package com.chotoxautinh.server.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.elasticsearch.annotations.Document;
 
-import com.mysema.query.annotations.QueryEntity;
-
-@QueryEntity
-@Document(collection = "emails")
+@Entity
+@Document(indexName = "emails", type = "article")
 public class Email {
 
 	@Id

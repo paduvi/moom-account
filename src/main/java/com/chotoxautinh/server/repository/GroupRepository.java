@@ -5,16 +5,17 @@
  */
 package com.chotoxautinh.server.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.chotoxautinh.server.model.Group;
 
 @Repository
-public interface GroupRepository extends MongoRepository<Group, String>, QueryDslPredicateExecutor<Group> {
+public interface GroupRepository extends  CrudRepository<Group, String>, QueryDslPredicateExecutor<Group> {
 
 	Group findById(String id);
-
+	
 	Group findByName(String name);
+
 }

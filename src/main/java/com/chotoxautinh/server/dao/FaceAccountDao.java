@@ -12,8 +12,8 @@ import org.springframework.data.domain.Pageable;
 
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
 public interface FaceAccountDao {
 	boolean addFaceAccount(FaceAccount faccount);
@@ -38,8 +38,6 @@ public interface FaceAccountDao {
 	
 	List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders);
 	
-	Page<FaceAccount> findFaceAccountsByPage(Pageable page);
-
 	Page<FaceAccount> findFaceAccountsByPage(Predicate predicate, Pageable page);
 	
 	Long count(Predicate predicate);

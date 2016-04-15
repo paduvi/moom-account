@@ -5,13 +5,13 @@
  */
 package com.chotoxautinh.server.model;
 
+import javax.persistence.Entity;
+
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.elasticsearch.annotations.Document;
 
-import com.mysema.query.annotations.QueryEntity;
-
-@QueryEntity
-@Document(collection = "groups")
+@Entity
+@Document(indexName = "groups", type = "article")
 public class Group {
 	@Id
 	private String id;

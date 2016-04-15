@@ -12,8 +12,8 @@ import org.springframework.data.domain.Pageable;
 
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
 public interface GroupDao {
 	boolean addGroup(Group group);
@@ -55,8 +55,6 @@ public interface GroupDao {
 	List<Group> findAllGroups(Predicate predicate);
 
 	List<Group> findAllGroups(Predicate predicate, OrderSpecifier<?>... orders);
-
-	Page<Group> findGroupsByPage(Pageable page);
 
 	Page<Group> findGroupsByPage(Predicate predicate, Pageable page);
 

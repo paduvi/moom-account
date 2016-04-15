@@ -17,12 +17,12 @@ import com.chotoxautinh.server.dao.UserDao;
 import com.chotoxautinh.server.model.User;
 import com.chotoxautinh.server.repository.UserRepository;
 import com.google.common.collect.Lists;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
 @Component
-public class UserDaoImpl implements UserDao{
-	
+public class UserDaoImpl implements UserDao {
+
 	public static final String collectionName = "users";
 	@Autowired
 	private CounterDao counterDao;
@@ -30,8 +30,12 @@ public class UserDaoImpl implements UserDao{
 	@Autowired
 	private UserRepository repository;
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#createUser(com.chotoxautinh.server.model.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.chotoxautinh.server.dao.UserDao#createUser(com.chotoxautinh.server.
+	 * model.User)
 	 */
 	@Override
 	public boolean createUser(User user) {
@@ -46,8 +50,12 @@ public class UserDaoImpl implements UserDao{
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#updateUser(com.chotoxautinh.server.model.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.chotoxautinh.server.dao.UserDao#updateUser(com.chotoxautinh.server.
+	 * model.User)
 	 */
 	@Override
 	public boolean updateUser(User user) {
@@ -59,7 +67,9 @@ public class UserDaoImpl implements UserDao{
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.chotoxautinh.server.dao.UserDao#removeUser(java.lang.String)
 	 */
 	@Override
@@ -77,15 +87,21 @@ public class UserDaoImpl implements UserDao{
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#removeUser(com.chotoxautinh.server.model.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.chotoxautinh.server.dao.UserDao#removeUser(com.chotoxautinh.server.
+	 * model.User)
 	 */
 	@Override
 	public boolean removeUser(User user) {
 		return removeUser(user.getId());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.chotoxautinh.server.dao.UserDao#findUserById(java.lang.String)
 	 */
 	@Override
@@ -93,64 +109,79 @@ public class UserDaoImpl implements UserDao{
 		return repository.findById(id);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#findUserByUsername(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.chotoxautinh.server.dao.UserDao#findUserByUsername(java.lang.String)
 	 */
 	@Override
 	public User findUserByUsername(String name) {
 		return repository.findByUsername(name);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#findUser(com.mysema.query.types.Predicate)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.chotoxautinh.server.dao.UserDao#findUser(com.mysema.query.types.
+	 * Predicate)
 	 */
 	@Override
 	public User findUser(Predicate predicate) {
 		return repository.findOne(predicate);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.chotoxautinh.server.dao.UserDao#findAllUsers()
 	 */
 	@Override
 	public List<User> findAllUsers() {
-		return repository.findAll();
+		return Lists.newLinkedList(repository.findAll());
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#findAllUsers(com.mysema.query.types.Predicate)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.chotoxautinh.server.dao.UserDao#findAllUsers(com.mysema.query.types.
+	 * Predicate)
 	 */
 	@Override
 	public List<User> findAllUsers(Predicate predicate) {
 		return Lists.newLinkedList(repository.findAll(predicate));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#findAllUsers(com.mysema.query.types.Predicate, com.mysema.query.types.OrderSpecifier[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.chotoxautinh.server.dao.UserDao#findAllUsers(com.mysema.query.types.
+	 * Predicate, com.mysema.query.types.OrderSpecifier[])
 	 */
 	@Override
 	public List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders) {
 		return Lists.newLinkedList(repository.findAll(predicate, orders));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#findUsersByPage(org.springframework.data.domain.Pageable)
-	 */
-	@Override
-	public Page<User> findUsersByPage(Pageable page) {
-		return repository.findAll(page);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#findUsersByPage(com.mysema.query.types.Predicate, org.springframework.data.domain.Pageable)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.chotoxautinh.server.dao.UserDao#findUsersByPage(com.mysema.query.
+	 * types.Predicate, org.springframework.data.domain.Pageable)
 	 */
 	@Override
 	public Page<User> findUsersByPage(Predicate predicate, Pageable page) {
 		return repository.findAll(predicate, page);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#count(com.mysema.query.types.Predicate)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.chotoxautinh.server.dao.UserDao#count(com.mysema.query.types.
+	 * Predicate)
 	 */
 	@Override
 	public Long count(Predicate predicate) {

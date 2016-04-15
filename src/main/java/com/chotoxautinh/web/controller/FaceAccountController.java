@@ -30,7 +30,7 @@ import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.QFaceAccount;
 import com.chotoxautinh.server.service.FaceAccountFilter;
-import com.mysema.query.types.OrderSpecifier;
+import com.querydsl.core.types.OrderSpecifier;
 
 @Controller
 @RequestMapping("faccount")

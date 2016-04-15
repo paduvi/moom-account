@@ -12,11 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.FindAndModifyOptions;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.server.dao.CounterDao;
@@ -27,8 +22,8 @@ import com.chotoxautinh.server.model.Group;
 import com.chotoxautinh.server.repository.GroupRepository;
 import com.chotoxautinh.server.service.CounterException;
 import com.google.common.collect.Lists;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
 @Component
 public class GroupDaoImpl implements GroupDao {
@@ -41,9 +36,6 @@ public class GroupDaoImpl implements GroupDao {
 
 	@Autowired
 	private FaceAccountDao accountDao;
-
-	@Autowired
-	private MongoTemplate mongoTemplate;
 
 	@Autowired
 	private GroupRepository repository;
@@ -105,20 +97,7 @@ public class GroupDaoImpl implements GroupDao {
 	}
 
 	private boolean changenAccounts(String id, int number) {
-		// get group id
-		Query query = new Query(Criteria.where("_id").is(id));
-
-		// increase sequence id by 1
-		Update update = new Update();
-		update.inc("nAccounts", number);
-		update.set("lastExecution", System.currentTimeMillis());
-
-		// return new increased id
-		FindAndModifyOptions options = new FindAndModifyOptions();
-		options.returnNew(true);
-
-		// this is the magic happened.
-		Group group = mongoTemplate.findAndModify(query, update, options, Group.class);
+		Group group = repository.findById(id);
 
 		// if no id, throws SequenceException
 		// optional, just a way to tell user when the sequence id is failed to
@@ -127,6 +106,8 @@ public class GroupDaoImpl implements GroupDao {
 			logger.error("Unable to get group document for id : " + id);
 			return false;
 		}
+		group.setnAccounts(group.getnAccounts() + number);
+		updateGroup(group);
 		return true;
 	}
 
@@ -206,7 +187,7 @@ public class GroupDaoImpl implements GroupDao {
 	 */
 	@Override
 	public List<Group> findAllGroups() {
-		return repository.findAll();
+		return Lists.newLinkedList(repository.findAll());
 	}
 
 	/*
@@ -235,18 +216,6 @@ public class GroupDaoImpl implements GroupDao {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.chotoxautinh.dao.GroupDao#findGroupsByPage(org.springframework.data.
-	 * domain.Pageable)
-	 */
-	@Override
-	public Page<Group> findGroupsByPage(Pageable page) {
-		return repository.findAll(page);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
 	 * com.chotoxautinh.dao.GroupDao#findGroupsByPage(com.mysema.query.types.
 	 * Predicate, org.springframework.data.domain.Pageable)
 	 */
@@ -269,8 +238,11 @@ public class GroupDaoImpl implements GroupDao {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.GroupDao#count(com.mysema.query.types.Predicate)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.chotoxautinh.server.dao.GroupDao#count(com.mysema.query.types.
+	 * Predicate)
 	 */
 	@Override
 	public Long count(Predicate predicate) {

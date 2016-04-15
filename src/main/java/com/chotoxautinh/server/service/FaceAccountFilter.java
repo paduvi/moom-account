@@ -15,8 +15,8 @@ import com.chotoxautinh.server.dao.GroupDao;
 import com.chotoxautinh.server.model.Group;
 import com.chotoxautinh.server.model.QFaceAccount;
 import com.chotoxautinh.server.model.QGroup;
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 
 /**
  * Author : tungtt Mar 28, 2016
@@ -63,7 +63,7 @@ public class FaceAccountFilter {
 			switch (group) {
 			case LATEST:
 				List<Group> groupPage = groupDao
-						.findGroupsByPage(new PageRequest(0, 1, Direction.DESC, "lastExecution")).getContent();
+						.findGroupsByPage(null, new PageRequest(0, 1, Direction.DESC, "lastExecution")).getContent();
 				if (!groupPage.isEmpty()) {
 					builder.and(QFaceAccount.faceAccount.group.eq(groupPage.get(0).getId()));
 				}

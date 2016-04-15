@@ -20,8 +20,8 @@ import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.repository.EmailRepository;
 import com.chotoxautinh.server.util.StringUtils;
 import com.google.common.collect.Lists;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
 @Component
 public class EmailDaoImpl implements EmailDao {
@@ -102,7 +102,7 @@ public class EmailDaoImpl implements EmailDao {
 
 	@Override
 	public List<Email> findAllEmails() {
-		return repository.findAll();
+		return Lists.newLinkedList(repository.findAll());
 	}
 
 	@Override
@@ -113,11 +113,6 @@ public class EmailDaoImpl implements EmailDao {
 	@Override
 	public List<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders) {
 		return Lists.newLinkedList(repository.findAll(predicate, orders));
-	}
-
-	@Override
-	public Page<Email> findEmailsByPage(Pageable page) {
-		return repository.findAll(page);
 	}
 
 	@Override

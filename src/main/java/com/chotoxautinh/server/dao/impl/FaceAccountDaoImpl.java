@@ -21,8 +21,8 @@ import com.chotoxautinh.server.model.FaceAccount;
 import com.chotoxautinh.server.model.Group;
 import com.chotoxautinh.server.repository.FaceAccountRepository;
 import com.google.common.collect.Lists;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
 @Component
 public class FaceAccountDaoImpl implements FaceAccountDao {
@@ -146,7 +146,7 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	 */
 	@Override
 	public List<FaceAccount> findAllFaceAccounts() {
-		return repository.findAll();
+		return Lists.newLinkedList(repository.findAll());
 	}
 
 	/*
@@ -171,17 +171,6 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	@Override
 	public List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders) {
 		return Lists.newLinkedList(repository.findAll(predicate, orders));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chotoxautinh.dao.FaceAccountDao#findFaceAccountsByPage(org.
-	 * springframework.data.domain.Pageable)
-	 */
-	@Override
-	public Page<FaceAccount> findFaceAccountsByPage(Pageable page) {
-		return repository.findAll(page);
 	}
 
 	/*

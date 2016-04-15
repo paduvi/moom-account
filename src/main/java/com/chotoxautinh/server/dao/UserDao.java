@@ -11,8 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.chotoxautinh.server.model.User;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
 public interface UserDao {
 	boolean createUser(User user);
@@ -35,8 +35,6 @@ public interface UserDao {
 	
 	List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders);
 	
-	Page<User> findUsersByPage(Pageable page);
-
 	Page<User> findUsersByPage(Predicate predicate, Pageable page);
 	
 	Long count(Predicate predicate);

@@ -11,8 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.chotoxautinh.server.model.Email;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
 public interface EmailDao {
 	boolean addEmail(Email email);
@@ -33,8 +33,6 @@ public interface EmailDao {
 	
 	List<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders);
 	
-	Page<Email> findEmailsByPage(Pageable page);
-
 	Page<Email> findEmailsByPage(Predicate predicate, Pageable page);
 	
 	Long count(Predicate predicate);

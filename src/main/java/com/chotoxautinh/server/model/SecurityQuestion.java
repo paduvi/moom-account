@@ -5,9 +5,9 @@
  */
 package com.chotoxautinh.server.model;
 
-import com.mysema.query.annotations.QueryEntity;
+import javax.persistence.Entity;
 
-@QueryEntity
+@Entity
 public class SecurityQuestion {
 	private String question;
 	private String answer;

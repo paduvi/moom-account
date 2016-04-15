@@ -1,7 +1,9 @@
 package com.chotoxautinh.server.service;
 
+import javax.persistence.Entity;
+
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 /**
  * @author chotoxautinh
@@ -9,7 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * http://chotoxautinh.com/
  * Mar 23, 2016
  */
-@Document(collection = "counters")
+@Entity
+@Document(indexName = "counters", type = "article")
 public class Counter {
 	@Id
 	private String id;

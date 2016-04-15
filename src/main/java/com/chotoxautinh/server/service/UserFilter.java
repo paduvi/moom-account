@@ -6,8 +6,8 @@ package com.chotoxautinh.server.service;
 import org.springframework.stereotype.Component;
 
 import com.chotoxautinh.server.model.QUser;
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 
 /**
  * Author : tungtt Apr 5, 2016
