@@ -7,6 +7,7 @@ package com.chotoxautinh.server.dao.impl;
 
 import java.util.List;
 
+import org.elasticsearch.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import com.chotoxautinh.server.dao.EmailDao;
 import com.chotoxautinh.server.model.Email;
 import com.chotoxautinh.server.repository.EmailRepository;
 import com.chotoxautinh.server.util.StringUtils;
-import com.google.common.collect.Lists;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 

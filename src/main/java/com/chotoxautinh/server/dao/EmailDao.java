@@ -26,7 +26,7 @@ public interface EmailDao {
 	Email findEmailById(String id);
 
 	Email findEmail(Predicate predicate);
-
+	
 	List<Email> findAllEmails();
 	
 	List<Email> findAllEmails(Predicate predicate);

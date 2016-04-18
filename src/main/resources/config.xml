@@ -1,0 +1,99 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:elasticsearch="http://www.springframework.org/schema/data/elasticsearch"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd   
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/context
+  		http://www.springframework.org/schema/context/spring-context.xsd
+  		http://www.springframework.org/schema/data/elasticsearch
+		http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch-1.0.xsd">
+
+	<mvc:annotation-driven />
+
+	<context:component-scan base-package="com.chotoxautinh.web.controller" />
+	<context:component-scan base-package="com.chotoxautinh.web.config" />
+	<context:component-scan base-package="com.chotoxautinh.server.dao.impl" />
+	<context:component-scan base-package="com.chotoxautinh.server.service" />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2" />
+		<property name="prefix" value="/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+<!-- 	<bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="order" value="1" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/tiles/definitions.xml</value>
+			</list>
+		</property>
+	</bean>
+ -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<!-- cache-period="432000" -->
+
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean
+				class="org.springframework.http.converter.json.GsonHttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/resources/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/user/login"
+			access="permitAll" />
+		<security:intercept-url pattern="**"
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<security:intercept-url pattern="/faccount*"
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<security:intercept-url pattern="/user*"
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<security:intercept-url pattern="/email*"
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<security:form-login login-page="/user/login"
+			always-use-default-target="true" default-target-url="/faccount"
+			authentication-failure-url="/user/login?error" username-parameter="username"
+			password-parameter="password" />
+		<security:logout logout-success-url="/user/login" />
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider
+			ref="customAuthenticationProvider" />
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="viet3695" password="bnmbnm"
+					authorities="ROLE_ADMIN, ROLE_USER" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean id="customAuthenticationProvider"
+		class="com.chotoxautinh.web.config.CustomAuthenticationProvider" />
+
+	<bean id="webSecurityExpressionHandler"
+		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+	<bean class="org.springframework.data.web.config.SpringDataWebConfiguration" />
+	<elasticsearch:repositories base-package="com.chotoxautinh.server.repository" />
+	<!-- elasticsearch:transport-client id="client" cluster-nodes="localhost:9300,someip:9300" / -->
+	<elasticsearch:transport-client id="moom-account" cluster-nodes="localhost:9200" />
+
+</beans>

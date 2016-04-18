@@ -31,7 +31,7 @@ public interface FaceAccountDao {
 	FaceAccount findFaceAccountById(String id);
 
 	FaceAccount findFaceAccount(Predicate predicate);
-
+	
 	List<FaceAccount> findAllFaceAccounts();
 	
 	List<FaceAccount> findAllFaceAccounts(Predicate predicate);
