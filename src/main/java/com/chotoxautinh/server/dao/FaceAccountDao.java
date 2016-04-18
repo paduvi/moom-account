@@ -38,6 +38,8 @@ public interface FaceAccountDao {
 	
 	List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders);
 	
+	Page<FaceAccount> findFaceAccountsByPage(Pageable page);
+	
 	Page<FaceAccount> findFaceAccountsByPage(Predicate predicate, Pageable page);
 	
 	Long count(Predicate predicate);

@@ -55,6 +55,8 @@ public interface GroupDao {
 	List<Group> findAllGroups(Predicate predicate);
 
 	List<Group> findAllGroups(Predicate predicate, OrderSpecifier<?>... orders);
+	
+	Page<Group> findGroupsByPage(Pageable page);
 
 	Page<Group> findGroupsByPage(Predicate predicate, Pageable page);
 

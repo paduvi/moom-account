@@ -120,12 +120,6 @@ public class UserDaoImpl implements UserDao {
 		return repository.findByUsername(name);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chotoxautinh.server.dao.UserDao#findUser(com.mysema.query.types.
-	 * Predicate)
-	 */
 	@Override
 	public User findUser(Predicate predicate) {
 		return repository.findOne(predicate);
@@ -141,51 +135,32 @@ public class UserDaoImpl implements UserDao {
 		return Lists.newLinkedList(repository.findAll());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.server.dao.UserDao#findAllUsers(com.mysema.query.types.
-	 * Predicate)
-	 */
 	@Override
 	public List<User> findAllUsers(Predicate predicate) {
 		return Lists.newLinkedList(repository.findAll(predicate));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.server.dao.UserDao#findAllUsers(com.mysema.query.types.
-	 * Predicate, com.mysema.query.types.OrderSpecifier[])
-	 */
 	@Override
 	public List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders) {
 		return Lists.newLinkedList(repository.findAll(predicate, orders));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.server.dao.UserDao#findUsersByPage(com.mysema.query.
-	 * types.Predicate, org.springframework.data.domain.Pageable)
-	 */
 	@Override
 	public Page<User> findUsersByPage(Predicate predicate, Pageable page) {
 		return repository.findAll(predicate, page);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chotoxautinh.server.dao.UserDao#count(com.mysema.query.types.
-	 * Predicate)
-	 */
 	@Override
 	public Long count(Predicate predicate) {
 		return repository.count(predicate);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.chotoxautinh.server.dao.UserDao#findUsersByPage(org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public Page<User> findUsersByPage(Pageable page) {
+		return findUsersByPage(null, page);
 	}
 
 }

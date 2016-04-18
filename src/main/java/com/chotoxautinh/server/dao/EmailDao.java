@@ -33,6 +33,8 @@ public interface EmailDao {
 	
 	List<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders);
 	
+	Page<Email> findEmailsByPage(Pageable page);
+	
 	Page<Email> findEmailsByPage(Predicate predicate, Pageable page);
 	
 	Long count(Predicate predicate);

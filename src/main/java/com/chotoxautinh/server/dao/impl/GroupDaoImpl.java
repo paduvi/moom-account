@@ -167,12 +167,6 @@ public class GroupDaoImpl implements GroupDao {
 		return group;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.dao.GroupDao#findGroup(com.mysema.query.types.Predicate)
-	 */
 	@Override
 	public Group findGroup(Predicate predicate) {
 		Group group = repository.findOne(predicate);
@@ -190,35 +184,16 @@ public class GroupDaoImpl implements GroupDao {
 		return Lists.newLinkedList(repository.findAll());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chotoxautinh.dao.GroupDao#findAllGroups(com.mysema.query.types.
-	 * Predicate)
-	 */
 	@Override
 	public List<Group> findAllGroups(Predicate predicate) {
 		return Lists.newLinkedList(repository.findAll(predicate));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chotoxautinh.dao.GroupDao#findAllGroups(com.mysema.query.types.
-	 * Predicate, com.mysema.query.types.OrderSpecifier[])
-	 */
 	@Override
 	public List<Group> findAllGroups(Predicate predicate, OrderSpecifier<?>... orders) {
 		return Lists.newLinkedList(repository.findAll(predicate, orders));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.dao.GroupDao#findGroupsByPage(com.mysema.query.types.
-	 * Predicate, org.springframework.data.domain.Pageable)
-	 */
 	@Override
 	public Page<Group> findGroupsByPage(Predicate predicate, Pageable page) {
 		return repository.findAll(predicate, page);
@@ -238,15 +213,17 @@ public class GroupDaoImpl implements GroupDao {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chotoxautinh.server.dao.GroupDao#count(com.mysema.query.types.
-	 * Predicate)
-	 */
 	@Override
 	public Long count(Predicate predicate) {
 		return repository.count(predicate);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.chotoxautinh.server.dao.GroupDao#findGroupsByPage(org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public Page<Group> findGroupsByPage(Pageable page) {
+		return findGroupsByPage(null, page);
 	}
 
 }

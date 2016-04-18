@@ -35,6 +35,8 @@ public interface UserDao {
 	
 	List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders);
 	
+	Page<User> findUsersByPage(Pageable page);
+	
 	Page<User> findUsersByPage(Predicate predicate, Pageable page);
 	
 	Long count(Predicate predicate);

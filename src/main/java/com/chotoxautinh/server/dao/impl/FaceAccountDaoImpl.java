@@ -127,13 +127,6 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 		return repository.findById(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.dao.FaceAccountDao#findFaceAccount(com.mysema.query.
-	 * types.Predicate)
-	 */
 	@Override
 	public FaceAccount findFaceAccount(Predicate predicate) {
 		return repository.findOne(predicate);
@@ -149,37 +142,16 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 		return Lists.newLinkedList(repository.findAll());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.dao.FaceAccountDao#findAllFaceAccounts(com.mysema.query.
-	 * types.Predicate)
-	 */
 	@Override
 	public List<FaceAccount> findAllFaceAccounts(Predicate predicate) {
 		return Lists.newLinkedList(repository.findAll(predicate));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.dao.FaceAccountDao#findAllFaceAccounts(com.mysema.query.
-	 * types.Predicate, com.mysema.query.types.OrderSpecifier[])
-	 */
 	@Override
 	public List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders) {
 		return Lists.newLinkedList(repository.findAll(predicate, orders));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.dao.FaceAccountDao#findFaceAccountsByPage(com.mysema.
-	 * query.types.Predicate, org.springframework.data.domain.Pageable)
-	 */
 	@Override
 	public Page<FaceAccount> findFaceAccountsByPage(Predicate predicate, Pageable page) {
 		return repository.findAll(predicate, page);
@@ -211,15 +183,16 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 		return updateFaceAccount(faccount);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.server.dao.FaceAccountDao#count(com.mysema.query.types.
-	 * Predicate)
-	 */
 	@Override
 	public Long count(Predicate predicate) {
 		return repository.count(predicate);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.chotoxautinh.server.dao.FaceAccountDao#findFaceAccountsByPage(org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public Page<FaceAccount> findFaceAccountsByPage(Pageable page) {
+		return findFaceAccountsByPage(null, page);
 	}
 }
