@@ -24,7 +24,7 @@
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="order" value="2" />
+		<property name="order" value="1" />
 		<property name="prefix" value="/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
@@ -82,12 +82,12 @@
 		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
 
 	<bean class="org.springframework.data.web.config.SpringDataWebConfiguration" />
-	<elasticsearch:repositories base-package="com.moom.server.repository" />
+	<elasticsearch:repositories base-package="com.chotoxautinh.server.repository" />
 	<!-- elasticsearch:transport-client id="client" cluster-nodes="localhost:9300,someip:9300" 
 		/ -->
 	<elasticsearch:transport-client id="client"
 		cluster-name="moom-account" cluster-nodes="localhost:9200" />
-	<elasticsearch:node-client id="client" local="true" />
+	<!-- <elasticsearch:node-client id="client" local="true" /> -->
 	<bean name="elasticsearchTemplate"
 		class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
 		<constructor-arg name="client" ref="client" />
