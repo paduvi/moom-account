@@ -79,24 +79,24 @@ public class UserController {
 		return userDao.findUserByUsername(auth.getName());
 	}
 	
-	@RequestMapping(value = "/list-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<User> listUser(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "email", required = false) String fullname,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return userDao.findUsersByPage(userFilter.build(id, username, password, fullname),
-				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
-	}
-
-	@RequestMapping(value = "/user-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long countUser(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "fullname", required = false) String fullname,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return userDao.count(userFilter.build(id, username, password, fullname));
-	}
+//	@RequestMapping(value = "/list-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody List<User> listUser(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "username", required = false) String username,
+//			@RequestParam(value = "password", required = false) String password,
+//			@RequestParam(value = "email", required = false) String fullname,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+//		return userDao.findUsersByPage(userFilter.build(id, username, password, fullname),
+//				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
+//	}
+//
+//	@RequestMapping(value = "/user-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody Long countUser(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "username", required = false) String username,
+//			@RequestParam(value = "password", required = false) String password,
+//			@RequestParam(value = "fullname", required = false) String fullname,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+//		return userDao.count(userFilter.build(id, username, password, fullname));
+//	}
 
 	@RequestMapping(value = "/create-user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean addEmail(@RequestBody User user) {

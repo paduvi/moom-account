@@ -53,32 +53,32 @@ public class FaceAccountFilter {
 			builder.and(QFaceAccount.faceAccount.password.like(toAlias(password)));
 		if (phone != null && !phone.isEmpty())
 			builder.and(QFaceAccount.faceAccount.phone.like(toAlias(phone)));
-		if (groupName != null && !groupName.isEmpty()) {
-			Predicate predicate = QGroup.group.name.like(toAlias(groupName));
-			List<String> allGroupId = groupDao.findAllGroups(predicate).stream().map(Group::getId)
-					.collect(Collectors.toList());
-			builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
-		} else if (group != null) {
-			List<String> allGroupId = groupDao.findAllGroups().stream().map(Group::getId).collect(Collectors.toList());
-			switch (group) {
-			case LATEST:
-				List<Group> groupPage = groupDao
-						.findGroupsByPage(null, new PageRequest(0, 1, Direction.DESC, "lastExecution")).getContent();
-				if (!groupPage.isEmpty()) {
-					builder.and(QFaceAccount.faceAccount.group.eq(groupPage.get(0).getId()));
-				}
-				break;
-			case NONE:
-				builder.and(QFaceAccount.faceAccount.group.notIn(allGroupId));
-				break;
-			case HAVE:
-				builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
-				break;
-			default:
-				builder.and(QFaceAccount.faceAccount.group.eq(String.valueOf(group)));
-				break;
-			}
-		}
+//		if (groupName != null && !groupName.isEmpty()) {
+//			Predicate predicate = QGroup.group.name.like(toAlias(groupName));
+//			List<String> allGroupId = groupDao.findAllGroups(predicate).stream().map(Group::getId)
+//					.collect(Collectors.toList());
+//			builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
+//		} else if (group != null) {
+//			List<String> allGroupId = groupDao.findAllGroups().stream().map(Group::getId).collect(Collectors.toList());
+//			switch (group) {
+//			case LATEST:
+//				List<Group> groupPage = groupDao
+//						.findGroupsByPage(null, new PageRequest(0, 1, Direction.DESC, "lastExecution")).getContent();
+//				if (!groupPage.isEmpty()) {
+//					builder.and(QFaceAccount.faceAccount.group.eq(groupPage.get(0).getId()));
+//				}
+//				break;
+//			case NONE:
+//				builder.and(QFaceAccount.faceAccount.group.notIn(allGroupId));
+//				break;
+//			case HAVE:
+//				builder.and(QFaceAccount.faceAccount.group.in(allGroupId));
+//				break;
+//			default:
+//				builder.and(QFaceAccount.faceAccount.group.eq(String.valueOf(group)));
+//				break;
+//			}
+//		}
 
 		return builder.getValue();
 	}

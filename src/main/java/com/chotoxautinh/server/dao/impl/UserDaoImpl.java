@@ -119,12 +119,7 @@ public class UserDaoImpl implements UserDao {
 	public User findUserByUsername(String name) {
 		return repository.findByUsername(name);
 	}
-
-	@Override
-	public User findUser(Predicate predicate) {
-		return repository.findOne(predicate);
-	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -135,32 +130,37 @@ public class UserDaoImpl implements UserDao {
 		return Lists.newLinkedList(repository.findAll());
 	}
 
-	@Override
-	public List<User> findAllUsers(Predicate predicate) {
-		return Lists.newLinkedList(repository.findAll(predicate));
-	}
-
-	@Override
-	public List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders) {
-		return Lists.newLinkedList(repository.findAll(predicate, orders));
-	}
-
-	@Override
-	public Page<User> findUsersByPage(Predicate predicate, Pageable page) {
-		return repository.findAll(predicate, page);
-	}
-
-	@Override
-	public Long count(Predicate predicate) {
-		return repository.count(predicate);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.UserDao#findUsersByPage(org.springframework.data.domain.Pageable)
-	 */
-	@Override
-	public Page<User> findUsersByPage(Pageable page) {
-		return findUsersByPage(null, page);
-	}
+//	@Override
+//	public User findUser(Predicate predicate) {
+//		return repository.findOne(predicate);
+//	}
+//
+//	@Override
+//	public List<User> findAllUsers(Predicate predicate) {
+//		return Lists.newLinkedList(repository.findAll(predicate));
+//	}
+//
+//	@Override
+//	public List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders) {
+//		return Lists.newLinkedList(repository.findAll(predicate, orders));
+//	}
+//
+//	@Override
+//	public Page<User> findUsersByPage(Predicate predicate, Pageable page) {
+//		return repository.findAll(predicate, page);
+//	}
+//
+//	@Override
+//	public Long count(Predicate predicate) {
+//		return repository.count(predicate);
+//	}
+//
+//	/* (non-Javadoc)
+//	 * @see com.chotoxautinh.server.dao.UserDao#findUsersByPage(org.springframework.data.domain.Pageable)
+//	 */
+//	@Override
+//	public Page<User> findUsersByPage(Pageable page) {
+//		return findUsersByPage(null, page);
+//	}
 
 }

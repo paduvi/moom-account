@@ -27,18 +27,18 @@ public interface UserDao {
 	
 	User findUserByUsername(String name);
 
-	User findUser(Predicate predicate);
-	
 	List<User> findAllUsers();
-	
-	List<User> findAllUsers(Predicate predicate);
-	
-	List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders);
-	
-	Page<User> findUsersByPage(Pageable page);
-	
-	Page<User> findUsersByPage(Predicate predicate, Pageable page);
-	
-	Long count(Predicate predicate);
-	
+
+//	User findUser(Predicate predicate);
+//	
+//	List<User> findAllUsers(Predicate predicate);
+//	
+//	List<User> findAllUsers(Predicate predicate, OrderSpecifier<?>... orders);
+//	
+//	Page<User> findUsersByPage(Pageable page);
+//	
+//	Page<User> findUsersByPage(Predicate predicate, Pageable page);
+//	
+//	Long count(Predicate predicate);
+//	
 }

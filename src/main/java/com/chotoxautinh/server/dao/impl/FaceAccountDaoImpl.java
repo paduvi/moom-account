@@ -115,48 +115,7 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	public boolean removeFaceAccount(FaceAccount faccount) {
 		return removeFaceAccount(faccount.getId());
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.chotoxautinh.dao.FaceAccountDao#findFaceAccountById(java.lang.String)
-	 */
-	@Override
-	public FaceAccount findFaceAccountById(String id) {
-		return repository.findById(id);
-	}
-
-	@Override
-	public FaceAccount findFaceAccount(Predicate predicate) {
-		return repository.findOne(predicate);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chotoxautinh.dao.FaceAccountDao#findAllFaceAccounts()
-	 */
-	@Override
-	public List<FaceAccount> findAllFaceAccounts() {
-		return Lists.newLinkedList(repository.findAll());
-	}
-
-	@Override
-	public List<FaceAccount> findAllFaceAccounts(Predicate predicate) {
-		return Lists.newLinkedList(repository.findAll(predicate));
-	}
-
-	@Override
-	public List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders) {
-		return Lists.newLinkedList(repository.findAll(predicate, orders));
-	}
-
-	@Override
-	public Page<FaceAccount> findFaceAccountsByPage(Predicate predicate, Pageable page) {
-		return repository.findAll(predicate, page);
-	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -171,6 +130,17 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * com.chotoxautinh.dao.FaceAccountDao#findFaceAccountById(java.lang.String)
+	 */
+	@Override
+	public FaceAccount findFaceAccountById(String id) {
+		return repository.findById(id);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.chotoxautinh.dao.FaceAccountDao#addFaceAccountToGroup(com.
 	 * chotoxautinh.model.FaceAccount, java.lang.String)
 	 */
@@ -182,17 +152,47 @@ public class FaceAccountDaoImpl implements FaceAccountDao {
 		groupDao.incnAccounts(groupId);
 		return updateFaceAccount(faccount);
 	}
-
-	@Override
-	public Long count(Predicate predicate) {
-		return repository.count(predicate);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.FaceAccountDao#findFaceAccountsByPage(org.springframework.data.domain.Pageable)
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.chotoxautinh.dao.FaceAccountDao#findAllFaceAccounts()
 	 */
 	@Override
-	public Page<FaceAccount> findFaceAccountsByPage(Pageable page) {
-		return findFaceAccountsByPage(null, page);
+	public List<FaceAccount> findAllFaceAccounts() {
+		return Lists.newLinkedList(repository.findAll());
 	}
+
+//	@Override
+//	public FaceAccount findFaceAccount(Predicate predicate) {
+//		return repository.findOne(predicate);
+//	}
+//	
+//	@Override
+//	public List<FaceAccount> findAllFaceAccounts(Predicate predicate) {
+//		return Lists.newLinkedList(repository.findAll(predicate));
+//	}
+//
+//	@Override
+//	public List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders) {
+//		return Lists.newLinkedList(repository.findAll(predicate, orders));
+//	}
+//
+//	@Override
+//	public Page<FaceAccount> findFaceAccountsByPage(Predicate predicate, Pageable page) {
+//		return repository.findAll(predicate, page);
+//	}
+//
+//	@Override
+//	public Long count(Predicate predicate) {
+//		return repository.count(predicate);
+//	}
+//
+//	/* (non-Javadoc)
+//	 * @see com.chotoxautinh.server.dao.FaceAccountDao#findFaceAccountsByPage(org.springframework.data.domain.Pageable)
+//	 */
+//	@Override
+//	public Page<FaceAccount> findFaceAccountsByPage(Pageable page) {
+//		return findFaceAccountsByPage(null, page);
+//	}
 }

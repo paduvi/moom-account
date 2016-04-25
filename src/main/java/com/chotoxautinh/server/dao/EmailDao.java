@@ -25,18 +25,18 @@ public interface EmailDao {
 
 	Email findEmailById(String id);
 
-	Email findEmail(Predicate predicate);
-	
 	List<Email> findAllEmails();
-	
-	List<Email> findAllEmails(Predicate predicate);
-	
-	List<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders);
-	
-	Page<Email> findEmailsByPage(Pageable page);
-	
-	Page<Email> findEmailsByPage(Predicate predicate, Pageable page);
-	
-	Long count(Predicate predicate);
+
+//	Email findEmail(Predicate predicate);
+//	
+//	List<Email> findAllEmails(Predicate predicate);
+//	
+//	List<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders);
+//	
+//	Page<Email> findEmailsByPage(Pageable page);
+//	
+//	Page<Email> findEmailsByPage(Predicate predicate, Pageable page);
+//	
+//	Long count(Predicate predicate);
 	
 }

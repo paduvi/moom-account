@@ -96,41 +96,42 @@ public class EmailDaoImpl implements EmailDao {
 	}
 
 	@Override
-	public Email findEmail(Predicate predicate) {
-		return repository.findOne(predicate);
-	}
-
-	@Override
 	public List<Email> findAllEmails() {
 		return Lists.newLinkedList(repository.findAll());
 	}
 
-	@Override
-	public List<Email> findAllEmails(Predicate predicate) {
-		return Lists.newLinkedList(repository.findAll(predicate));
-	}
-
-	@Override
-	public List<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders) {
-		return Lists.newLinkedList(repository.findAll(predicate, orders));
-	}
-
-	@Override
-	public Page<Email> findEmailsByPage(Predicate predicate, Pageable page) {
-		return repository.findAll(predicate, page);
-	}
-
-	@Override
-	public Long count(Predicate predicate) {
-		return repository.count(predicate);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.EmailDao#findEmailsByPage(org.springframework.data.domain.Pageable)
-	 */
-	@Override
-	public Page<Email> findEmailsByPage(Pageable page) {
-		return findEmailsByPage(null, page);
-	}
+//	@Override
+//	public Email findEmail(Predicate predicate) {
+//		return repository.findOne(predicate);
+//	}
+//
+//
+//	@Override
+//	public List<Email> findAllEmails(Predicate predicate) {
+//		return Lists.newLinkedList(repository.findAll(predicate));
+//	}
+//
+//	@Override
+//	public List<Email> findAllEmails(Predicate predicate, OrderSpecifier<?>... orders) {
+//		return Lists.newLinkedList(repository.findAll(predicate, orders));
+//	}
+//
+//	@Override
+//	public Page<Email> findEmailsByPage(Predicate predicate, Pageable page) {
+//		return repository.findAll(predicate, page);
+//	}
+//
+//	@Override
+//	public Long count(Predicate predicate) {
+//		return repository.count(predicate);
+//	}
+//
+//	/* (non-Javadoc)
+//	 * @see com.chotoxautinh.server.dao.EmailDao#findEmailsByPage(org.springframework.data.domain.Pageable)
+//	 */
+//	@Override
+//	public Page<Email> findEmailsByPage(Pageable page) {
+//		return findEmailsByPage(null, page);
+//	}
 
 }

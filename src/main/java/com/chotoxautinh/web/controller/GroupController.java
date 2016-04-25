@@ -40,20 +40,20 @@ public class GroupController {
 	@Autowired
 	private GroupFilter groupFilter;
 
-	@RequestMapping(value = "/list-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Group> listGroup(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return groupDao.findGroupsByPage(groupFilter.build(id, name),
-				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "name")).getContent();
-	}
-	
-	@RequestMapping(value = "/count-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long countAccountNoneGroup(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return groupDao.count(groupFilter.build(id, name));
-	}
+//	@RequestMapping(value = "/list-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody List<Group> listGroup(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "name", required = false) String name,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+//		return groupDao.findGroupsByPage(groupFilter.build(id, name),
+//				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "name")).getContent();
+//	}
+//	
+//	@RequestMapping(value = "/count-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody Long countAccountNoneGroup(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "name", required = false) String name,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+//		return groupDao.count(groupFilter.build(id, name));
+//	}
 
 	@RequestMapping(value = "/add-to-group", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean addToGroup(@RequestBody FaceAccount faccount,

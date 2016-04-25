@@ -48,28 +48,28 @@ public class EmailController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/list-email", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Email> listEmail(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "number", required = false) String phone,
-			@RequestParam(value = "birthday", required = false) String birthday,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return emailDao.findEmailsByPage(emailFilter.build(id, username, password, email, phone, birthday),
-				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
-	}
-
-	@RequestMapping(value = "/email-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long countEmail(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "phone", required = false) String phone,
-			@RequestParam(value = "birthday", required = false) String birthday,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return emailDao.count(emailFilter.build(id, username, password, email, phone, birthday));
-	}
+//	@RequestMapping(value = "/list-email", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody List<Email> listEmail(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "username", required = false) String username,
+//			@RequestParam(value = "password", required = false) String password,
+//			@RequestParam(value = "email", required = false) String email,
+//			@RequestParam(value = "number", required = false) String phone,
+//			@RequestParam(value = "birthday", required = false) String birthday,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+//		return emailDao.findEmailsByPage(emailFilter.build(id, username, password, email, phone, birthday),
+//				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "username")).getContent();
+//	}
+//
+//	@RequestMapping(value = "/email-count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody Long countEmail(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "username", required = false) String username,
+//			@RequestParam(value = "password", required = false) String password,
+//			@RequestParam(value = "email", required = false) String email,
+//			@RequestParam(value = "phone", required = false) String phone,
+//			@RequestParam(value = "birthday", required = false) String birthday,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+//		return emailDao.count(emailFilter.build(id, username, password, email, phone, birthday));
+//	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean addEmail(@RequestBody Email email) {

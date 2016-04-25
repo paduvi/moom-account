@@ -30,17 +30,17 @@ public interface FaceAccountDao {
 
 	FaceAccount findFaceAccountById(String id);
 
-	FaceAccount findFaceAccount(Predicate predicate);
-	
 	List<FaceAccount> findAllFaceAccounts();
 	
-	List<FaceAccount> findAllFaceAccounts(Predicate predicate);
-	
-	List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders);
-	
-	Page<FaceAccount> findFaceAccountsByPage(Pageable page);
-	
-	Page<FaceAccount> findFaceAccountsByPage(Predicate predicate, Pageable page);
-	
-	Long count(Predicate predicate);
+//	FaceAccount findFaceAccount(Predicate predicate);
+//	
+//	List<FaceAccount> findAllFaceAccounts(Predicate predicate);
+//	
+//	List<FaceAccount> findAllFaceAccounts(Predicate predicate, OrderSpecifier<?>... orders);
+//	
+//	Page<FaceAccount> findFaceAccountsByPage(Pageable page);
+//	
+//	Page<FaceAccount> findFaceAccountsByPage(Predicate predicate, Pageable page);
+//	
+//	Long count(Predicate predicate);
 }

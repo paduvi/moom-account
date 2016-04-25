@@ -7,6 +7,7 @@ import org.apache.catalina.Context;
 import org.apache.jasper.servlet.JasperInitializer;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.tomcat.TomcatContextCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 
 @Controller
+@EnableAutoConfiguration
 @ImportResource("classpath:config.xml")
 //@Configuration@PropertySource(value = "classpath:elasticsearch.properties")
 //@EnableElasticsearchRepositories(basePackages = "com.chotoxautinh.server.repository")

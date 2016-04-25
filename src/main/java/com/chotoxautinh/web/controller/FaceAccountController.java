@@ -65,80 +65,80 @@ public class FaceAccountController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/list-face-by-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<FaceAccount> listAccount(@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "phone", required = false) String phone,
-			@RequestParam(value = "gName", required = false) String groupName,
-			@RequestParam(value = "gId", required = false) Integer groupId) throws ParseException {
-		if ((groupName == null || groupName.isEmpty()) && (groupId == null)) {
-			groupId = FaceAccountFilter.LATEST;
-		}
-		return faceAccountDao.findAllFaceAccounts(faceAccountFilter.build(null, email, password, phone, groupId, groupName));
-	}
-
-	@RequestMapping(value = "/list-face-have-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<FaceAccount> listAccountHaveGroup(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "phone", required = false) String phone,
-			@RequestParam(value = "gName", required = false) String groupName,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		OrderSpecifier<String> emailSpec = QFaceAccount.faceAccount.email.asc();
-		List<FaceAccount> accounts = faceAccountDao.findAllFaceAccounts(
-				faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.HAVE, groupName), emailSpec);
-		List<String> listGroup = new LinkedList<>();
-		List<FaceAccount> temp = new LinkedList<>();
-		int index = 0;
-		for (FaceAccount faceAccount : accounts) {
-			if (!listGroup.contains(faceAccount.getGroup())) {
-				listGroup.add(faceAccount.getGroup());
-				index++;
-			}
-			if (index > (pageNumber - 1) * GROUP_PAGE_SIZE && index <= pageNumber * GROUP_PAGE_SIZE)
-				temp.add(faceAccount);
-		}
-		temp.sort(GROUP_COMPARATOR);
-		return temp;
-	}
-
-	@RequestMapping(value = "/face-count-have-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long countAccountHaveGroup(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "phone", required = false) String phone,
-			@RequestParam(value = "gName", required = false) String groupName) throws ParseException {
-		List<FaceAccount> accounts = faceAccountDao.findAllFaceAccounts(
-				faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.HAVE, groupName));
-		List<String> listGroup = new LinkedList<>();
-		long index = 0;
-		for (FaceAccount faceAccount : accounts) {
-			if (!listGroup.contains(faceAccount.getGroup())) {
-				listGroup.add(faceAccount.getGroup());
-				index++;
-			}
-		}
-		return index;
-	}
-
-	@RequestMapping(value = "/list-face-none-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<FaceAccount> listAccountNoneGroup(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "phone", required = false) String phone,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
-		return faceAccountDao.findFaceAccountsByPage(
-				faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.NONE, null),
-				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
-	}
-
-	@RequestMapping(value = "/face-count-none-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long countAccountNoneGroup(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "phone", required = false) String phone) throws ParseException {
-		return faceAccountDao.count(faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.NONE, null));
-	}
+//	@RequestMapping(value = "/list-face-by-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody List<FaceAccount> listAccount(@RequestParam(value = "email", required = false) String email,
+//			@RequestParam(value = "password", required = false) String password,
+//			@RequestParam(value = "phone", required = false) String phone,
+//			@RequestParam(value = "gName", required = false) String groupName,
+//			@RequestParam(value = "gId", required = false) Integer groupId) throws ParseException {
+//		if ((groupName == null || groupName.isEmpty()) && (groupId == null)) {
+//			groupId = FaceAccountFilter.LATEST;
+//		}
+//		return faceAccountDao.findAllFaceAccounts(faceAccountFilter.build(null, email, password, phone, groupId, groupName));
+//	}
+//
+//	@RequestMapping(value = "/list-face-have-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody List<FaceAccount> listAccountHaveGroup(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "email", required = false) String email,
+//			@RequestParam(value = "password", required = false) String password,
+//			@RequestParam(value = "phone", required = false) String phone,
+//			@RequestParam(value = "gName", required = false) String groupName,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+//		OrderSpecifier<String> emailSpec = QFaceAccount.faceAccount.email.asc();
+//		List<FaceAccount> accounts = faceAccountDao.findAllFaceAccounts(
+//				faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.HAVE, groupName), emailSpec);
+//		List<String> listGroup = new LinkedList<>();
+//		List<FaceAccount> temp = new LinkedList<>();
+//		int index = 0;
+//		for (FaceAccount faceAccount : accounts) {
+//			if (!listGroup.contains(faceAccount.getGroup())) {
+//				listGroup.add(faceAccount.getGroup());
+//				index++;
+//			}
+//			if (index > (pageNumber - 1) * GROUP_PAGE_SIZE && index <= pageNumber * GROUP_PAGE_SIZE)
+//				temp.add(faceAccount);
+//		}
+//		temp.sort(GROUP_COMPARATOR);
+//		return temp;
+//	}
+//
+//	@RequestMapping(value = "/face-count-have-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody Long countAccountHaveGroup(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "email", required = false) String email,
+//			@RequestParam(value = "password", required = false) String password,
+//			@RequestParam(value = "phone", required = false) String phone,
+//			@RequestParam(value = "gName", required = false) String groupName) throws ParseException {
+//		List<FaceAccount> accounts = faceAccountDao.findAllFaceAccounts(
+//				faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.HAVE, groupName));
+//		List<String> listGroup = new LinkedList<>();
+//		long index = 0;
+//		for (FaceAccount faceAccount : accounts) {
+//			if (!listGroup.contains(faceAccount.getGroup())) {
+//				listGroup.add(faceAccount.getGroup());
+//				index++;
+//			}
+//		}
+//		return index;
+//	}
+//
+//	@RequestMapping(value = "/list-face-none-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody List<FaceAccount> listAccountNoneGroup(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "email", required = false) String email,
+//			@RequestParam(value = "password", required = false) String password,
+//			@RequestParam(value = "phone", required = false) String phone,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber) throws ParseException {
+//		return faceAccountDao.findFaceAccountsByPage(
+//				faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.NONE, null),
+//				new PageRequest(pageNumber - 1, PAGE_SIZE, Direction.ASC, "email")).getContent();
+//	}
+//
+//	@RequestMapping(value = "/face-count-none-group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody Long countAccountNoneGroup(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "email", required = false) String email,
+//			@RequestParam(value = "password", required = false) String password,
+//			@RequestParam(value = "phone", required = false) String phone) throws ParseException {
+//		return faceAccountDao.count(faceAccountFilter.build(id, email, password, phone, FaceAccountFilter.NONE, null));
+//	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean addAccount(@RequestBody FaceAccount account) {

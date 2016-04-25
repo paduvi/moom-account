@@ -48,17 +48,17 @@ public interface GroupDao {
 
 	Group findGroupByName(String name);
 
-	Group findGroup(Predicate predicate);
-
 	List<Group> findAllGroups();
 
-	List<Group> findAllGroups(Predicate predicate);
-
-	List<Group> findAllGroups(Predicate predicate, OrderSpecifier<?>... orders);
-	
-	Page<Group> findGroupsByPage(Pageable page);
-
-	Page<Group> findGroupsByPage(Predicate predicate, Pageable page);
-
-	Long count(Predicate predicate);
+//	Group findGroup(Predicate predicate);
+//
+//	List<Group> findAllGroups(Predicate predicate);
+//
+//	List<Group> findAllGroups(Predicate predicate, OrderSpecifier<?>... orders);
+//	
+//	Page<Group> findGroupsByPage(Pageable page);
+//
+//	Page<Group> findGroupsByPage(Predicate predicate, Pageable page);
+//
+//	Long count(Predicate predicate);
 }

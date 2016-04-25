@@ -158,18 +158,25 @@ public class GroupDaoImpl implements GroupDao {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see com.chotoxautinh.server.dao.GroupDao#removeAccount(com.chotoxautinh.
+	 * server.model.FaceAccount)
+	 */
+	@Override
+	public boolean removeAccount(String id, FaceAccount account) {
+		account.setGroup(null);
+		if (accountDao.updateFaceAccount(account) == true)
+			return decnAccounts(id);
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.chotoxautinh.dao.GroupDao#findGroupByName(java.lang.String)
 	 */
 	@Override
 	public Group findGroupByName(String name) {
 		Group group = repository.findByName(name);
-		updateGroup(group);
-		return group;
-	}
-
-	@Override
-	public Group findGroup(Predicate predicate) {
-		Group group = repository.findOne(predicate);
 		updateGroup(group);
 		return group;
 	}
@@ -183,47 +190,41 @@ public class GroupDaoImpl implements GroupDao {
 	public List<Group> findAllGroups() {
 		return Lists.newLinkedList(repository.findAll());
 	}
-
-	@Override
-	public List<Group> findAllGroups(Predicate predicate) {
-		return Lists.newLinkedList(repository.findAll(predicate));
-	}
-
-	@Override
-	public List<Group> findAllGroups(Predicate predicate, OrderSpecifier<?>... orders) {
-		return Lists.newLinkedList(repository.findAll(predicate, orders));
-	}
-
-	@Override
-	public Page<Group> findGroupsByPage(Predicate predicate, Pageable page) {
-		return repository.findAll(predicate, page);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.chotoxautinh.server.dao.GroupDao#removeAccount(com.chotoxautinh.
-	 * server.model.FaceAccount)
-	 */
-	@Override
-	public boolean removeAccount(String id, FaceAccount account) {
-		account.setGroup(null);
-		if (accountDao.updateFaceAccount(account) == true)
-			return decnAccounts(id);
-		return false;
-	}
-
-	@Override
-	public Long count(Predicate predicate) {
-		return repository.count(predicate);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.chotoxautinh.server.dao.GroupDao#findGroupsByPage(org.springframework.data.domain.Pageable)
-	 */
-	@Override
-	public Page<Group> findGroupsByPage(Pageable page) {
-		return findGroupsByPage(null, page);
-	}
+	
+//	@Override
+//	public Group findGroup(Predicate predicate) {
+//		Group group = repository.findOne(predicate);
+//		updateGroup(group);
+//		return group;
+//	}
+//
+//	@Override
+//	public List<Group> findAllGroups(Predicate predicate) {
+//		return Lists.newLinkedList(repository.findAll(predicate));
+//	}
+//
+//	@Override
+//	public List<Group> findAllGroups(Predicate predicate, OrderSpecifier<?>... orders) {
+//		return Lists.newLinkedList(repository.findAll(predicate, orders));
+//	}
+//
+//	@Override
+//	public Page<Group> findGroupsByPage(Predicate predicate, Pageable page) {
+//		return repository.findAll(predicate, page);
+//	}
+//
+//
+//	@Override
+//	public Long count(Predicate predicate) {
+//		return repository.count(predicate);
+//	}
+//
+//	/* (non-Javadoc)
+//	 * @see com.chotoxautinh.server.dao.GroupDao#findGroupsByPage(org.springframework.data.domain.Pageable)
+//	 */
+//	@Override
+//	public Page<Group> findGroupsByPage(Pageable page) {
+//		return findGroupsByPage(null, page);
+//	}
 
 }
