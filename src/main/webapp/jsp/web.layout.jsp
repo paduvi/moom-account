@@ -27,7 +27,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 <link href="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/css/xeditable.css" rel="stylesheet">
 <script src="http://vitalets.github.io/angular-xeditable/starter/angular-xeditable/js/xeditable.js"></script>
-<script src="https://npmcdn.com/draggabilly@2.1/dist/draggabilly.pkgd.min.js"></script> -->
+<script src="https://unpkg.com/draggabilly@2.1/dist/draggabilly.pkgd.min.js"></script> -->
 <link href="<c:url value='/resources/css/font-awesome.min.css'/>"
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/xeditable.css'/>"
